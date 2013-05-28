@@ -5,7 +5,7 @@
 package hourcalendar;
 
 /**
- *asdasdsdadadasd
+ *
  * @author angelsafira1988
  */
 public class HourCalendar {

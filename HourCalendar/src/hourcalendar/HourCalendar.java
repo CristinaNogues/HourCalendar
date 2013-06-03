@@ -4,19 +4,32 @@
  */
 package hourcalendar;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author angelsafira1988
  */
 public class HourCalendar {
-    public Base base;
+    private static Base base;
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        //ola ka se!!! eiei!
-        
+        base = new Base();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
+	}
+    
+    public static Base getBase() {
+        return base;
     }
 }
 

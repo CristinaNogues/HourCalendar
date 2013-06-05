@@ -293,6 +293,7 @@ public class Base {
                                         ocupacioMinima = aux;
                                         ordreMenysReservat = e;
                                     }
+                                    ordreAnteriorQuadrava = ordreQuadra;
                                 }
                                 //Finalment, ocupem l'ordre escollit
                                 hores -= disponibilitat.get(i).getDies(ordreMenysReservat);

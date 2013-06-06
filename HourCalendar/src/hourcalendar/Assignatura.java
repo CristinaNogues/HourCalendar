@@ -12,7 +12,7 @@ public class Assignatura {
     private Base base;
     public Grau grau;
     public String nom;
-    public String codi;
+    public int codi;
     public TipusMateria tipus;
     public int alumnes;
     public int quadrimestre;
@@ -22,7 +22,7 @@ public class Assignatura {
     private boolean esValida = true;
     
     
-    public Assignatura(Base _base, Grau _grau, String _nom, String _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica) {
+    public Assignatura(Base _base, Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica) {
         base = _base;
         grau = _grau;
         nom = _nom;
@@ -37,7 +37,7 @@ public class Assignatura {
         if (!(base.hasGrau(grau) && base.hasTipusMateria(tipus) && base.hasTipusHoresPractica(tipusHoresPractica)))
             esValida = false;
         
-        if (nom.isEmpty() || codi.isEmpty())
+        if (nom.isEmpty() || !(codi > 0))
             esValida = false;
         
         if (!(quadrimestre > 0 && quadrimestre <= 8))
@@ -49,7 +49,7 @@ public class Assignatura {
         return nom;
     }
     
-    public String getCodi() {
+    public int getCodi() {
         return codi;
     }
     

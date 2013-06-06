@@ -31,13 +31,15 @@ public class Base {
     private List<Date> diesDocencia;
     private Vector setmanaOrdreQ1;
     private Vector setmanaOrdreQ2;
+    private Vector<DisponibilitatHoraria> disponibilitatsHoraries;
     
     public Base() {
         loadDiesDocencia();
         setmanaOrdreQ1 = new Vector<Integer>();
         setmanaOrdreQ2 = new Vector<Integer>();
-        updateDisponibilitatHoraria(1, 2012);
-        updateDisponibilitatHoraria(2, 2013);
+        ModsCalendari.load();
+        //updateDisponibilitatHoraria(1, 2012);
+        
     }
     
     public int getNumAssignatures() {
@@ -45,17 +47,17 @@ public class Base {
     }
     
     /** Retorna una assignatura donada la seva posició dins el vector. **/
-    public Assignatura getAssignatura(int idAssignatura) {
+    public Assignatura getAssignaturaAt(int idAssignatura) {
         return assignatures.get(idAssignatura);
     }
     
     /** Retorna una assignatura donat el seu codi, null si no existeix. */
-    public Assignatura getAssignatura(String codi) {
+    public Assignatura getAssignatura(int codi) {
         
         int numAssignatures = getNumAssignatures();
         for (int i = 0; i < numAssignatures; ++i) {
             Assignatura assignatura = assignatures.get(i);
-            if (assignatura.getCodi().equalsIgnoreCase(codi)) {
+            if (assignatura.getCodi() == codi) {
                 return assignatura;
             }
         }
@@ -65,7 +67,7 @@ public class Base {
     /** Afegeix o modifica una nova assignatura segons el codi d'assignatura.
      * @return boolean indica si s'ha afegit l'assignatura correctament, no s'afegirà si algun dels paràmetres no és l'esperat
      **/
-    public boolean addAssignatura(Grau _grau, String _nom, String _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica) {
+    public boolean addAssignatura(Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica) {
         
         Assignatura assignatura = new Assignatura(this, _grau, _nom, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica);
         
@@ -199,9 +201,10 @@ public class Base {
     
     public void updateDisponibilitatHoraria(int quadri, int any) {
         List<Date> dies = getDiesDocencia(quadri, any);
+        disponibilitatsHoraries = new Vector<DisponibilitatHoraria>();
         DisponibilitatHoraria disponibilitat = new DisponibilitatHoraria();
         Calendar dia = new GregorianCalendar();
-        int ordre = 0;
+        int ordre = 0, mod;
         int diaDeLaSetmana = 0;
 
         Iterator<Date> it = dies.listIterator();
@@ -209,211 +212,112 @@ public class Base {
             //System.out.println(iterator.next());
             Date d = it.next();
             dia.setTime(d);
-            ordre = getSetmanaOrdre(d, quadri);
-            diaDeLaSetmana = dia.get(Calendar.DAY_OF_WEEK);
+            //if ((mod = ModsCalendari.getModOrdre(dia)) != -1)
+            ordre = ((mod = ModsCalendari.getModOrdre(dia)) != -1) ? mod : getSetmanaOrdre(d, quadri);
+            diaDeLaSetmana = ((mod = ModsCalendari.getModDia(dia)) != -1) ? mod : dia.get(Calendar.DAY_OF_WEEK);
             disponibilitat.addDia(diaDeLaSetmana, ordre);
         }
-        
+        int horesDesquadrades = 0;
+        try {
+            //PROP
+            horesDesquadrades = disponibilitat.addReserva(30, "340380#0#0");    //TEORIA CONJUNTA
+            System.out.println("RESERVA 30h [340380#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(30, "340380#5#1");    //LAB GRUP 1
+            System.out.println("RESERVA 30h [340380#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(30, "340380#5#2");    //LAB GRUP 2
+            System.out.println("RESERVA 30h [340380#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            //XACO
+            horesDesquadrades = disponibilitat.addReserva(42, "340356#0#0");    //TEORIA CONJUNTA
+            System.out.println("RESERVA 42h [340356#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(18, "340356#5#1");    //LAB GRUP 1
+            System.out.println("RESERVA 18h [340356#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(18, "340356#5#2");    //LAB GRUP 2
+            System.out.println("RESERVA 18h [340356#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(18, "340356#5#3");    //LAB GRUP 3
+            System.out.println("RESERVA 18h [340356#5#3]: ".concat(String.valueOf(horesDesquadrades)));
+            //CLON DE XACO
+            horesDesquadrades = disponibilitat.addReserva(42, "370251#0#0");    //TEORIA CONJUNTA
+            System.out.println("RESERVA 42h [370251#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(18, "370251#5#1");    //LAB GRUP 1
+            System.out.println("RESERVA 18h [370251#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(18, "370251#5#2");    //LAB GRUP 2
+            System.out.println("RESERVA 18h [370251#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            //CLON DE PROP 1
+            horesDesquadrades = disponibilitat.addReserva(30, "390123#0#0");    //TEORIA CONJUNTA
+            System.out.println("RESERVA 30h [390123#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(30, "390123#5#1");    //LAB GRUP 1
+            System.out.println("RESERVA 30h [390123#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(30, "390123#5#2");    //LAB GRUP 2
+            System.out.println("RESERVA 30h [390123#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            //CLON DE PROP 2
+            /*horesDesquadrades = disponibilitat.addReserva(30, "300000#0#0");    //TEORIA CONJUNTA
+            System.out.println("RESERVA 30h [300000#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(30, "300000#5#1");    //LAB GRUP 1
+            System.out.println("RESERVA 30h [300000#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            horesDesquadrades = disponibilitat.addReserva(30, "300000#5#2");    //LAB GRUP 2
+            System.out.println("RESERVA 30h [300000#5#2]: ".concat(String.valueOf(horesDesquadrades)));*/
+
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(disponibilitat.toString());
+        disponibilitatsHoraries.add(disponibilitat);
     }
     
-    private class DisponibilitatHoraria {
-        private Vector<DiaDeLaSetmana> disponibilitat;
-        
-        public DisponibilitatHoraria() {
-            disponibilitat = new Vector<DiaDeLaSetmana>();
-            disponibilitat.add(new DiaDeLaSetmana(0));  //no utilitzat
-            disponibilitat.add(new DiaDeLaSetmana(1));  //diumenge
-            disponibilitat.add(new DiaDeLaSetmana(2));
-            disponibilitat.add(new DiaDeLaSetmana(3));
-            disponibilitat.add(new DiaDeLaSetmana(4));
-            disponibilitat.add(new DiaDeLaSetmana(5));
-            disponibilitat.add(new DiaDeLaSetmana(6));  //divendres
-        }
-        
-        public void addDia(int diaDeLaSetmana, int ordre) {
-            disponibilitat.get(diaDeLaSetmana).addDia(ordre);
-        }
-        
-        public int addReserva(int hores) {
-            
-            int numReserves, dies;
-            while (hores > 0) {
-                for (int i = 6; i >= 2; --i) {
-                    numReserves = disponibilitat.get(i).getReserves();
-                    if (i == 2 || disponibilitat.get(i - 1).getReserves() > numReserves) {
-                        //ocupem aquest dia
-                        dies = disponibilitat.get(i).getDies();
-                        if (hores >= dies * 2) {
-                            //Podem ocupar una hora d'aquest dia per a tots els ordres (11,21,12 i 22)
-                            hores -= dies * 2;
-                            disponibilitat.get(i).addReserva(0);    //11
-                            disponibilitat.get(i).addReserva(1);    //21
-                            disponibilitat.get(i).addReserva(2);    //12
-                            disponibilitat.get(i).addReserva(3);    //22
-                        } else {
-                            //No podem ocupar una hora sencera d'aquest dia, l'ocupem per a ordre 1x o 2x
-                            int reserves1x = disponibilitat.get(i).getReserves(0) + disponibilitat.get(i).getReserves(2);
-                            int reserves2x = disponibilitat.get(i).getReserves(1) + disponibilitat.get(i).getReserves(3);
-                            boolean ocupatPerSetmanaX = true;
-                            if (reserves1x <= reserves2x) {
-                                //provem d'ocupar ordre 1x
-                                dies = disponibilitat.get(i).getDies(0) + disponibilitat.get(i).getDies(2);
-                                if (hores >= dies * 2) {
-                                    //ocupem ordre 1x
-                                    hores -= dies * 2;
-                                    disponibilitat.get(i).addReserva(0);
-                                    disponibilitat.get(i).addReserva(2);
-                                } else {
-                                    //NO OCUPAT PER ORDRE 1x
-                                    ocupatPerSetmanaX = false;
-                                }
-                            } else {
-                                //provem d'ocuparlo en ordre 2x
-                                dies = disponibilitat.get(i).getDies(1) + disponibilitat.get(i).getDies(3);
-                                if (hores >= dies * 2) {
-                                    //ocupem ordre 2x
-                                    hores -= dies * 2;
-                                    disponibilitat.get(i).addReserva(1);
-                                    disponibilitat.get(i).addReserva(3);
-                                } else {
-                                    //NO OCUPAT PER ORDRE 2x
-                                    ocupatPerSetmanaX = false;
-                                }
-                            }
-                            if (!ocupatPerSetmanaX) {
-                                //L'ocupem per a un sol ordre
-                                int ordreMenysReservat = 0;
-                                int ocupacioMinima = 99;
-                                boolean ordreAnteriorQuadrava = false;
-                                for (int e = 0; e < 4; ++e) {
-                                    int aux = disponibilitat.get(i).getReserves(e);
-                                    boolean ordreQuadra = (hores >= disponibilitat.get(i).getDies(e) * 2) ? true : false;
-                                    if (aux < ocupacioMinima || (ordreQuadra && !ordreAnteriorQuadrava)) {  //TODO: ARREGLAR!
-                                        ocupacioMinima = aux;
-                                        ordreMenysReservat = e;
-                                    }
-                                    ordreAnteriorQuadrava = ordreQuadra;
-                                }
-                                //Finalment, ocupem l'ordre escollit
-                                hores -= disponibilitat.get(i).getDies(ordreMenysReservat);
-                                disponibilitat.get(i).addReserva(ordreMenysReservat);
-                            }
+    public Vector<DisponibilitatHoraria> getDisponibilitatsHoraries() {
+        return disponibilitatsHoraries;
+    }
+    
+    public static class ModsCalendari {
+        public static Vector< Vector<Calendar> > datesAmbDiaModificat;
+        public static Vector< Vector<Calendar> > datesAmbOrdreModificat;
 
-                        }
+        public static void load() {
+            datesAmbDiaModificat = new Vector< Vector<Calendar> >();
+            for (int i = 0; i <= 7; ++i)
+                datesAmbDiaModificat.add(new Vector<Calendar>());
+            //Marquem el dijous 25 d'abril de 2013 com a dimarts
+            datesAmbDiaModificat.get(3).add(new GregorianCalendar(2013, 3, 25));
+            datesAmbDiaModificat.get(4).add(new GregorianCalendar(2013, 3, 3));
+
+            datesAmbOrdreModificat = new Vector< Vector<Calendar> >();
+            for (int i = 0; i <= 3; ++i)
+                datesAmbOrdreModificat.add(new Vector<Calendar>());
+
+            datesAmbOrdreModificat.get(3).add(new GregorianCalendar(2013, 5, 7));
+            datesAmbOrdreModificat.get(0).add(new GregorianCalendar(2013, 5, 10));
+        }
+        
+        /** Retorna el dia de la setmana (1 = diumenge) d'un dia específic, -1 si no és un dia modificat. **/
+        public static int getModDia(Calendar dia) {
+            for (int i = 0; i <= 7; ++i) {
+                /*Vector<Calendar> dates = datesAmbDiaModificat.get(i);
+                for (int e = 0; e < dates.size(); ++e) {
+                    if (dia.compareTo(dates.get(e)) == 0) {
+                        System.out.println("MOD DIA!!!".concat(dates.get(e).getTime().toLocaleString()));
+                        return i;
                     }
+                }*/
+                if (datesAmbDiaModificat.get(i).indexOf(dia) != -1) {
+                    System.out.println("MOD DIA!!!");
+                    return i;
                 }
             }
-            
-            return hores;
+            return -1;
         }
         
-        @Override
-        public String toString() {
-            StringBuilder result = new StringBuilder();
-            String newLine = System.getProperty("line.separator");
-            result.append( this.getClass().getName() );
-            result.append( " {" );
-            result.append(newLine);
-
-            for (int i = 0; i < 7; ++i) {
-                result.append(disponibilitat.get(i).toString());
-                result.append(newLine);
+        /** Retorna l'ordre d'un dia específic, -1 si no és un dia amb ordre modificat. 
+         *
+         * @return Integer entre 0 i 3 corresponents a setmana 11, 21, 12 i 22 respectivament.
+         */
+        public static int getModOrdre(Calendar dia) {
+            for (int i = 0; i <= 3; ++i) {
+                if (datesAmbOrdreModificat.get(i).indexOf(dia) != -1) {
+                    System.out.println("MOD ORDRE!!!");
+                    return i;
+                }
             }
-            
-            result.append("}");
-
-            return result.toString();
-        }
-        
-        private class DiaDeLaSetmana {
-            private int index;  //1-7: 1 = diumenge, 2 = dilluns, ...
-            private Vector<Integer> numero;   //numero[0] = dies amb ordre 11, numero[1] = dies amb ordre 21, etc.
-            public Vector<Integer> ocupacio;    //Quantitat de classes ja assignades en aquest dia
-            
-            public DiaDeLaSetmana(int _index) {
-                index = _index;
-                numero = new Vector<Integer>();
-                numero.add(0,0);
-                numero.add(1,0);
-                numero.add(2,0);
-                numero.add(3,0);
-                ocupacio = new Vector<Integer>();
-                ocupacio.add(0,0);
-                ocupacio.add(1,0);
-                ocupacio.add(2,0);
-                ocupacio.add(3,0);
-            }
-            
-            @Override
-            public String toString() {
-                StringBuilder result = new StringBuilder();
-                //String newLine = System.getProperty("line.separator");
-                result.append( this.getClass().getName() );
-                result.append( " " );
-                result.append( Integer.toString(index) );
-                result.append( " {" );
-                
-                result.append(numero.get(0));
-                result.append( " : " );
-                result.append(ocupacio.get(0));
-                result.append( ", " );
-                
-                result.append(numero.get(1));
-                result.append( " : " );
-                result.append(ocupacio.get(1));
-                result.append( ", " );
-                
-                result.append(numero.get(2));
-                result.append( " : " );
-                result.append(ocupacio.get(2));
-                result.append( ", " );
-                
-                result.append(numero.get(3));
-                result.append( " : " );
-                result.append(ocupacio.get(3));
-                
-                result.append("}");
-
-                return result.toString();
-            }
-            
-            /** Augmenta el número de dies disponibles donat un ordre. **/
-            public void addDia(int ordre) {
-                numero.set(ordre, numero.get(ordre) + 1);
-            }
-            
-            /** Retorna el número de dies disponibles donat un ordre. **/
-            public int getDies(int ordre) {
-                return numero.get(ordre);
-            }
-            
-            /** Retorna el número de dies disponibles independentment de l'ordre. **/
-            public int getDies() {
-                return numero.get(0) + numero.get(1) + numero.get(2) + numero.get(3);
-            }
-            
-            /** Augmenta l'ocupació d'aquest dia. **/
-            public void addReserva(int ordre) {
-                ocupacio.set(ordre, ocupacio.get(ordre) + 1);
-            }
-            
-            /** Retorna el número de classes que ocupen aquest dia. **/
-            public int getReserves(int ordre) {
-                return ocupacio.get(ordre);
-            }
-            
-            /** Retorna el número de classes que ocupen aquest dia independentment de l'ordre. **/
-            public int getReserves() {
-                return ocupacio.get(0) + ocupacio.get(1) + ocupacio.get(2) + ocupacio.get(3);
-            }
-            
-            /** Retorna el index que correspon al dia de la setmana [0-6]. **/
-            public int getIndex() {
-                return index;
-            }
+            return -1;
         }
     }
 }
-
-

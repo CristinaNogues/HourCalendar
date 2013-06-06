@@ -6,6 +6,8 @@ package hourcalendar;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.GridLayout;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -20,6 +22,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        setExtendedState( getExtendedState()|JFrame.MAXIMIZED_BOTH );
     }
 
     /**
@@ -33,6 +36,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jToolBar1 = new javax.swing.JToolBar();
         BotoCalendari = new javax.swing.JButton();
+        BotoGenerarHorari = new javax.swing.JButton();
+        Contenidor = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,17 +59,33 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(BotoCalendari);
 
+        BotoGenerarHorari.setText("Generar Horari");
+        BotoGenerarHorari.setFocusable(false);
+        BotoGenerarHorari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BotoGenerarHorari.setMaximumSize(new java.awt.Dimension(100, 32));
+        BotoGenerarHorari.setMinimumSize(new java.awt.Dimension(100, 32));
+        BotoGenerarHorari.setPreferredSize(new java.awt.Dimension(100, 32));
+        BotoGenerarHorari.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BotoGenerarHorari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoGenerarHorariMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(BotoGenerarHorari);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(Contenidor)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 268, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Contenidor, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
         );
 
         pack();
@@ -88,6 +109,17 @@ public class MainFrame extends javax.swing.JFrame {
 			}
 		});
     }//GEN-LAST:event_BotoCalendariMouseClicked
+
+    private void BotoGenerarHorariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoGenerarHorariMouseClicked
+        // TODO add your handling code here:
+        Base base = HourCalendar.getBase();
+        base.updateDisponibilitatHoraria(2, 2013);
+        Vector<DisponibilitatHoraria> disponibilitats = base.getDisponibilitatsHoraries();
+        for (int idDisponibilitat = 0; idDisponibilitat < disponibilitats.size(); ++idDisponibilitat) {
+            PanellHorari horari = new PanellHorari(disponibilitats.elementAt(idDisponibilitat));
+            Contenidor.setViewportView(horari);
+        }
+    }//GEN-LAST:event_BotoGenerarHorariMouseClicked
 
     /**
      * @param args the command line arguments
@@ -119,6 +151,8 @@ public class MainFrame extends javax.swing.JFrame {
     }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotoCalendari;
+    private javax.swing.JButton BotoGenerarHorari;
+    private javax.swing.JScrollPane Contenidor;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

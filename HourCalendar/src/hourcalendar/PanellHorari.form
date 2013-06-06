@@ -37,7 +37,7 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="6" rowCount="6">
-                <Column editable="false" title="Hores" type="java.lang.String">
+                <Column editable="true" title=" Hores" type="java.lang.String">
                   <Data value="8:30-10:30"/>
                   <Data value="10:30-12:30"/>
                   <Data value="12:30-14:30"/>
@@ -45,11 +45,11 @@
                   <Data value="17:00-19:00"/>
                   <Data value="19:00-21:00"/>
                 </Column>
-                <Column editable="true" title="Dilluns" type="java.lang.String"/>
-                <Column editable="true" title="Dimarts" type="java.lang.String"/>
-                <Column editable="true" title="Dimecres" type="java.lang.String"/>
-                <Column editable="true" title="Dijous" type="java.lang.String"/>
-                <Column editable="true" title="Divendres" type="java.lang.String"/>
+                <Column editable="true" title=" Dilluns" type="java.lang.String"/>
+                <Column editable="true" title=" Dimarts" type="java.lang.String"/>
+                <Column editable="true" title=" Dimecres" type="java.lang.String"/>
+                <Column editable="true" title=" Dijous" type="java.lang.String"/>
+                <Column editable="true" title=" Divendres" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

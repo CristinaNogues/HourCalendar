@@ -6,6 +6,9 @@ package hourcalendar;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -24,9 +27,17 @@ public class PanellHorari extends javax.swing.JPanel {
         initComponents();
         disponibilitat = _disponibilitat;
         //Cel·les multilinia
-        for (int i = 1; i <= 5; ++i)
+        for (int i = 0; i <= 5; ++i) {
             TaulaHorari.getColumnModel().getColumn(i).setCellRenderer(new TextAreaRenderer());
+            TaulaHorari.getColumnModel().getColumn(i).setHeaderRenderer(new TextAreaRenderer());
+        }
         
+        TaulaHorari.getColumnModel().getColumn(0).setWidth(75);
+        TaulaHorari.getColumnModel().getColumn(0).setPreferredWidth(75);
+        TaulaHorari.getColumnModel().getColumn(0).setMinWidth(75);
+        TaulaHorari.getColumnModel().getColumn(0).setMaxWidth(75);
+        TaulaHorari.setRowMargin(5);
+
         Vector<DisponibilitatHoraria.DiaDeLaSetmana> dies = disponibilitat.getDisponibilitat();
         for (int idDia = 2; idDia <= 6; ++idDia) {
             DisponibilitatHoraria.DiaDeLaSetmana dia = dies.get(idDia);
@@ -151,9 +162,21 @@ public class PanellHorari extends javax.swing.JPanel {
         public Component getTableCellRendererComponent(JTable jTable, Object obj, boolean isSelected, boolean hasFocus, int row, int column) {
             String text = (String)obj;
             setText(text);
-            if (text != null && !text.isEmpty()) {
-                setBackground(Color.CYAN);
-            } else setBackground(Color.WHITE);
+            setMargin(new Insets(3, 0, 3, 0));
+            if (row == -1) {
+                setBackground(new Color(52, 136, 187));
+                setForeground(new Color(255, 255, 255));
+                //Font font = getFont();
+                //font.getF
+                setFont(new Font("Arial", Font.BOLD, 14));
+            } else if (text != null && !text.isEmpty() && column != 0) {
+                setBackground(new Color(238, 245, 255));
+                setForeground(new Color(88, 87, 146));
+            } else {
+                setBackground(Color.WHITE);
+                setForeground(new Color(88, 87, 146));
+                //setText(getSize().toString());
+            }
             return this;
         }
     }
@@ -180,22 +203,15 @@ public class PanellHorari extends javax.swing.JPanel {
                 {"19:00-21:00", null, null, null, null, null}
             },
             new String [] {
-                "Hores", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres"
+                " Hores", " Dilluns", " Dimarts", " Dimecres", " Dijous", " Divendres"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         TaulaHorari.setFillsViewportHeight(true);

@@ -31,16 +31,17 @@ import sun.swing.plaf.GTKKeybindings;
  * @author asus
  */
 public class Base {
-    private Vector<Assignatura> assignatures;
+    public Vector<Assignatura> assignatures;
     private Vector<Grau> graus;
     public Vector<TipusHoresPractica> tipusHoresPractiques;
     public Vector<TipusMateria> tipusMateries;
     private List<Date> diesDocencia;
     private Vector setmanaOrdreQ1;
     private Vector setmanaOrdreQ2;
-    private Vector<DisponibilitatHoraria> disponibilitatsHoraries;
+    public Vector<DisponibilitatHoraria> disponibilitatsHoraries;
     public int progres;
     public String nomProgres = "Inicialitzant...";
+    public Generador generador;
     
     public Base() {
         loadDiesDocencia();
@@ -227,6 +228,7 @@ public class Base {
             diaDeLaSetmana = ((mod = ModsCalendari.getModDia(dia)) != -1) ? mod : dia.get(Calendar.DAY_OF_WEEK);
             disponibilitat.addDia(diaDeLaSetmana, ordre);
         }
+        disponibilitatsHoraries.add(disponibilitat);
         int horesDesquadrades = 0;
         //try {
             addAssignatura(new Grau("Informatica", "01"), "PROP", 340380, new TipusMateria(1, "ABC"),
@@ -305,23 +307,29 @@ public class Base {
         * */
         
         progres = 0;
-        //SwingUtilities.invokeAndWait(null);
-       /* SwingUtilities.invokeLater(new Runnable() { 
-			@Override
-			public void run() {
-				ControlProgres controlProgres = new ControlProgres();
+        /*WaitDialog dialog = new WaitDialog(new javax.swing.JFrame(), true);
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
-                controlProgres.setResizable(false);
-				controlProgres.setVisible(true);
-			}
-		});*/
-        Generador g = new Generador(disponibilitat, assignatures);
-        nomProgres = "Grau Informàtica Q2";
-        g.run();
-        while (!g.finalitzat) {}
+        });
+        SwingWorker worker = new SwingWorker() {
+
+            @Override
+            protected Object doInBackground() throws Exception {
+                register();
+                return 0;
+            }
+
+            @Override
+            protected void done() {
+                dialog.dispose();
+            }
+        };
+        worker.execute();
+        dialog.setVisible(true);^*/
+        //SwingUtilities.invokeAndWait(null);
+
         
-        System.out.println(g.get().toString());
-        disponibilitatsHoraries.add(g.get());
+        
     }
     
     public Vector<DisponibilitatHoraria> getDisponibilitatsHoraries() {
@@ -388,10 +396,10 @@ public class Base {
     }*/
     
     public enum Regles {
-        SOLAPAR_HORES_PRACTICA (1, "Solapar les hores de pràctica d'assignatures i grups diferents."),
-        ASSIGNAR_HORES_RESTANTS (1, "Sobrepassar les hores assignades a les assignatures si no existeix combinació possible que les quadri al calendari."),
-        PRIORITZAR_QUADRAR_HORES (0, "Donar prioritat a quadrar les hores de les assignatures enlloc d'obtenir un calendari més ben repartit."),
-        ITERACIONS_GENERADOR (200, "Número d'iteracions que realitza el generador d'horaris per a trobar la millor combinació."),
+        SOLAPAR_HORES_PRACTICA (1, "<html>Solapar les hores de pràctica d'assignatures i grups diferents.</html>"),
+        ASSIGNAR_HORES_RESTANTS (1, "<html>Sobrepassar les hores assignades a les assignatures si no <br>existeix combinació possible que les quadri al calendari.</html>"),
+        PRIORITZAR_QUADRAR_HORES (0, "<html>Donar prioritat a quadrar les hores de les assignatures enlloc <br>d'obtenir un calendari més ben repartit.</html>"),
+        ITERACIONS_GENERADOR (500, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
         UTILITZA_ANTIC_ALGORISME (0, "Utilitzar l'antic algorisme per a generar els horaris. No soporta solapament d'hores de pràctica.");

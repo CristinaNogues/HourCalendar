@@ -17,12 +17,20 @@ import javax.swing.SwingUtilities;
  */
 public class MainFrame extends javax.swing.JFrame {
     static javax.swing.JFrame frameCalendari;
+    public ControlProgres controlProgres;
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
         setExtendedState( getExtendedState()|JFrame.MAXIMIZED_BOTH );
+        
+                controlProgres = new ControlProgres(this);
+                controlProgres.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                controlProgres.setVisible(false);
+                
+        
+        
     }
 
     /**
@@ -113,12 +121,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void BotoGenerarHorariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoGenerarHorariMouseClicked
         // TODO add your handling code here:
         Base base = HourCalendar.getBase();
+        controlProgres.setVisible(true);
+        System.out.println("START UPDATE");
         base.updateDisponibilitatHoraria(2, 2013);
-        Vector<DisponibilitatHoraria> disponibilitats = base.getDisponibilitatsHoraries();
-        for (int idDisponibilitat = 0; idDisponibilitat < disponibilitats.size(); ++idDisponibilitat) {
-            PanellHorari horari = new PanellHorari(disponibilitats.elementAt(idDisponibilitat));
-            Contenidor.setViewportView(horari);
-        }
+        System.out.println("END UPDATE");
+        controlProgres.startControl();
     }//GEN-LAST:event_BotoGenerarHorariMouseClicked
 
     /**
@@ -152,7 +159,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotoCalendari;
     private javax.swing.JButton BotoGenerarHorari;
-    private javax.swing.JScrollPane Contenidor;
+    public javax.swing.JScrollPane Contenidor;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,17 +4,29 @@
  */
 package hourcalendar;
 
+import hourcalendar.Base.Regles;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author admin
  */
-public class ControlProgres extends javax.swing.JFrame implements Runnable {
-
+public class ControlProgres extends javax.swing.JFrame {
+    MainFrame finestra;
     /**
      * Creates new form ControlProgress
      */
-    public ControlProgres() {
+    public ControlProgres(MainFrame finestra) {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.finestra = finestra;
+        BarraProgres.setValue(50);
     }
 
     /**
@@ -31,6 +43,7 @@ public class ControlProgres extends javax.swing.JFrame implements Runnable {
         NomProgres = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Progrés");
 
         BarraProgres.setToolTipText("");
 
@@ -49,8 +62,7 @@ public class ControlProgres extends javax.swing.JFrame implements Runnable {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NomProgres)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(NomProgres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(BarraProgres, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -69,48 +81,52 @@ public class ControlProgres extends javax.swing.JFrame implements Runnable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ControlProgres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ControlProgres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ControlProgres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ControlProgres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ControlProgres().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar BarraProgres;
     private javax.swing.JLabel NomProgres;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+    
+    public void startControl() {
+        System.out.println("START CONTROL");
+        setVisible(true);
+        repaint();
+        update(getGraphics());
+        Base base = HourCalendar.getBase();
 
-    @Override
-    public void run() {
-        System.out.println("HELLOW ORLD!");
+        base.generador = new Generador(base.disponibilitatsHoraries.get(0), base.assignatures);
+        //base.generador.setProgressBar(BarraProgres);
+        base.nomProgres = "Grau Informàtica Q2";
+        base.generador.execute();
+
+        Generador generador = base.generador;
+        NomProgres.setOpaque(true);
+        
+        while (generador == null) { generador = base.generador; }
+        while (!generador.finalitzat) {
+            int progresValue = (int)((base.progres / (float)Regles.ITERACIONS_GENERADOR.getInt()) * 100);
+            if (BarraProgres.getValue() != progresValue) {
+                BarraProgres.setValue(progresValue);
+                BarraProgres.update(BarraProgres.getGraphics());
+            }
+            if (!NomProgres.getText().equals(base.nomProgres)) {
+                NomProgres.setText(base.nomProgres);
+                NomProgres.getUI().update(NomProgres.getGraphics(), NomProgres);
+                NomProgres.repaint();
+            }
+        }
+        System.out.println("END CONTROL");
+        
+        System.out.println(generador.getHorari().toString());
+        base.disponibilitatsHoraries.add(generador.getHorari());
+        
+        
+        Vector<DisponibilitatHoraria> disponibilitats = base.getDisponibilitatsHoraries();
+        for (int idDisponibilitat = 0; idDisponibilitat < disponibilitats.size(); ++idDisponibilitat) {
+            PanellHorari horari = new PanellHorari(disponibilitats.elementAt(idDisponibilitat));
+            finestra.Contenidor.setViewportView(horari);
+        }
+        setVisible(false);
     }
 }

@@ -7,6 +7,7 @@ package hourcalendar;
 import hourcalendar.Base.Regles;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 /**
  *
@@ -21,6 +22,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         solapar.setText(Regles.SOLAPAR_HORES_PRACTICA.getMissatge());
         solapar.setSelected(Regles.SOLAPAR_HORES_PRACTICA.get());
         assignar.setText(Regles.ASSIGNAR_HORES_RESTANTS.getMissatge());
@@ -45,6 +47,8 @@ public class FormulariOpcions extends javax.swing.JFrame {
         prioritzar = new javax.swing.JCheckBox();
         iteracions = new javax.swing.JTextField();
         textIteracions = new javax.swing.JLabel();
+        BotoAceptar = new javax.swing.JButton();
+        BotoCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Opcions");
@@ -54,6 +58,11 @@ public class FormulariOpcions extends javax.swing.JFrame {
         solapar.setText("text");
         solapar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         solapar.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        solapar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                solaparPropertyChange(evt);
+            }
+        });
 
         assignar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         assignar.setText("text");
@@ -66,11 +75,28 @@ public class FormulariOpcions extends javax.swing.JFrame {
         prioritzar.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         iteracions.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        iteracions.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         iteracions.setText("jTextField1");
 
         textIteracions.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         textIteracions.setText("jLabel1");
         textIteracions.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        BotoAceptar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        BotoAceptar.setText("Aceptar");
+        BotoAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoAceptarMouseClicked(evt);
+            }
+        });
+
+        BotoCancelar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        BotoCancelar.setText("Cancel·lar");
+        BotoCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoCancelarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,7 +111,12 @@ public class FormulariOpcions extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textIteracions, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
                     .addComponent(assignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(solapar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(solapar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BotoCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotoAceptar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,54 +125,48 @@ public class FormulariOpcions extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(solapar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(assignar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(assignar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(prioritzar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(prioritzar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(iteracions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textIteracions, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotoAceptar)
+                    .addComponent(BotoCancelar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormulariOpcions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormulariOpcions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormulariOpcions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormulariOpcions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void solaparPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_solaparPropertyChange
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormulariOpcions().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_solaparPropertyChange
+
+    private void BotoAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoAceptarMouseClicked
+        // TODO add your handling code here:
+        Regles.SOLAPAR_HORES_PRACTICA.set(solapar.isSelected());
+        Regles.ASSIGNAR_HORES_RESTANTS.set(assignar.isSelected());
+        Regles.PRIORITZAR_QUADRAR_HORES.set(prioritzar.isSelected());
+        Regles.ITERACIONS_GENERADOR.set(Integer.parseInt(iteracions.getText()));
+        
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_BotoAceptarMouseClicked
+
+    private void BotoCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoCancelarMouseClicked
+        // TODO add your handling code here:
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_BotoCancelarMouseClicked
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotoAceptar;
+    private javax.swing.JButton BotoCancelar;
     private javax.swing.JCheckBox assignar;
     private javax.swing.JTextField iteracions;
     private javax.swing.JCheckBox prioritzar;

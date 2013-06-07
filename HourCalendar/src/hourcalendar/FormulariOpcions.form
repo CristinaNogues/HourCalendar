@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="prioritzar" max="32767" attributes="0"/>
@@ -35,6 +35,12 @@
                   </Group>
                   <Component id="assignar" alignment="0" max="32767" attributes="0"/>
                   <Component id="solapar" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="BotoCancelar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="BotoAceptar" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -46,15 +52,20 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="solapar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="assignar" min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="assignar" min="-2" pref="36" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="prioritzar" min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="prioritzar" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="iteracions" min="-2" max="-2" attributes="0"/>
                   <Component id="textIteracions" min="-2" pref="55" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="110" max="32767" attributes="0"/>
+              <EmptySpace pref="102" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="BotoAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BotoCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,6 +80,9 @@
         <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="verticalTextPosition" type="int" value="1"/>
       </Properties>
+      <Events>
+        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="solaparPropertyChange"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="assignar">
       <Properties>
@@ -95,6 +109,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Verdana" size="11" style="0"/>
         </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="jTextField1"/>
       </Properties>
     </Component>
@@ -106,6 +121,28 @@
         <Property name="text" type="java.lang.String" value="jLabel1"/>
         <Property name="verticalAlignment" type="int" value="1"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="BotoAceptar">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Verdana" size="11" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Aceptar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BotoAceptarMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="BotoCancelar">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Verdana" size="11" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Cancel&#xb7;lar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BotoCancelarMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

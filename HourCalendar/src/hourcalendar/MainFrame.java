@@ -25,11 +25,10 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         setExtendedState( getExtendedState()|JFrame.MAXIMIZED_BOTH );
         
-                controlProgres = new ControlProgres(this);
-                controlProgres.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                controlProgres.setVisible(false);
-                
-        
+        controlProgres = new ControlProgres(this);
+        controlProgres.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        controlProgres.setVisible(false);
+
         
     }
 
@@ -45,6 +44,7 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         BotoCalendari = new javax.swing.JButton();
         BotoGenerarHorari = new javax.swing.JButton();
+        BotoOpcions = new javax.swing.JButton();
         Contenidor = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,6 +80,21 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(BotoGenerarHorari);
+
+        BotoOpcions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/options.png"))); // NOI18N
+        BotoOpcions.setFocusable(false);
+        BotoOpcions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BotoOpcions.setLabel("");
+        BotoOpcions.setMaximumSize(new java.awt.Dimension(32, 32));
+        BotoOpcions.setMinimumSize(new java.awt.Dimension(32, 32));
+        BotoOpcions.setPreferredSize(new java.awt.Dimension(32, 32));
+        BotoOpcions.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BotoOpcions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoOpcionsMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(BotoOpcions);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,6 +143,15 @@ public class MainFrame extends javax.swing.JFrame {
         controlProgres.startControl();
     }//GEN-LAST:event_BotoGenerarHorariMouseClicked
 
+    private void BotoOpcionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoOpcionsMouseClicked
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormulariOpcions().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_BotoOpcionsMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -159,6 +183,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotoCalendari;
     private javax.swing.JButton BotoGenerarHorari;
+    private javax.swing.JButton BotoOpcions;
     public javax.swing.JScrollPane Contenidor;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables

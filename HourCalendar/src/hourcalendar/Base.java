@@ -4,10 +4,14 @@
  */
 package hourcalendar;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -18,6 +22,9 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import sun.swing.plaf.GTKKeybindings;
 
 /**
  *
@@ -32,12 +39,15 @@ public class Base {
     private Vector setmanaOrdreQ1;
     private Vector setmanaOrdreQ2;
     private Vector<DisponibilitatHoraria> disponibilitatsHoraries;
+    public int progres;
+    public String nomProgres = "Inicialitzant...";
     
     public Base() {
         loadDiesDocencia();
         setmanaOrdreQ1 = new Vector<Integer>();
         setmanaOrdreQ2 = new Vector<Integer>();
         ModsCalendari.load();
+        assignatures = new Vector<Assignatura>();
         //updateDisponibilitatHoraria(1, 2012);
         
     }
@@ -67,9 +77,9 @@ public class Base {
     /** Afegeix o modifica una nova assignatura segons el codi d'assignatura.
      * @return boolean indica si s'ha afegit l'assignatura correctament, no s'afegirà si algun dels paràmetres no és l'esperat
      **/
-    public boolean addAssignatura(Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica) {
+    public boolean addAssignatura(Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups) {
         
-        Assignatura assignatura = new Assignatura(this, _grau, _nom, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica);
+        Assignatura assignatura = new Assignatura(this, _grau, _nom, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups);
         
         if (assignatura.esValida()) {
             Assignatura aux = getAssignatura(_codi);
@@ -218,50 +228,100 @@ public class Base {
             disponibilitat.addDia(diaDeLaSetmana, ordre);
         }
         int horesDesquadrades = 0;
-        try {
-            //PROP
+        //try {
+            addAssignatura(new Grau("Informatica", "01"), "PROP", 340380, new TipusMateria(1, "ABC"),
+                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2);
+            addAssignatura(new Grau("Informatica", "01"), "XACO", 340356, new TipusMateria(1, "ABC"),
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3);
+            addAssignatura(new Grau("Informatica", "01"), "ESIN", 300000, new TipusMateria(1, "ABC"),
+                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2);
+            addAssignatura(new Grau("Informatica", "01"), "XAMU", 370251, new TipusMateria(1, "ABC"),
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3);
+            addAssignatura(new Grau("Informatica", "01"), "EMPR", 670200, new TipusMateria(1, "ABC"),
+                    25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0);
+            //addAssignatura(new Grau("Informatica", "01"), "FISI", 205555, new TipusMateria(1, "ABC"),
+            //        25, 2, 20, 40, new TipusHoresPractica(5, "Laboratori Informàtica"), 1);
+            /*//PROP
             horesDesquadrades = disponibilitat.addReserva(30, "340380#0#0");    //TEORIA CONJUNTA
             System.out.println("RESERVA 30h [340380#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(30, "340380#5#1");    //LAB GRUP 1
             System.out.println("RESERVA 30h [340380#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(30, "340380#5#2");    //LAB GRUP 2
             System.out.println("RESERVA 30h [340380#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             //XACO
             horesDesquadrades = disponibilitat.addReserva(42, "340356#0#0");    //TEORIA CONJUNTA
             System.out.println("RESERVA 42h [340356#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(18, "340356#5#1");    //LAB GRUP 1
             System.out.println("RESERVA 18h [340356#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(18, "340356#5#2");    //LAB GRUP 2
             System.out.println("RESERVA 18h [340356#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(18, "340356#5#3");    //LAB GRUP 3
             System.out.println("RESERVA 18h [340356#5#3]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             //CLON DE XACO
             horesDesquadrades = disponibilitat.addReserva(42, "370251#0#0");    //TEORIA CONJUNTA
             System.out.println("RESERVA 42h [370251#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(18, "370251#5#1");    //LAB GRUP 1
             System.out.println("RESERVA 18h [370251#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(18, "370251#5#2");    //LAB GRUP 2
             System.out.println("RESERVA 18h [370251#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             //CLON DE PROP 1
             horesDesquadrades = disponibilitat.addReserva(30, "390123#0#0");    //TEORIA CONJUNTA
             System.out.println("RESERVA 30h [390123#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(30, "390123#5#1");    //LAB GRUP 1
             System.out.println("RESERVA 30h [390123#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
+            Regles.DEBUG2_ENABLED.set(true);
             horesDesquadrades = disponibilitat.addReserva(30, "390123#5#2");    //LAB GRUP 2
             System.out.println("RESERVA 30h [390123#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
+            Regles.DEBUG2_ENABLED.set(false);
             //CLON DE PROP 2
-            /*horesDesquadrades = disponibilitat.addReserva(30, "300000#0#0");    //TEORIA CONJUNTA
+            horesDesquadrades = disponibilitat.addReserva(30, "300000#0#0");    //TEORIA CONJUNTA
             System.out.println("RESERVA 30h [300000#0#0]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(30, "300000#5#1");    //LAB GRUP 1
             System.out.println("RESERVA 30h [300000#5#1]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
             horesDesquadrades = disponibilitat.addReserva(30, "300000#5#2");    //LAB GRUP 2
-            System.out.println("RESERVA 30h [300000#5#2]: ".concat(String.valueOf(horesDesquadrades)));*/
+            System.out.println("RESERVA 30h [300000#5#2]: ".concat(String.valueOf(horesDesquadrades)));
+            disponibilitat.imprimeixPonderacio();
+            
+            
 
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(disponibilitat.toString());
-        disponibilitatsHoraries.add(disponibilitat);
+        * */
+        
+        progres = 0;
+        //SwingUtilities.invokeAndWait(null);
+       /* SwingUtilities.invokeLater(new Runnable() { 
+			@Override
+			public void run() {
+				ControlProgres controlProgres = new ControlProgres();
+
+                controlProgres.setResizable(false);
+				controlProgres.setVisible(true);
+			}
+		});*/
+        Generador g = new Generador(disponibilitat, assignatures);
+        nomProgres = "Grau Informàtica Q2";
+        g.run();
+        while (!g.finalitzat) {}
+        
+        System.out.println(g.get().toString());
+        disponibilitatsHoraries.add(g.get());
     }
     
     public Vector<DisponibilitatHoraria> getDisponibilitatsHoraries() {
@@ -318,6 +378,48 @@ public class Base {
                 }
             }
             return -1;
+        }
+    }
+    
+    /*public static class Regles {
+        public static boolean solaparHoresPractica = true;
+        public static String solaparHoresPracticaMissatge = "Solapar les hores de pràctica d'assignatures i grups diferents.";
+        
+    }*/
+    
+    public enum Regles {
+        SOLAPAR_HORES_PRACTICA (1, "Solapar les hores de pràctica d'assignatures i grups diferents."),
+        ASSIGNAR_HORES_RESTANTS (1, "Sobrepassar les hores assignades a les assignatures si no existeix combinació possible que les quadri al calendari."),
+        PRIORITZAR_QUADRAR_HORES (0, "Donar prioritat a quadrar les hores de les assignatures enlloc d'obtenir un calendari més ben repartit."),
+        ITERACIONS_GENERADOR (200, "Número d'iteracions que realitza el generador d'horaris per a trobar la millor combinació."),
+        DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
+        DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
+        UTILITZA_ANTIC_ALGORISME (0, "Utilitzar l'antic algorisme per a generar els horaris. No soporta solapament d'hores de pràctica.");
+
+        private int valor;
+        private String missatge;
+        
+        Regles(int valor, String missatge) {
+            this.valor = valor;
+            this.missatge = missatge;
+        }
+        public boolean get() { return (valor == 0) ? false : true; }
+        public int getInt() { return valor; }
+        public void set(int valor) { this.valor = valor; }
+        public void set(boolean valor) { this.valor = (valor) ? 1 : 0; }
+        public String getMissatge() { return missatge; }
+        
+    }
+    
+    public static void dbg(String msg) {
+        if (Regles.DEBUG_ENABLED.get()) {
+            System.out.println(msg);
+        }
+    }
+    
+    public static void dbg2(String msg) {
+        if (Regles.DEBUG2_ENABLED.get()) {
+            System.out.println(msg);
         }
     }
 }

@@ -4,6 +4,8 @@
  */
 package hourcalendar;
 
+import hourcalendar.Base.Regles;
+import hourcalendar.HoresRepresentables.ClasseAgrupada;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -36,19 +38,28 @@ public class PanellHorari extends javax.swing.JPanel {
         TaulaHorari.getColumnModel().getColumn(0).setPreferredWidth(75);
         TaulaHorari.getColumnModel().getColumn(0).setMinWidth(75);
         TaulaHorari.getColumnModel().getColumn(0).setMaxWidth(75);
-        TaulaHorari.setRowMargin(5);
-
+        
+        Regles.DEBUG_ENABLED.set(true);
+        
         Vector<DisponibilitatHoraria.DiaDeLaSetmana> dies = disponibilitat.getDisponibilitat();
+        Vector<ClasseAgrupada> classes = new Vector<ClasseAgrupada>();
+        String newLine = System.getProperty("line.separator");
         for (int idDia = 2; idDia <= 6; ++idDia) {
             DisponibilitatHoraria.DiaDeLaSetmana dia = dies.get(idDia);
-            Vector<String> classes = reagrupar(dia.getOcupacio());
-            for (int idClasse = 0; idClasse < classes.size(); ++idClasse)
-                TaulaHorari.getModel().setValueAt(classes.get(idClasse), idClasse, idDia - 1);
+            HoresRepresentables horesRepresentables = dia.getHoresRepresentables();
+            for (int hora = horesRepresentables.size(); --hora >= 0;) {
+                classes = horesRepresentables.get(hora);
+                String text = "";
+                for (int index = classes.size(); --index >= 0;) {
+                    text = text.concat(classes.get(index).toString()).concat(newLine);
+                }
+                TaulaHorari.getModel().setValueAt(text, hora, idDia - 1);
+            }
         }
         
     }
     
-    private Vector<String> reagrupar(Vector< Vector<String> > ocupacio) {
+    /*private Vector<String> reagrupar(Vector< Vector<String> > ocupacio) {
         Vector<String> classes = new Vector<String>();
         Vector< Vector<Integer> > ordres = new Vector< Vector<Integer> >();
         for (int ordre = 0; ordre <= 3; ++ordre) {
@@ -150,7 +161,7 @@ public class PanellHorari extends javax.swing.JPanel {
             }
             return s;
         }
-    }
+    }*/
     
     public class TextAreaRenderer extends JTextArea implements TableCellRenderer {
 
@@ -215,7 +226,7 @@ public class PanellHorari extends javax.swing.JPanel {
             }
         });
         TaulaHorari.setFillsViewportHeight(true);
-        TaulaHorari.setRowHeight(48);
+        TaulaHorari.setRowHeight(96);
         jScrollPane1.setViewportView(TaulaHorari);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

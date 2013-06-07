@@ -7,6 +7,7 @@ package hourcalendar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import hourcalendar.Base;
 
 
 
@@ -26,6 +27,20 @@ public class DisponibilitatHoraria implements Cloneable {
         disponibilitat.add(new DiaDeLaSetmana(4));
         disponibilitat.add(new DiaDeLaSetmana(5));
         disponibilitat.add(new DiaDeLaSetmana(6));  //divendres
+    }
+    
+    public void imprimeixPonderacio() {
+        int ponderacio = 0;
+        String str = "[ ";
+        
+        for (int i = 2; i <= 6; ++i) {
+            int temp = disponibilitat.get(i).avalua();
+            str = str.concat(String.valueOf(temp)).concat(" ");
+            ponderacio += temp;
+        }
+        
+        str = str.concat("] SUM: ").concat(String.valueOf(ponderacio));
+        System.out.println(str);
     }
     
     public int avalua() {
@@ -58,7 +73,7 @@ public class DisponibilitatHoraria implements Cloneable {
     }
 
     public int addReserva(int hores, String codi) throws CloneNotSupportedException {
-        //System.out.println("RESERVA - ".concat(codi).concat(": ").concat(String.valueOf(hores)));
+        Base.dbg2("RESERVA - ".concat(codi).concat(": ").concat(String.valueOf(hores)));
         int millorPonderacio = -2048;
         //int diaAmbMillorPonderacio = 0;
         int horesMillorPonderacio = 0;
@@ -68,7 +83,7 @@ public class DisponibilitatHoraria implements Cloneable {
             int horesActual = hores;
 
             horesActual = disponibilitatHorariaActual.addReserva(horesActual, codi, i);
-            //System.out.println("\taddReservaElDia(".concat(codi).concat(")[").concat(String.valueOf(i)).concat("]: ").concat(String.valueOf(horesActual)).concat(" / ").concat(String.valueOf(hores)).concat(" TOTAL RESERVES SETMANA: ").concat(String.valueOf(disponibilitatHorariaActual.getReserves())));
+            Base.dbg2("\taddReservaElDia(".concat(codi).concat(")[").concat(String.valueOf(i)).concat("]: ").concat(String.valueOf(horesActual)).concat(" / ").concat(String.valueOf(hores)).concat(" TOTAL RESERVES SETMANA: ").concat(String.valueOf(disponibilitatHorariaActual.getReserves())));
             if (horesActual > 0) {
                 //Si encara queden hores per col·locar, iterem recursivament
                 horesActual = disponibilitatHorariaActual.addReserva(horesActual, codi);
@@ -76,9 +91,9 @@ public class DisponibilitatHoraria implements Cloneable {
             
             //TODO: AVALUA SEGONS HORES ACTUAL I PONDERACIÓ HORARI GENERAT
             int ponderacio = disponibilitatHorariaActual.avalua();  //valor <= 0
-            //System.out.println(codi.concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(" > ").concat(String.valueOf(millorPonderacio)).concat(" ???"));
+            Base.dbg2(codi.concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(" > ").concat(String.valueOf(millorPonderacio)).concat(" ???"));
             if (ponderacio - horesActual > millorPonderacio) {
-                //System.out.println("\t".concat("TRUE!").concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(String.valueOf(millorPonderacio)));
+                Base.dbg2("\t".concat("TRUE!").concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(String.valueOf(millorPonderacio)));
                 millorPonderacio = ponderacio - horesActual;
                 
                 //diaAmbMillorPonderacio = i;
@@ -94,7 +109,7 @@ public class DisponibilitatHoraria implements Cloneable {
         }
         
         this.disponibilitat = millorDisponibilitat;
-        //System.out.println("FALLBACK! ".concat(String.valueOf(horesMillorPonderacio)));
+        Base.dbg2("FALLBACK! ".concat(String.valueOf(horesMillorPonderacio)));
         return horesMillorPonderacio;
     }
 
@@ -225,6 +240,9 @@ public class DisponibilitatHoraria implements Cloneable {
             ocupacio.add(3, new Vector<String>());
         }
         
+        /** Retorna un objecte tipus HoresRepresentables. **/
+        public HoresRepresentables getHoresRepresentables() { return new HoresRepresentables(ocupacio); }
+        
         @Override
         protected Object clone() throws CloneNotSupportedException {
             DiaDeLaSetmana clon = (DiaDeLaSetmana) super.clone();
@@ -244,12 +262,15 @@ public class DisponibilitatHoraria implements Cloneable {
         
         /** Funció d'avaluació per a un dia de la setmana, retorna ponderació inferior o igual a 0, quant més elevada millor. **/
         public int avalua() {
-            
+            HoresRepresentables horesRepresentables = new HoresRepresentables(ocupacio);
             int numClassesOcupades = 0; //No es aconsellable més de 3 classes al dia, doncs tocaria fer classe per la tarda
+            int numClassesRepresentables = horesRepresentables.size();
             int numClassesDuplicades = 0;
+            int numClassesDuplicadesExactes = 0;
             for (int ordre = 0; ordre <= 3; ++ordre) {
                 Vector<String> reserves = ocupacio.get(ordre);
                 Vector<Integer> duplicitat = new Vector<Integer>(); //No es aconsellable fer més d'una classe al dia de la mateixa assignatura, doncs es molt pesat
+                Vector<String> duplicitatExacte = new Vector<String>();
                 if (reserves.size() > numClassesOcupades)
                     numClassesOcupades = reserves.size();
                 
@@ -260,13 +281,27 @@ public class DisponibilitatHoraria implements Cloneable {
                     } else {
                         ++numClassesDuplicades;
                     }
+                    if (duplicitatExacte.indexOf(reserves.get(i)) == -1) {
+                        duplicitatExacte.add(reserves.get(i));
+                    } else {
+                        ++numClassesDuplicadesExactes;
+                        //System.out.println("\t\tDuplicades exactes!!");
+                    }
                 }
                 
             }
-            if (numClassesOcupades > 3)
-                numClassesOcupades *= 2;
+            //La implementació de la ponderació és bastant pobre
             
-            return -1 * (numClassesOcupades + (10 * numClassesDuplicades));
+            if (numClassesRepresentables > 3)
+                numClassesRepresentables *= (5 + (Math.pow(3, (numClassesRepresentables - 4))));
+            
+            numClassesRepresentables *= 5;
+            
+            numClassesRepresentables *= -1;
+            numClassesRepresentables += numClassesOcupades;
+            if (numClassesRepresentables > 0) numClassesRepresentables = 0;
+            
+            return numClassesRepresentables - ((300 * numClassesDuplicadesExactes) + (10 * numClassesDuplicades));
         }
 
         @Override
@@ -352,6 +387,7 @@ public class DisponibilitatHoraria implements Cloneable {
         public int getIndex() {
             return index;
         }
+        
     }
     
     /** Representa una Reserva, obtinguda a partir del codi (String) utilitzat en la construcció de la disponibilitat horària. **/
@@ -362,9 +398,9 @@ public class DisponibilitatHoraria implements Cloneable {
 
         public Reserva(String codiCompacte) {
             String[] parts = codiCompacte.split("#");
-            codi = Integer.parseInt(parts[0]);
-            tipusAula = Integer.parseInt(parts[1]);
-            grup = Integer.parseInt(parts[2]);
+            this.codi = Integer.parseInt(parts[0]);
+            this.tipusAula = Integer.parseInt(parts[1]);
+            this.grup = Integer.parseInt(parts[2]);
         }
 
         public static int getCodi(String codiCompacte) {

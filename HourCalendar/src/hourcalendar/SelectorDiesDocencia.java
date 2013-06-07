@@ -403,10 +403,10 @@ public class SelectorDiesDocencia extends JPanel{
 			//try {
 				//ordreSetmana0 = GraphicsUtilities.loadCompatibleImage(Thread.currentThread().getContextClassLoader().getResourceAsStream("setmana11.png"));
 				//setmana0 = new ImageIcon(ordreSetmana0);
-                setmana0 = createImageIcon("setmana11.png", "Setmana 1 Ordre 1");
-                setmana1 = createImageIcon("setmana21.png", "Setmana 2 Ordre 1");
-                setmana2 = createImageIcon("setmana12.png", "Setmana 1 Ordre 2");
-                setmana3 = createImageIcon("setmana22.png", "Setmana 2 Ordre 2");
+                setmana0 = createImageIcon("images/setmana11.png", "Setmana 1 Ordre 1");
+                setmana1 = createImageIcon("images/setmana21.png", "Setmana 2 Ordre 1");
+                setmana2 = createImageIcon("images/setmana12.png", "Setmana 1 Ordre 2");
+                setmana3 = createImageIcon("images/setmana22.png", "Setmana 2 Ordre 2");
 			/*} catch (IOException e) {
 				e.printStackTrace();
 			}*/

@@ -19,10 +19,11 @@ public class Assignatura {
     public int horesTeoria;
     public int horesPractica;
     public TipusHoresPractica tipusHoresPractica;
+    public int grups;
     private boolean esValida = true;
     
     
-    public Assignatura(Base _base, Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica) {
+    public Assignatura(Base _base, Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups) {
         base = _base;
         grau = _grau;
         nom = _nom;
@@ -33,7 +34,8 @@ public class Assignatura {
         horesTeoria = _horesTeoria;
         horesPractica = _horesPractica;
         tipusHoresPractica = _tipusHoresPractica;
-        
+        grups = _grups;
+        /*
         if (!(base.hasGrau(grau) && base.hasTipusMateria(tipus) && base.hasTipusHoresPractica(tipusHoresPractica)))
             esValida = false;
         
@@ -42,7 +44,7 @@ public class Assignatura {
         
         if (!(quadrimestre > 0 && quadrimestre <= 8))
             esValida = false;
-        
+        */
     }
     
     public String getNom() {

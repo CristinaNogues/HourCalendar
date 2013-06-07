@@ -43,7 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        BotoCalendari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/calendar2.png"))); // NOI18N
+        BotoCalendari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/calendar2.png"))); // NOI18N
         BotoCalendari.setToolTipText("Editar el calendari de dies amb docència");
         BotoCalendari.setFocusable(false);
         BotoCalendari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

@@ -14,6 +14,7 @@ import java.awt.Insets;
 import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -44,6 +45,9 @@ public class PanellHorari extends javax.swing.JPanel {
         Vector<DisponibilitatHoraria.DiaDeLaSetmana> dies = disponibilitat.getDisponibilitat();
         Vector<ClasseAgrupada> classes = new Vector<ClasseAgrupada>();
         String newLine = System.getProperty("line.separator");
+        int maxHoresOcupades = 0;
+        TaulaHorari.setSize(300, 400);
+        System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
         for (int idDia = 2; idDia <= 6; ++idDia) {
             DisponibilitatHoraria.DiaDeLaSetmana dia = dies.get(idDia);
             HoresRepresentables horesRepresentables = dia.getHoresRepresentables();
@@ -54,114 +58,23 @@ public class PanellHorari extends javax.swing.JPanel {
                     text = text.concat(classes.get(index).toString()).concat(newLine);
                 }
                 TaulaHorari.getModel().setValueAt(text, hora, idDia - 1);
+                if (maxHoresOcupades < hora) maxHoresOcupades = hora;
             }
         }
-        
+        System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
+        System.out.println("ROW COUNT = ".concat(String.valueOf(TaulaHorari.getRowCount())));
+        for (int i = 0; i < TaulaHorari.getRowCount() && TaulaHorari.getRowCount() > maxHoresOcupades; ++i) {
+            System.out.println("REMOVING!!");
+            ((DefaultTableModel)TaulaHorari.getModel()).removeRow(TaulaHorari.getRowCount() - 1);
+        }
+        System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getX())).concat(", ").concat(String.valueOf(TaulaHorari.getY())));
+        this.setPreferredSize(new Dimension(600, 84 + 32 - 3 + (96 * maxHoresOcupades)));
+        this.setMinimumSize(new Dimension(600, 84 + 32 - 3 + (96 * maxHoresOcupades)));
+        //this.setPreferredSize(new Dimension());
+        //jScrollPane1.setPreferredSize(this.getWidth(), 800);
+        revalidate();
+        repaint();
     }
-    
-    /*private Vector<String> reagrupar(Vector< Vector<String> > ocupacio) {
-        Vector<String> classes = new Vector<String>();
-        Vector< Vector<Integer> > ordres = new Vector< Vector<Integer> >();
-        for (int ordre = 0; ordre <= 3; ++ordre) {
-            Vector<String> reserves = ocupacio.get(ordre);
-            for (int i = 0; i < reserves.size(); ++i) {
-                String reserva = reserves.get(i);
-                if (classes.indexOf(reserva) == -1) {
-                    classes.add(reserva);
-                    ordres.add(new Vector<Integer>());
-                }
-                //Afegim ordre a classe
-                ordres.get(classes.indexOf(reserva)).add(ordre);
-            }
-        }
-        //Ara ja tenim les differents classes impartides durant el dia i en els ordres en que s'imparteixen
-        //Les agrupem en ordre
-        Vector<ClasseAgrupada> classesAgrupades = new Vector<ClasseAgrupada>();
-        for (int i = 0; i < classes.size(); ++i)
-            classesAgrupades.add(new ClasseAgrupada(classes.get(i), ordres.get(i)));
-        
-        Vector<String> resultat = new Vector<String>();
-        String newLine = System.getProperty("line.separator");
-        //for (int i = 0; i < classesAgrupades.size(); ++i) {
-        while (classesAgrupades.size() > 0) {
-            ClasseAgrupada c = classesAgrupades.firstElement();
-            if (c.disposicio == 15) {
-                resultat.add(c.toString());
-                classesAgrupades.removeElement(c);
-                continue;
-            }
-            boolean agrupar = false;
-            int i;
-            for (i = 1; i < classesAgrupades.size(); ++i) {
-                if (c.disposicio + classesAgrupades.get(i).disposicio == 15) {
-                    agrupar = true;
-                    break;
-                }
-            }
-            
-            if (!agrupar) {
-                //No ha coincidit agrupar 2 per fusionar una hora omplint-la tota, provem sense omplir-la tota
-                for (i = 1; i < classesAgrupades.size(); ++i) {
-                    //TODO: No és correcte, esta fet per sortir del pas
-                    if (c.disposicio != classesAgrupades.get(i).disposicio && c.disposicio + classesAgrupades.get(i).disposicio < 15) {
-                        agrupar = true;
-                        break;
-                    }
-                }
-            }
-            if (agrupar) {
-                resultat.add(c.toString().concat(newLine).concat(classesAgrupades.get(i).toString()));
-                classesAgrupades.removeElementAt(i);
-                classesAgrupades.removeElement(c);
-                continue;
-            } else {
-                //Probablement només quedi una... o no, però l'afegirem sola en una hora.
-                resultat.add(c.toString());
-                classesAgrupades.removeElement(c);
-                continue;
-            }
-            //TODO: Les classes de pràctiques de grups diferents i assignatures differents es poden solapar!!!
-        }
-        
-        return resultat;
-    }
-    
-    private class ClasseAgrupada {
-        public String codi;
-        public int disposicio;  //15 = Sempre, 5 = :s1, 10 = :s2, 1 = :s11, 2 = :s21, ...
-                                //2 ^ ordre = 1 2 4 8
-        public ClasseAgrupada (String _codi, Vector<Integer> ordres) {
-            disposicio = 0;
-            codi = _codi;
-            for (int i = 0; i < ordres.size(); ++i) {
-                disposicio += Math.pow(2, ordres.get(i));
-            }
-        }
-        
-        public String toString() {
-            String s = codi.concat(" :");
-            if (disposicio == 15) s = codi;
-            else if (disposicio == 5) s = s.concat("s1");
-            else if (disposicio == 10) s = s.concat("s2");
-            else if (disposicio == 1) s = s.concat("s11");
-            else if (disposicio == 2) s = s.concat("s21");
-            else if (disposicio == 4) s = s.concat("s12");
-            else if (disposicio == 8) s = s.concat("s22");
-            else {
-                if (disposicio == 3) s = s.concat("s11, ").concat("s21");
-                if (disposicio == 6) s = s.concat("s21, ").concat("s12");
-                if (disposicio == 12) s = s.concat("s12, ").concat("s22");
-                if (disposicio == 9) s = s.concat("s11, ").concat("s22");
-                else {
-                    if (disposicio == 11) s = s.concat("s11, ").concat("s21, ").concat("s22");
-                    if (disposicio == 7) s = s.concat("s11, ").concat("s21, ").concat("s12");
-                    if (disposicio == 13) s = s.concat("s11, ").concat("s12, ").concat("s22");
-                    if (disposicio == 14) s = s.concat("s21, ").concat("s12, ").concat("s22");
-                }
-            }
-            return s;
-        }
-    }*/
     
     public class TextAreaRenderer extends JTextArea implements TableCellRenderer {
 
@@ -201,8 +114,42 @@ public class PanellHorari extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        FiltreGrup1 = new javax.swing.JCheckBox();
+        FiltreGrup2 = new javax.swing.JCheckBox();
+        FiltreGrup3 = new javax.swing.JCheckBox();
+        FiltreGrup4 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         TaulaHorari = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(204, 255, 204));
+        setMinimumSize(new java.awt.Dimension(200, 200));
+
+        jLabel1.setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText(" Grau Informàtica Q2");
+        jLabel1.setOpaque(true);
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jLabel2.setText("Filtre:");
+
+        FiltreGrup1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup1.setText("I2511");
+        FiltreGrup1.setOpaque(false);
+
+        FiltreGrup2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup2.setText("I2512");
+        FiltreGrup2.setOpaque(false);
+
+        FiltreGrup3.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup3.setText("I2521");
+        FiltreGrup3.setOpaque(false);
+
+        FiltreGrup4.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup4.setText("I2522");
+        FiltreGrup4.setOpaque(false);
 
         TaulaHorari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -233,15 +180,48 @@ public class PanellHorari extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FiltreGrup1)
+                        .addGap(10, 10, 10)
+                        .addComponent(FiltreGrup2)
+                        .addGap(10, 10, 10)
+                        .addComponent(FiltreGrup3)
+                        .addGap(10, 10, 10)
+                        .addComponent(FiltreGrup4)
+                        .addGap(0, 233, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(FiltreGrup1)
+                    .addComponent(FiltreGrup2)
+                    .addComponent(FiltreGrup3)
+                    .addComponent(FiltreGrup4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TaulaHorari;
+    private javax.swing.JCheckBox FiltreGrup1;
+    private javax.swing.JCheckBox FiltreGrup2;
+    private javax.swing.JCheckBox FiltreGrup3;
+    private javax.swing.JCheckBox FiltreGrup4;
+    public javax.swing.JTable TaulaHorari;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

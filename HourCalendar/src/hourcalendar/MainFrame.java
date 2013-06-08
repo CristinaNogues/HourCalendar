@@ -5,10 +5,16 @@
 package hourcalendar;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -17,6 +23,7 @@ import javax.swing.SwingUtilities;
  */
 public class MainFrame extends javax.swing.JFrame {
     static javax.swing.JFrame frameCalendari;
+    public JPanel ContentPane;
     public ControlProgres controlProgres;
     /**
      * Creates new form MainFrame
@@ -29,7 +36,16 @@ public class MainFrame extends javax.swing.JFrame {
         controlProgres.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         controlProgres.setVisible(false);
 
+        ContentPane = new JPanel();
+        ContentPane.setLayout(new GridBagLayout());
+        ContentPane.setPreferredSize(new Dimension(500, 300));
+        ContentPane.setBackground(Color.RED);
+        JLabel label = new JLabel("");
+        ContentPane.add(label);
+        Contenidor.setViewportView(ContentPane);
+        Contenidor.setBackground(Color.YELLOW);
         
+        //Contenidor.setLayout(new GridLayout(3,1));
     }
 
     /**
@@ -48,6 +64,7 @@ public class MainFrame extends javax.swing.JFrame {
         Contenidor = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HourCalendar");
 
         jToolBar1.setRollover(true);
 
@@ -84,7 +101,6 @@ public class MainFrame extends javax.swing.JFrame {
         BotoOpcions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/options.png"))); // NOI18N
         BotoOpcions.setFocusable(false);
         BotoOpcions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BotoOpcions.setLabel("");
         BotoOpcions.setMaximumSize(new java.awt.Dimension(32, 32));
         BotoOpcions.setMinimumSize(new java.awt.Dimension(32, 32));
         BotoOpcions.setPreferredSize(new java.awt.Dimension(32, 32));
@@ -96,19 +112,24 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(BotoOpcions);
 
+        Contenidor.setBackground(new java.awt.Color(255, 153, 153));
+        Contenidor.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Contenidor.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        Contenidor.setPreferredSize(new java.awt.Dimension(300, 300));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addComponent(Contenidor)
+            .addComponent(Contenidor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Contenidor, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(Contenidor, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();

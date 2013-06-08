@@ -5,11 +5,14 @@
 package hourcalendar;
 
 import hourcalendar.Base.Regles;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.Toolkit;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 /**
@@ -120,13 +123,65 @@ public class ControlProgres extends javax.swing.JFrame {
         
         System.out.println(generador.getHorari().toString());
         base.disponibilitatsHoraries.add(generador.getHorari());
-        
-        
+        finestra.ContentPane.removeAll();
+        System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
+        finestra.ContentPane.add(new JTextArea(0,0));
+        GridBagConstraints constraints = new GridBagConstraints();
+        //constraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        constraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        //constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        constraints.weightx = 1.0;
+        constraints.weighty = 0.0;
+        constraints.gridx = 0;
+        /*c.fill = GridBagConstraints.HORIZONTAL;
+c.ipady = 40;      //make this component tall
+c.weightx = 0.0;
+c.gridwidth = 3;
+c.gridx = 0;
+c.gridy = 1;*/
+        //constraints.gridheight = GridBagConstraints.
+        //constraints.weightx = 1.0; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        //Inserim instancies de PanellHorari per a cada disponibilitat
+        int alturaPanell = 0;
         Vector<DisponibilitatHoraria> disponibilitats = base.getDisponibilitatsHoraries();
         for (int idDisponibilitat = 0; idDisponibilitat < disponibilitats.size(); ++idDisponibilitat) {
+            System.out.println("COMPTADOR DISPONIBILITATS");
             PanellHorari horari = new PanellHorari(disponibilitats.elementAt(idDisponibilitat));
-            finestra.Contenidor.setViewportView(horari);
+            System.out.println("\t\t\t\t\tALTURA PANELL += ".concat(String.valueOf(horari.getPreferredSize().height)));
+            alturaPanell += horari.getPreferredSize().height;
+            //horari.add(new JTextArea(10,5));
+            //finestra.Contenidor.setViewportView(horari);
+            //finestra.Contenidor.getLayout().addLayoutComponent("WOLOLO!!", horari);
+            //finestra.Contenidor.getViewport().add(horari);
+            //finestra.Contenidor.getViewport().add(new JTextArea(10,5));
+            //finestra.Contenidor.getViewport().add(horari);
+            //finestra.Contenidor.getViewport().add(horari);
+            //finestra.ContentPane.add(new JTextArea(0,0));
+            System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
+            //horari.setSize(finestra.Contenidor.getWidth(), 300);//horari.TaulaHorari.getHeight());
+            finestra.ContentPane.add(horari, constraints);
+            System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
+            //finestra.ContentPane.add(horari);
+            //finestra.ContentPane.add(new JTextArea(50,50), constraints);
+            //finestra.ContentPane.add(new JTextArea(10,10), constraints);
+            //alturaPanell +=80;
+
+            
+            /*System.out.println("DIMENSIO HORARI");
+            horari.setSize(finestra.Contenidor.getWidth(), 300);//horari.TaulaHorari.getHeight());
+            System.out.println(String.valueOf(horari.getWidth()));
+            System.out.println(String.valueOf(horari.getHeight()));
+            horari.setVisible(true);
+            horari.repaint();
+            finestra.Contenidor.repaint();*/
         }
+        
+        finestra.ContentPane.setPreferredSize(new Dimension(finestra.ContentPane.getWidth(), alturaPanell));
+        finestra.ContentPane.setMinimumSize(new Dimension(finestra.ContentPane.getWidth(), alturaPanell));
+        finestra.ContentPane.revalidate();
+        finestra.ContentPane.repaint();
         setVisible(false);
+        System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
     }
 }

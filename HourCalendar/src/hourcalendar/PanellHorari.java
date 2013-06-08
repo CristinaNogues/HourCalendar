@@ -24,12 +24,14 @@ import javax.swing.table.TableCellRenderer;
 public class PanellHorari extends javax.swing.JPanel {
     private DisponibilitatHoraria disponibilitat;
     private boolean esUpdate = false;
+    int maxHoresOcupades;
     /**
      * Creates new form PanellHorari
      */
     public PanellHorari(DisponibilitatHoraria _disponibilitat) {
         initComponents();
         disponibilitat = _disponibilitat;
+        maxHoresOcupades = 0;
         //Cel·les multilinia
         for (int i = 0; i <= 5; ++i) {
             TaulaHorari.getColumnModel().getColumn(i).setCellRenderer(new TextAreaRenderer());
@@ -48,12 +50,47 @@ public class PanellHorari extends javax.swing.JPanel {
                 update();
             }
         });
+        FiltreGrup2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update();
+            }
+        });
+        FiltreGrup3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update();
+            }
+        });
+        FiltreGrup4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update();
+            }
+        });
+        FiltreGrup5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update();
+            }
+        });
+        FiltreGrup6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update();
+            }
+        });
+        FiltreGrup7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update();
+            }
+        });
+        FiltreGrup8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update();
+            }
+        });
         
         esUpdate = true;
     }
     
     private void update() {
-        Regles.DEBUG_ENABLED.set(true);
+        //Regles.DEBUG_ENABLED.set(true);
         if (!this.esUpdate) {
             FiltreGrup1.setVisible(false);
             FiltreGrup2.setVisible(false);
@@ -69,16 +106,19 @@ public class PanellHorari extends javax.swing.JPanel {
         Vector<DisponibilitatHoraria.DiaDeLaSetmana> dies = disponibilitat.getDisponibilitat();
         Vector<ClasseAgrupada> classes = new Vector<ClasseAgrupada>();
         String newLine = System.getProperty("line.separator");
-        int maxHoresOcupades = 0;
+        
         TaulaHorari.setSize(300, 400);
         System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
         for (int idDia = 2; idDia <= 6; ++idDia) {
+            Base.dbgUI("PanellHorari idDia = ".concat(String.valueOf(idDia)));
             DisponibilitatHoraria.DiaDeLaSetmana dia = dies.get(idDia);
             HoresRepresentables horesRepresentables = dia.getHoresRepresentables();
             for (int hora = horesRepresentables.size(); --hora >= 0;) {
+                
                 classes = horesRepresentables.get(hora);
                 String text = "";
                 for (int index = classes.size(); --index >= 0;) {
+                    boolean saltar = false;
                     ClasseAgrupada classe = classes.get(index);
                     if (!this.esUpdate) {
                         if (classe.grup != 0) {
@@ -125,48 +165,52 @@ public class PanellHorari extends javax.swing.JPanel {
                             //Inicialitzem valors dels checkbox de filtres per a grups de pràctiques
                             switch (classe.grup) {
                                 case 1:
-                                    if (!FiltreGrup1.isSelected()) continue;
+                                    if (!FiltreGrup1.isSelected()) saltar = true;
                                     break;
                                 case 2:
-                                    if (!FiltreGrup2.isSelected()) continue;
+                                    if (!FiltreGrup2.isSelected()) saltar = true;
                                     break;
                                 case 3:
-                                    if (!FiltreGrup3.isSelected()) continue;
+                                    if (!FiltreGrup3.isSelected()) saltar = true;
                                     break;
                                 case 4:
-                                    if (!FiltreGrup4.isSelected()) continue;
+                                    if (!FiltreGrup4.isSelected()) saltar = true;
                                     break;
                                 case 5:
-                                    if (!FiltreGrup5.isSelected()) continue;
+                                    if (!FiltreGrup5.isSelected()) saltar = true;
                                     break;
                                 case 6:
-                                    if (!FiltreGrup6.isSelected()) continue;
+                                    if (!FiltreGrup6.isSelected()) saltar = true;
                                     break;
                                 case 7:
-                                    if (!FiltreGrup7.isSelected()) continue;
+                                    if (!FiltreGrup7.isSelected()) saltar = true;
                                     break;
                                 case 8:
-                                    if (!FiltreGrup8.isSelected()) continue;
+                                    if (!FiltreGrup8.isSelected()) saltar = true;
                                     break;
                                 
                             }
+                            
                         }
                     }
-                    text = text.concat(classe.toString()).concat(newLine);
+                    if (!saltar) text = text.concat(classe.toString()).concat(newLine);
                 }
+                Base.dbgUI("Hora = ".concat(String.valueOf(hora).concat(", idDia = ").concat(String.valueOf(idDia))));
                 TaulaHorari.getModel().setValueAt(text, hora, idDia - 1);
-                if (maxHoresOcupades < hora) maxHoresOcupades = hora;
+                if (!esUpdate && maxHoresOcupades < hora) maxHoresOcupades = hora;
             }
         }
-        System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
-        System.out.println("ROW COUNT = ".concat(String.valueOf(TaulaHorari.getRowCount())));
-        for (int i = 0; i < TaulaHorari.getRowCount() && TaulaHorari.getRowCount() > maxHoresOcupades; ++i) {
-            System.out.println("REMOVING!!");
-            ((DefaultTableModel)TaulaHorari.getModel()).removeRow(TaulaHorari.getRowCount() - 1);
+        if (!esUpdate) {
+            System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
+            System.out.println("ROW COUNT = ".concat(String.valueOf(TaulaHorari.getRowCount())));
+            for (int i = 0; i < TaulaHorari.getRowCount() && TaulaHorari.getRowCount() > (maxHoresOcupades + 1); ++i) {
+                System.out.println("REMOVING!!");
+                ((DefaultTableModel)TaulaHorari.getModel()).removeRow(TaulaHorari.getRowCount() - 1);
+            }
+            System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getX())).concat(", ").concat(String.valueOf(TaulaHorari.getY())));
+            this.setPreferredSize(new Dimension(600, 84 + 32 - 3 + (96 * (maxHoresOcupades + 1))));
+            this.setMinimumSize(new Dimension(600, 84 + 32 - 3 + (96 * (maxHoresOcupades + 1))));
         }
-        System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getX())).concat(", ").concat(String.valueOf(TaulaHorari.getY())));
-        this.setPreferredSize(new Dimension(600, 84 + 32 - 3 + (96 * maxHoresOcupades)));
-        this.setMinimumSize(new Dimension(600, 84 + 32 - 3 + (96 * maxHoresOcupades)));
         //this.setPreferredSize(new Dimension());
         //jScrollPane1.setPreferredSize(this.getWidth(), 800);
         revalidate();

@@ -235,7 +235,7 @@ public class Base {
             addAssignatura(new Grau("Informatica", "01"), "XACO", 340356, new TipusMateria(1, "ABC"),
                     25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
             addAssignatura(new Grau("Informatica", "01"), "ESIN", 300000, new TipusMateria(1, "ABC"),
-                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 7, "I");
+                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 8, "I");
             addAssignatura(new Grau("Informatica", "01"), "XAMU", 370251, new TipusMateria(1, "ABC"),
                     25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
             addAssignatura(new Grau("Informatica", "01"), "EMPR", 670200, new TipusMateria(1, "ABC"),
@@ -358,13 +358,6 @@ public class Base {
         /** Retorna el dia de la setmana (1 = diumenge) d'un dia específic, -1 si no és un dia modificat. **/
         public static int getModDia(Calendar dia) {
             for (int i = 0; i <= 7; ++i) {
-                /*Vector<Calendar> dates = datesAmbDiaModificat.get(i);
-                for (int e = 0; e < dates.size(); ++e) {
-                    if (dia.compareTo(dates.get(e)) == 0) {
-                        System.out.println("MOD DIA!!!".concat(dates.get(e).getTime().toLocaleString()));
-                        return i;
-                    }
-                }*/
                 if (datesAmbDiaModificat.get(i).indexOf(dia) != -1) {
                     System.out.println("MOD DIA!!!");
                     return i;
@@ -401,6 +394,7 @@ public class Base {
         ITERACIONS_GENERADOR (1, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
+        DEBUG_UI_ENABLED (1, "Mostrar informació per consola d'operacions gràfiques que es van realitzant (DEBUG UI MODE)."),
         UTILITZA_ANTIC_ALGORISME (0, "Utilitzar l'antic algorisme per a generar els horaris. No soporta solapament d'hores de pràctica.");
 
         private int valor;
@@ -427,6 +421,12 @@ public class Base {
     public static void dbg2(String msg) {
         if (Regles.DEBUG2_ENABLED.get()) {
             System.out.println(msg);
+        }
+    }
+    
+    public static void dbgUI(String msg) {
+        if (Regles.DEBUG_UI_ENABLED.get()) {
+            System.out.println("[dbgUI] ".concat(msg));
         }
     }
 }

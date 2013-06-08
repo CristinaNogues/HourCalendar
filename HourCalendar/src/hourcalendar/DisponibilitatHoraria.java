@@ -392,15 +392,24 @@ public class DisponibilitatHoraria implements Cloneable {
     
     /** Representa una Reserva, obtinguda a partir del codi (String) utilitzat en la construcció de la disponibilitat horària. **/
     public static class Reserva {
-        public int codi;
-        public int tipusAula;
-        public int grup;
+        public int codi;            //350380
+        public int tipusAula;       //5 = Laboratori Informàtica
+        public int grup;            //4
+        public String grupAsText;   //I4511
+        public String nom;          //PROP
 
         public Reserva(String codiCompacte) {
             String[] parts = codiCompacte.split("#");
             this.codi = Integer.parseInt(parts[0]);
             this.tipusAula = Integer.parseInt(parts[1]);
             this.grup = Integer.parseInt(parts[2]);
+            //set groupAsText
+            Assignatura assignatura = HourCalendar.getBase().getAssignatura(this.codi);
+            this.grupAsText = "I".concat(String.valueOf(assignatura.getQuadrimestre()));
+            this.grupAsText = this.grupAsText.concat("5");
+            if (this.grup != 0) this.grupAsText = this.grupAsText.concat("1").concat(String.valueOf(this.grup));
+            //set nom
+            this.nom = assignatura.getNom();
         }
 
         public static int getCodi(String codiCompacte) {

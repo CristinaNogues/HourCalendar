@@ -100,25 +100,31 @@ public class HoresRepresentables {
     //##########################################################################
     
     public class ClasseAgrupada {
-        public String codi;             //234223#4#1
-        public int codiAssignatura;     //234223
-        public int tipusAula;           //4
+        public String codi;             //360380#5#1
+        public int codiAssignatura;     //360380
+        public int tipusAula;           //5
         public int grup;                //1
+        public String grupAsText;       //I2511
+        public String nom;              //PROP
         public Vector<Integer> ordres;  //{0, 2}
         public int disposicio;  //15 = Sempre, 5 = :s1, 10 = :s2, 1 = :s11, 2 = :s21, ...
                                 //2 ^ ordre = 1 2 4 8
         public ClasseAgrupada (String _codi, Vector<Integer> ordres) {
             disposicio = 0;
             codi = _codi;
-            codiAssignatura = Reserva.getCodi(codi);
-            tipusAula = Reserva.getTipusAula(codi);
-            grup = Reserva.getGrup(codi);
+            Reserva reserva = new Reserva(codi);
+            codiAssignatura = reserva.codi;
+            tipusAula = reserva.tipusAula;
+            grup = reserva.grup;
+            grupAsText = reserva.grupAsText;
+            nom = reserva.nom;
             this.ordres = new Vector<Integer>();
             for (int i = 0; i < ordres.size(); ++i) {
                 this.ordres.add(ordres.get(i));
                 disposicio += Math.pow(2, ordres.get(i));
             }
         }
+        
         
         public boolean esSolapable(ClasseAgrupada other) {
             return esSolapable(other, Regles.SOLAPAR_HORES_PRACTICA.get());
@@ -161,11 +167,9 @@ public class HoresRepresentables {
         
         public String toString() {
             String nom = HourCalendar.getBase().getAssignatura(codiAssignatura).getNom();
-            String grup = "I".concat(String.valueOf(HourCalendar.getBase().getAssignatura(codiAssignatura).getQuadrimestre()));
-            grup = grup.concat("5");
-            if (this.grup != 0) grup = grup.concat("1").concat(String.valueOf(this.grup));
+            
             String aula = (this.tipusAula == 0) ? "AULA" : "LAB";
-            return nom.concat(" ").concat(aula).concat(" ").concat(grup).concat(" ").concat(getOrdreAsString());
+            return nom.concat(" ").concat(aula).concat(" ").concat(this.grupAsText).concat(" ").concat(getOrdreAsString());
         }
         
         public String getOrdreAsString() {

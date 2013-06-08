@@ -113,8 +113,8 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar1.add(BotoOpcions);
 
         Contenidor.setBackground(new java.awt.Color(255, 153, 153));
-        Contenidor.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        Contenidor.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        Contenidor.setBorder(null);
+        Contenidor.setMinimumSize(new java.awt.Dimension(200, 200));
         Contenidor.setPreferredSize(new java.awt.Dimension(300, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -128,8 +128,8 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(Contenidor, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Contenidor, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
         );
 
         pack();

@@ -136,18 +136,22 @@ public class PanellHorari extends javax.swing.JPanel {
         jLabel2.setText("Filtre:");
 
         FiltreGrup1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup1.setSelected(true);
         FiltreGrup1.setText("I2511");
         FiltreGrup1.setOpaque(false);
 
         FiltreGrup2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup2.setSelected(true);
         FiltreGrup2.setText("I2512");
         FiltreGrup2.setOpaque(false);
 
         FiltreGrup3.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup3.setSelected(true);
         FiltreGrup3.setText("I2521");
         FiltreGrup3.setOpaque(false);
 
         FiltreGrup4.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup4.setSelected(true);
         FiltreGrup4.setText("I2522");
         FiltreGrup4.setOpaque(false);
 

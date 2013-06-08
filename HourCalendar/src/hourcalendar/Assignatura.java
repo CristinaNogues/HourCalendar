@@ -20,10 +20,11 @@ public class Assignatura {
     public int horesPractica;
     public TipusHoresPractica tipusHoresPractica;
     public int grups;
-    private boolean esValida = true;
+    public String inicial;  //Lletra inicial que representa la titulació (grau), exemples: I = Informàtica, T = Telecos, M = Mecànica; Poden estar repetits
+    public boolean esValida = true;
     
     
-    public Assignatura(Base _base, Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups) {
+    public Assignatura(Base _base, Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups, String _inicial) {
         base = _base;
         grau = _grau;
         nom = _nom;
@@ -35,6 +36,7 @@ public class Assignatura {
         horesPractica = _horesPractica;
         tipusHoresPractica = _tipusHoresPractica;
         grups = _grups;
+        inicial = _inicial;
         /*
         if (!(base.hasGrau(grau) && base.hasTipusMateria(tipus) && base.hasTipusHoresPractica(tipusHoresPractica)))
             esValida = false;

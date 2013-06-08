@@ -77,9 +77,9 @@ public class Base {
     /** Afegeix o modifica una nova assignatura segons el codi d'assignatura.
      * @return boolean indica si s'ha afegit l'assignatura correctament, no s'afegirà si algun dels paràmetres no és l'esperat
      **/
-    public boolean addAssignatura(Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups) {
+    public boolean addAssignatura(Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups, String _inicial) {
         
-        Assignatura assignatura = new Assignatura(this, _grau, _nom, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups);
+        Assignatura assignatura = new Assignatura(this, _grau, _nom, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups, _inicial);
         
         if (assignatura.esValida()) {
             Assignatura aux = getAssignatura(_codi);
@@ -231,15 +231,15 @@ public class Base {
         int horesDesquadrades = 0;
         //try {
             addAssignatura(new Grau("Informatica", "01"), "PROP", 340380, new TipusMateria(1, "ABC"),
-                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2);
+                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
             addAssignatura(new Grau("Informatica", "01"), "XACO", 340356, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3);
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
             addAssignatura(new Grau("Informatica", "01"), "ESIN", 300000, new TipusMateria(1, "ABC"),
-                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2);
+                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 7, "I");
             addAssignatura(new Grau("Informatica", "01"), "XAMU", 370251, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3);
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
             addAssignatura(new Grau("Informatica", "01"), "EMPR", 670200, new TipusMateria(1, "ABC"),
-                    25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0);
+                    25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0, "I");
             //addAssignatura(new Grau("Informatica", "01"), "FISI", 205555, new TipusMateria(1, "ABC"),
             //        25, 2, 20, 40, new TipusHoresPractica(5, "Laboratori Informàtica"), 1);
             /*//PROP
@@ -398,7 +398,7 @@ public class Base {
         SOLAPAR_HORES_PRACTICA (1, "<html>Solapar les hores de pràctica d'assignatures i grups diferents.</html>"),
         ASSIGNAR_HORES_RESTANTS (1, "<html>Sobrepassar les hores assignades a les assignatures si no <br>existeix combinació possible que les quadri al calendari.</html>"),
         PRIORITZAR_QUADRAR_HORES (0, "<html>Donar prioritat a quadrar les hores de les assignatures enlloc <br>d'obtenir un calendari més ben repartit.</html>"),
-        ITERACIONS_GENERADOR (5, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
+        ITERACIONS_GENERADOR (1, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
         UTILITZA_ANTIC_ALGORISME (0, "Utilitzar l'antic algorisme per a generar els horaris. No soporta solapament d'hores de pràctica.");

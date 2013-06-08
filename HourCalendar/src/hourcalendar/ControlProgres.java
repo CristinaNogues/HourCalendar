@@ -101,7 +101,9 @@ public class ControlProgres extends javax.swing.JFrame {
         base.generador = new Generador(base.disponibilitatsHoraries.get(0), base.assignatures);
         //base.generador.setProgressBar(BarraProgres);
         base.nomProgres = "Grau Informàtica Q2";
+        System.out.println("START CONTROL INIT EXECUTE");
         base.generador.execute();
+        System.out.println("START CONTROL END EXECUTE");
 
         Generador generador = base.generador;
         NomProgres.setOpaque(true);

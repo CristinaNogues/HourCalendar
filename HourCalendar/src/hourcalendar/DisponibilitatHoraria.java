@@ -74,7 +74,7 @@ public class DisponibilitatHoraria implements Cloneable {
 
     public int addReserva(int hores, String codi) throws CloneNotSupportedException {
         Base.dbg2("RESERVA - ".concat(codi).concat(": ").concat(String.valueOf(hores)));
-        int millorPonderacio = -2048;
+        int millorPonderacio = -20480;
         //int diaAmbMillorPonderacio = 0;
         int horesMillorPonderacio = 0;
         Vector<DiaDeLaSetmana> millorDisponibilitat = new Vector<DiaDeLaSetmana>();
@@ -397,17 +397,20 @@ public class DisponibilitatHoraria implements Cloneable {
         public int grup;            //4
         public String grupAsText;   //I4511
         public String nom;          //PROP
+        private static String[] digitsGrup = {"22", "11", "12", "21"};  //new String[]
 
         public Reserva(String codiCompacte) {
+            
             String[] parts = codiCompacte.split("#");
             this.codi = Integer.parseInt(parts[0]);
             this.tipusAula = Integer.parseInt(parts[1]);
+            //System.out.println("WAKAKA".concat(digitsGrup[3]));
             this.grup = Integer.parseInt(parts[2]);
             //set groupAsText
             Assignatura assignatura = HourCalendar.getBase().getAssignatura(this.codi);
-            this.grupAsText = "I".concat(String.valueOf(assignatura.getQuadrimestre()));
-            this.grupAsText = this.grupAsText.concat("5");
-            if (this.grup != 0) this.grupAsText = this.grupAsText.concat("1").concat(String.valueOf(this.grup));
+            this.grupAsText = assignatura.inicial.concat(String.valueOf(assignatura.getQuadrimestre()));
+            this.grupAsText = this.grupAsText.concat(String.valueOf((int) 5 + ((int) this.grup / 5)));
+            if (this.grup != 0) this.grupAsText = this.grupAsText.concat(digitsGrup[this.grup % 4]);    //concat("1").concat(String.valueOf(this.grup));
             //set nom
             this.nom = assignatura.getNom();
         }

@@ -23,6 +23,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public class PanellHorari extends javax.swing.JPanel {
     private DisponibilitatHoraria disponibilitat;
+    private boolean esUpdate = false;
     /**
      * Creates new form PanellHorari
      */
@@ -40,7 +41,30 @@ public class PanellHorari extends javax.swing.JPanel {
         TaulaHorari.getColumnModel().getColumn(0).setMinWidth(75);
         TaulaHorari.getColumnModel().getColumn(0).setMaxWidth(75);
         
+        update();
+        
+        FiltreGrup1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                update();
+            }
+        });
+        
+        esUpdate = true;
+    }
+    
+    private void update() {
         Regles.DEBUG_ENABLED.set(true);
+        if (!this.esUpdate) {
+            FiltreGrup1.setVisible(false);
+            FiltreGrup2.setVisible(false);
+            FiltreGrup3.setVisible(false);
+            FiltreGrup4.setVisible(false);
+            FiltreGrup5.setVisible(false);
+            FiltreGrup6.setVisible(false);
+            FiltreGrup7.setVisible(false);
+            FiltreGrup8.setVisible(false);
+        }
+        
         
         Vector<DisponibilitatHoraria.DiaDeLaSetmana> dies = disponibilitat.getDisponibilitat();
         Vector<ClasseAgrupada> classes = new Vector<ClasseAgrupada>();
@@ -55,7 +79,80 @@ public class PanellHorari extends javax.swing.JPanel {
                 classes = horesRepresentables.get(hora);
                 String text = "";
                 for (int index = classes.size(); --index >= 0;) {
-                    text = text.concat(classes.get(index).toString()).concat(newLine);
+                    ClasseAgrupada classe = classes.get(index);
+                    if (!this.esUpdate) {
+                        if (classe.grup != 0) {
+                            //Inicialitzem valors dels checkbox de filtres per a grups de pràctiques
+                            switch (classe.grup) {
+                                case 1:
+                                    FiltreGrup1.setText(classe.grupAsText);
+                                    FiltreGrup1.setVisible(true);
+                                    break;
+                                case 2:
+                                    FiltreGrup2.setText(classe.grupAsText);
+                                    FiltreGrup2.setVisible(true);
+                                    break;
+                                case 3:
+                                    FiltreGrup3.setText(classe.grupAsText);
+                                    FiltreGrup3.setVisible(true);
+                                    break;
+                                case 4:
+                                    FiltreGrup4.setText(classe.grupAsText);
+                                    FiltreGrup4.setVisible(true);
+                                    break;
+                                case 5:
+                                    FiltreGrup5.setText(classe.grupAsText);
+                                    FiltreGrup5.setVisible(true);
+                                    break;
+                                case 6:
+                                    FiltreGrup6.setText(classe.grupAsText);
+                                    FiltreGrup6.setVisible(true);
+                                    break;
+                                case 7:
+                                    FiltreGrup7.setText(classe.grupAsText);
+                                    FiltreGrup7.setVisible(true);
+                                    break;
+                                case 8:
+                                    FiltreGrup8.setText(classe.grupAsText);
+                                    FiltreGrup8.setVisible(true);
+                                    break;
+                                
+                            }
+                        }
+                    } else {
+                        //Si el grup està filtrat (no seleccionat) passem al següent
+                        if (classe.grup != 0) {
+                            //Inicialitzem valors dels checkbox de filtres per a grups de pràctiques
+                            switch (classe.grup) {
+                                case 1:
+                                    if (!FiltreGrup1.isSelected()) continue;
+                                    break;
+                                case 2:
+                                    if (!FiltreGrup2.isSelected()) continue;
+                                    break;
+                                case 3:
+                                    if (!FiltreGrup3.isSelected()) continue;
+                                    break;
+                                case 4:
+                                    if (!FiltreGrup4.isSelected()) continue;
+                                    break;
+                                case 5:
+                                    if (!FiltreGrup5.isSelected()) continue;
+                                    break;
+                                case 6:
+                                    if (!FiltreGrup6.isSelected()) continue;
+                                    break;
+                                case 7:
+                                    if (!FiltreGrup7.isSelected()) continue;
+                                    break;
+                                case 8:
+                                    if (!FiltreGrup8.isSelected()) continue;
+                                    break;
+                                
+                            }
+                        }
+                    }
+                    text = text.concat(classe.toString()).concat(newLine);
                 }
                 TaulaHorari.getModel().setValueAt(text, hora, idDia - 1);
                 if (maxHoresOcupades < hora) maxHoresOcupades = hora;
@@ -75,6 +172,7 @@ public class PanellHorari extends javax.swing.JPanel {
         revalidate();
         repaint();
     }
+    
     
     public class TextAreaRenderer extends JTextArea implements TableCellRenderer {
 
@@ -122,6 +220,10 @@ public class PanellHorari extends javax.swing.JPanel {
         FiltreGrup4 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         TaulaHorari = new javax.swing.JTable();
+        FiltreGrup5 = new javax.swing.JCheckBox();
+        FiltreGrup6 = new javax.swing.JCheckBox();
+        FiltreGrup7 = new javax.swing.JCheckBox();
+        FiltreGrup8 = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setMinimumSize(new java.awt.Dimension(200, 200));
@@ -180,6 +282,26 @@ public class PanellHorari extends javax.swing.JPanel {
         TaulaHorari.setRowHeight(96);
         jScrollPane1.setViewportView(TaulaHorari);
 
+        FiltreGrup5.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup5.setSelected(true);
+        FiltreGrup5.setText("I2522");
+        FiltreGrup5.setOpaque(false);
+
+        FiltreGrup6.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup6.setSelected(true);
+        FiltreGrup6.setText("I2522");
+        FiltreGrup6.setOpaque(false);
+
+        FiltreGrup7.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup7.setSelected(true);
+        FiltreGrup7.setText("I2522");
+        FiltreGrup7.setOpaque(false);
+
+        FiltreGrup8.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        FiltreGrup8.setSelected(true);
+        FiltreGrup8.setText("I2522");
+        FiltreGrup8.setOpaque(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,7 +310,7 @@ public class PanellHorari extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -199,7 +321,15 @@ public class PanellHorari extends javax.swing.JPanel {
                         .addComponent(FiltreGrup3)
                         .addGap(10, 10, 10)
                         .addComponent(FiltreGrup4)
-                        .addGap(0, 233, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10)
+                        .addComponent(FiltreGrup5)
+                        .addGap(10, 10, 10)
+                        .addComponent(FiltreGrup6)
+                        .addGap(10, 10, 10)
+                        .addComponent(FiltreGrup7)
+                        .addGap(10, 10, 10)
+                        .addComponent(FiltreGrup8)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -212,17 +342,26 @@ public class PanellHorari extends javax.swing.JPanel {
                     .addComponent(FiltreGrup1)
                     .addComponent(FiltreGrup2)
                     .addComponent(FiltreGrup3)
-                    .addComponent(FiltreGrup4))
+                    .addComponent(FiltreGrup4)
+                    .addComponent(FiltreGrup5)
+                    .addComponent(FiltreGrup6)
+                    .addComponent(FiltreGrup7)
+                    .addComponent(FiltreGrup8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox FiltreGrup1;
     private javax.swing.JCheckBox FiltreGrup2;
     private javax.swing.JCheckBox FiltreGrup3;
     private javax.swing.JCheckBox FiltreGrup4;
+    private javax.swing.JCheckBox FiltreGrup5;
+    private javax.swing.JCheckBox FiltreGrup6;
+    private javax.swing.JCheckBox FiltreGrup7;
+    private javax.swing.JCheckBox FiltreGrup8;
     public javax.swing.JTable TaulaHorari;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

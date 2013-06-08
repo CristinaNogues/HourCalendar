@@ -64,10 +64,13 @@ public class Generador extends SwingWorker<String, Object> {
             
                 //Generem horari per a la combinació actual d'items
                 for (int idItem = items.size(); --idItem >= 0;) {
+                    Base.dbg("BEFORE addReserva CALL FOR item ".concat(String.valueOf(idItem)));
                     int hores = disponibilitatHorariaActual.addReserva(items.get(idItem).hores, items.get(idItem).codi);
+                    Base.dbg("AFTER addReserva CALL FOR item ".concat(String.valueOf(idItem)));
                     if (hores == 0) ++horesQuadrades;
                     horesActual += hores;
                 }
+                Base.dbg("END addReserva FOR ALL ITEMS");
                 int ponderacioActual = disponibilitatHorariaActual.avalua();
                 System.out.println("TEST PONDERACIO");
                 if (Regles.PRIORITZAR_QUADRAR_HORES.get()) {

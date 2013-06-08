@@ -38,8 +38,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         ContentPane = new JPanel();
         ContentPane.setLayout(new GridBagLayout());
-        ContentPane.setPreferredSize(new Dimension(500, 300));
-        ContentPane.setBackground(Color.RED);
+        ContentPane.setPreferredSize(new Dimension(Contenidor.getWidth(), Contenidor.getHeight()));
+        ContentPane.setBackground(Color.YELLOW);
         JLabel label = new JLabel("");
         ContentPane.add(label);
         Contenidor.setViewportView(ContentPane);
@@ -123,8 +123,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         Contenidor.setBackground(new java.awt.Color(255, 153, 153));
         Contenidor.setBorder(null);
+        Contenidor.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        Contenidor.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         Contenidor.setMinimumSize(new java.awt.Dimension(200, 200));
         Contenidor.setPreferredSize(new java.awt.Dimension(300, 300));
+        Contenidor.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                ContenidorComponentResized(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -174,6 +181,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_BotoOpcionsMouseClicked
+
+    private void ContenidorComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ContenidorComponentResized
+        // TODO add your handling code here:
+        Base.dbgUI("CONTENIDOR COMPONENT RESIZED!".concat(String.valueOf(ContentPane.getComponentCount())).concat(String.valueOf(Contenidor.getHeight())));
+        ContentPane.setPreferredSize(new Dimension(Contenidor.getWidth(), (ContentPane.getComponentCount() == 1) ? Contenidor.getHeight() : ContentPane.getHeight()));
+        ContentPane.revalidate();
+        ContentPane.repaint();
+    }//GEN-LAST:event_ContenidorComponentResized
 
     /**
      * @param args the command line arguments

@@ -8,6 +8,7 @@ import hourcalendar.Base.Regles;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -132,10 +133,11 @@ public class ControlProgres extends javax.swing.JFrame {
         //constraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         constraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         constraints.gridwidth = GridBagConstraints.REMAINDER;
-        //constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        constraints.anchor = GridBagConstraints.PAGE_START;
         constraints.weightx = 1.0;
         constraints.weighty = 0.0;
         constraints.gridx = 0;
+        constraints.insets = new Insets(0,0,0,16);
         /*c.fill = GridBagConstraints.HORIZONTAL;
 c.ipady = 40;      //make this component tall
 c.weightx = 0.0;
@@ -163,6 +165,8 @@ c.gridy = 1;*/
             System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
             //horari.setSize(finestra.Contenidor.getWidth(), 300);//horari.TaulaHorari.getHeight());
             finestra.ContentPane.add(horari, constraints);
+            constraints = (GridBagConstraints) constraints.clone();
+            constraints.anchor = GridBagConstraints.CENTER;
             System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
             //finestra.ContentPane.add(horari);
             //finestra.ContentPane.add(new JTextArea(50,50), constraints);
@@ -179,8 +183,8 @@ c.gridy = 1;*/
             finestra.Contenidor.repaint();*/
         }
         
-        finestra.ContentPane.setPreferredSize(new Dimension(finestra.ContentPane.getWidth(), alturaPanell));
-        finestra.ContentPane.setMinimumSize(new Dimension(finestra.ContentPane.getWidth(), alturaPanell));
+        finestra.ContentPane.setPreferredSize(new Dimension(finestra.ContentPane.getWidth(), alturaPanell - 16));
+        finestra.ContentPane.setMinimumSize(new Dimension(finestra.ContentPane.getWidth(), alturaPanell - 16));
         finestra.ContentPane.revalidate();
         finestra.ContentPane.repaint();
         setVisible(false);

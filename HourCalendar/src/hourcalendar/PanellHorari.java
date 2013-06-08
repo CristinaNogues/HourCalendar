@@ -31,7 +31,7 @@ public class PanellHorari extends javax.swing.JPanel {
     public PanellHorari(DisponibilitatHoraria _disponibilitat) {
         initComponents();
         disponibilitat = _disponibilitat;
-        maxHoresOcupades = 0;
+        maxHoresOcupades = -1;
         //Cel·les multilinia
         for (int i = 0; i <= 5; ++i) {
             TaulaHorari.getColumnModel().getColumn(i).setCellRenderer(new TextAreaRenderer());
@@ -46,42 +46,42 @@ public class PanellHorari extends javax.swing.JPanel {
         update();
         
         FiltreGrup1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 update();
             }
         });
         FiltreGrup2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 update();
             }
         });
         FiltreGrup3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 update();
             }
         });
         FiltreGrup4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 update();
             }
         });
         FiltreGrup5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 update();
             }
         });
         FiltreGrup6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 update();
             }
         });
         FiltreGrup7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 update();
             }
         });
         FiltreGrup8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 update();
             }
         });
@@ -197,7 +197,7 @@ public class PanellHorari extends javax.swing.JPanel {
                 }
                 Base.dbgUI("Hora = ".concat(String.valueOf(hora).concat(", idDia = ").concat(String.valueOf(idDia))));
                 TaulaHorari.getModel().setValueAt(text, hora, idDia - 1);
-                if (!esUpdate && maxHoresOcupades < hora) maxHoresOcupades = hora;
+                if (!esUpdate && maxHoresOcupades < hora && horesRepresentables.size() > 0) maxHoresOcupades = hora;
             }
         }
         if (!esUpdate) {
@@ -207,14 +207,59 @@ public class PanellHorari extends javax.swing.JPanel {
                 System.out.println("REMOVING!!");
                 ((DefaultTableModel)TaulaHorari.getModel()).removeRow(TaulaHorari.getRowCount() - 1);
             }
-            System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getX())).concat(", ").concat(String.valueOf(TaulaHorari.getY())));
-            this.setPreferredSize(new Dimension(600, 84 + 32 - 3 + (96 * (maxHoresOcupades + 1))));
-            this.setMinimumSize(new Dimension(600, 84 + 32 - 3 + (96 * (maxHoresOcupades + 1))));
+            
+            /*TaulaHorari.setPreferredSize(new Dimension(600, -36 - 8 + 24 + (98 * (maxHoresOcupades + 1))));
+            TaulaHorari.setMinimumSize(new Dimension(600, -36 - 8 + 24 + (98 * (maxHoresOcupades + 1))));
+            Base.dbgUI("SETTING TAULA HORARI SIZE");
+            Base.dbgUI("PREFERRED DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getPreferredSize().width)).concat(", ").concat(String.valueOf(TaulaHorari.getPreferredSize().height)));
+            Base.dbgUI("PREFERRED DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getPreferredSize().width)).concat(", ").concat(String.valueOf(jScrollPane1.getPreferredSize().height)));
+            Base.dbgUI("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
+            Base.dbgUI("DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getWidth())).concat(", ").concat(String.valueOf(jScrollPane1.getHeight())));
+*/
+            //System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getX())).concat(", ").concat(String.valueOf(TaulaHorari.getY())));
+            this.setPreferredSize(new Dimension(600, 75 + 24 + 12 + 12 + (97 * (maxHoresOcupades + 1))));//84 + 32 - 3 + (98 * (maxHoresOcupades + 1))));
+                                                   //84 = filtres + capçalera (Nom assignatura + Quadri)
+                                                   //     32 = capçalera taula
+                                                   //          3 = offset
+                                                   //               98 = 96 row height + 2x1 vora (border)
+            this.setMinimumSize(new Dimension(600, 75 + 24 + 12 + 12 + (97 * (maxHoresOcupades + 1))));//84 + 32 - 3 +(98 * (maxHoresOcupades + 1))));
         }
         //this.setPreferredSize(new Dimension());
         //jScrollPane1.setPreferredSize(this.getWidth(), 800);
         revalidate();
         repaint();
+        /*Base.dbgUI("PREFERRED DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getPreferredSize().width)).concat(", ").concat(String.valueOf(TaulaHorari.getPreferredSize().height)));
+        Base.dbgUI("PREFERRED DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getPreferredSize().width)).concat(", ").concat(String.valueOf(jScrollPane1.getPreferredSize().height)));
+        Base.dbgUI("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
+        Base.dbgUI("DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getWidth())).concat(", ").concat(String.valueOf(jScrollPane1.getHeight())));
+*/
+        /*jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Base.dbgUI("RELEASED ON JScrollPane");
+            }
+        });
+        TaulaHorari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Base.dbgUI("RELEASED ON TaulaHorari");
+                Base.dbgUI("PREFERRED DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getPreferredSize().width)).concat(", ").concat(String.valueOf(TaulaHorari.getPreferredSize().height)));
+                Base.dbgUI("PREFERRED DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getPreferredSize().width)).concat(", ").concat(String.valueOf(jScrollPane1.getPreferredSize().height)));
+                Base.dbgUI("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
+                Base.dbgUI("DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getWidth())).concat(", ").concat(String.valueOf(jScrollPane1.getHeight())));
+                Base.dbgUI("PREFERRED DIMENSIO FRAME: ".concat(String.valueOf(jScrollPane1.getParent().getPreferredSize().width)).concat(", ").concat(String.valueOf(jScrollPane1.getParent().getPreferredSize().height)));
+                Base.dbgUI("DIMENSIO FRAME: ".concat(String.valueOf(jScrollPane1.getParent().getWidth())).concat(", ").concat(String.valueOf(jScrollPane1.getParent().getHeight())));
+                
+                TaulaHorari.setPreferredSize(new Dimension(600, -8 + (97 * (maxHoresOcupades + 1))));
+                TaulaHorari.setMinimumSize(new Dimension(600, -8 + (97 * (maxHoresOcupades + 1))));
+                jScrollPane1.setPreferredSize(new Dimension(600, -8 + (97 * (maxHoresOcupades + 1))));
+                jScrollPane1.setMinimumSize(new Dimension(600, -8 + (97 * (maxHoresOcupades + 1))));
+                TaulaHorari.revalidate();
+                TaulaHorari.repaint();
+                jScrollPane1.revalidate();
+                jScrollPane1.repaint();
+                revalidate();
+                repaint();
+            }
+        });*/
     }
     
     
@@ -301,6 +346,10 @@ public class PanellHorari extends javax.swing.JPanel {
         FiltreGrup4.setText("I2522");
         FiltreGrup4.setOpaque(false);
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setOpaque(false);
+
         TaulaHorari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"8:30-10:30", null, null, null, null, null},
@@ -323,6 +372,7 @@ public class PanellHorari extends javax.swing.JPanel {
             }
         });
         TaulaHorari.setFillsViewportHeight(true);
+        TaulaHorari.setOpaque(false);
         TaulaHorari.setRowHeight(96);
         jScrollPane1.setViewportView(TaulaHorari);
 
@@ -393,7 +443,7 @@ public class PanellHorari extends javax.swing.JPanel {
                     .addComponent(FiltreGrup8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(28, 28, 28))
         );
     }// </editor-fold>//GEN-END:initComponents
 

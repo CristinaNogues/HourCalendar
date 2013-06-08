@@ -240,6 +240,10 @@ public class Base {
                     25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
             addAssignatura(new Grau("Informatica", "01"), "EMPR", 670200, new TipusMateria(1, "ABC"),
                     25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0, "I");
+            addAssignatura(new Grau("Informatica", "01"), "SOST", 370001, new TipusMateria(1, "ABC"),
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
+            addAssignatura(new Grau("Informatica", "01"), "PTIN", 555555, new TipusMateria(1, "ABC"),
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
             //addAssignatura(new Grau("Informatica", "01"), "FISI", 205555, new TipusMateria(1, "ABC"),
             //        25, 2, 20, 40, new TipusHoresPractica(5, "Laboratori Informàtica"), 1);
             /*//PROP

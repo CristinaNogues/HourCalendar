@@ -396,6 +396,9 @@ public class Base {
         ASSIGNAR_HORES_RESTANTS (1, "<html>Sobrepassar les hores assignades a les assignatures si no <br>existeix combinació possible que les quadri al calendari.</html>"),
         PRIORITZAR_QUADRAR_HORES (0, "<html>Donar prioritat a quadrar les hores de les assignatures enlloc <br>d'obtenir un calendari més ben repartit.</html>"),
         ITERACIONS_GENERADOR (1, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
+        QUADRIMESTRE (1, "<html>Quadrimestre per al que generar els horaris.</html>"),
+        CONVOCATORIA (1, "<html>Any de convocatòria.</html>"),
+        //REGLES INTERNES (NO MODIFICABLES A TRAVÉS DEL FORMULARI D'OPCIONS
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
         DEBUG_UI_ENABLED (1, "Mostrar informació per consola d'operacions gràfiques que es van realitzant (DEBUG UI MODE)."),

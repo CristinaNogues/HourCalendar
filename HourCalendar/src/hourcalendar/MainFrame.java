@@ -74,7 +74,7 @@ public class MainFrame extends javax.swing.JFrame {
         BotoCalendari.setToolTipText("Editar el calendari de dies amb docència");
         BotoCalendari.setFocusable(false);
         BotoCalendari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BotoCalendari.setMaximumSize(new java.awt.Dimension(32, 32));
+        BotoCalendari.setMaximumSize(new java.awt.Dimension(36, 32));
         BotoCalendari.setMinimumSize(new java.awt.Dimension(32, 32));
         BotoCalendari.setName(""); // NOI18N
         BotoCalendari.setPreferredSize(new java.awt.Dimension(32, 32));
@@ -86,12 +86,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(BotoCalendari);
 
-        BotoGenerarHorari.setText("Generar Horari");
+        BotoGenerarHorari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/generar.png"))); // NOI18N
+        BotoGenerarHorari.setToolTipText("Generar totes les configuracions horàries pertinents segons les preferències");
         BotoGenerarHorari.setFocusable(false);
         BotoGenerarHorari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BotoGenerarHorari.setMaximumSize(new java.awt.Dimension(100, 32));
-        BotoGenerarHorari.setMinimumSize(new java.awt.Dimension(100, 32));
-        BotoGenerarHorari.setPreferredSize(new java.awt.Dimension(100, 32));
+        BotoGenerarHorari.setMargin(new java.awt.Insets(2, 30, 2, 30));
+        BotoGenerarHorari.setMaximumSize(new java.awt.Dimension(36, 32));
+        BotoGenerarHorari.setMinimumSize(new java.awt.Dimension(32, 32));
+        BotoGenerarHorari.setPreferredSize(new java.awt.Dimension(32, 32));
         BotoGenerarHorari.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         BotoGenerarHorari.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -101,9 +103,10 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar1.add(BotoGenerarHorari);
 
         BotoOpcions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/options.png"))); // NOI18N
+        BotoOpcions.setToolTipText("Editar preferències");
         BotoOpcions.setFocusable(false);
         BotoOpcions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BotoOpcions.setMaximumSize(new java.awt.Dimension(32, 32));
+        BotoOpcions.setMaximumSize(new java.awt.Dimension(36, 32));
         BotoOpcions.setMinimumSize(new java.awt.Dimension(32, 32));
         BotoOpcions.setPreferredSize(new java.awt.Dimension(32, 32));
         BotoOpcions.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

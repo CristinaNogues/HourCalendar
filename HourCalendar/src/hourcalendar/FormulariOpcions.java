@@ -31,6 +31,10 @@ public class FormulariOpcions extends javax.swing.JFrame {
         prioritzar.setSelected(Regles.PRIORITZAR_QUADRAR_HORES.get());
         textIteracions.setText(Regles.ITERACIONS_GENERADOR.getMissatge());
         iteracions.setText(String.valueOf(Regles.ITERACIONS_GENERADOR.getInt()));
+        quadrimestre.setSelectedIndex(Regles.QUADRIMESTRE.getInt() - 1);
+        textQuadrimestre.setText(String.valueOf(Regles.QUADRIMESTRE.getMissatge()));
+        convocatoria.setSelectedIndex(Regles.CONVOCATORIA.getInt() - 1);
+        textConvocatoria.setText(String.valueOf(Regles.CONVOCATORIA.getMissatge()));
     }
 
     /**
@@ -49,6 +53,10 @@ public class FormulariOpcions extends javax.swing.JFrame {
         textIteracions = new javax.swing.JLabel();
         BotoAceptar = new javax.swing.JButton();
         BotoCancelar = new javax.swing.JButton();
+        quadrimestre = new javax.swing.JComboBox();
+        textQuadrimestre = new javax.swing.JLabel();
+        textConvocatoria = new javax.swing.JLabel();
+        convocatoria = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Opcions");
@@ -98,6 +106,20 @@ public class FormulariOpcions extends javax.swing.JFrame {
             }
         });
 
+        quadrimestre.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        quadrimestre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Q1", "Q2" }));
+
+        textQuadrimestre.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        textQuadrimestre.setText("jLabel1");
+        textQuadrimestre.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        textConvocatoria.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        textConvocatoria.setText("jLabel1");
+        textConvocatoria.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        convocatoria.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        convocatoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012 - 2013" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,24 +127,40 @@ public class FormulariOpcions extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(prioritzar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(iteracions, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textIteracions, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
-                    .addComponent(assignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(solapar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 218, Short.MAX_VALUE)
                         .addComponent(BotoCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotoAceptar)))
+                        .addComponent(BotoAceptar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(convocatoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(quadrimestre, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textQuadrimestre, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                            .addComponent(textConvocatoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(prioritzar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(assignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(solapar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(iteracions)
+                        .addGap(10, 10, 10)
+                        .addComponent(textIteracions, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(quadrimestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textQuadrimestre, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(convocatoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textConvocatoria, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(solapar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(assignar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,9 +168,11 @@ public class FormulariOpcions extends javax.swing.JFrame {
                 .addComponent(prioritzar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(iteracions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textIteracions, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                    .addComponent(textIteracions, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(iteracions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotoAceptar)
                     .addComponent(BotoCancelar))
@@ -152,6 +192,8 @@ public class FormulariOpcions extends javax.swing.JFrame {
         Regles.ASSIGNAR_HORES_RESTANTS.set(assignar.isSelected());
         Regles.PRIORITZAR_QUADRAR_HORES.set(prioritzar.isSelected());
         Regles.ITERACIONS_GENERADOR.set(Integer.parseInt(iteracions.getText()));
+        Regles.QUADRIMESTRE.set(quadrimestre.getSelectedIndex() + 1);
+        Regles.CONVOCATORIA.set(convocatoria.getSelectedIndex() + 1);
         
         setVisible(false);
         dispose();
@@ -168,9 +210,13 @@ public class FormulariOpcions extends javax.swing.JFrame {
     private javax.swing.JButton BotoAceptar;
     private javax.swing.JButton BotoCancelar;
     private javax.swing.JCheckBox assignar;
+    private javax.swing.JComboBox convocatoria;
     private javax.swing.JTextField iteracions;
     private javax.swing.JCheckBox prioritzar;
+    private javax.swing.JComboBox quadrimestre;
     private javax.swing.JCheckBox solapar;
+    private javax.swing.JLabel textConvocatoria;
     private javax.swing.JLabel textIteracions;
+    private javax.swing.JLabel textQuadrimestre;
     // End of variables declaration//GEN-END:variables
 }

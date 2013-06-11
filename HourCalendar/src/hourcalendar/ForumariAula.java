@@ -30,7 +30,7 @@ public class ForumariAula extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
-        enrereTipusAula = new javax.swing.JButton();
+        CancelTipusAula = new javax.swing.JButton();
         afegirTipusAula = new javax.swing.JButton();
         TipusAula = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -40,11 +40,11 @@ public class ForumariAula extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        enrereTipusAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        enrereTipusAula.setText("Enrere");
-        enrereTipusAula.addMouseListener(new java.awt.event.MouseAdapter() {
+        CancelTipusAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        CancelTipusAula.setText("Cancel·lar");
+        CancelTipusAula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                enrereTipusAulaMouseClicked(evt);
+                CancelTipusAulaMouseClicked(evt);
             }
         });
 
@@ -83,8 +83,8 @@ public class ForumariAula extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(enrereTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(CancelTipusAula)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(afegirTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -104,7 +104,7 @@ public class ForumariAula extends javax.swing.JFrame {
                     .addComponent(jTextField7)
                     .addComponent(jTextField6)
                     .addComponent(TipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
@@ -129,8 +129,8 @@ public class ForumariAula extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enrereTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(afegirTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CancelTipusAula)
+                    .addComponent(afegirTipusAula))
                 .addContainerGap())
         );
 
@@ -156,9 +156,10 @@ public class ForumariAula extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_afegirTipusAulaMouseClicked
 
-    private void enrereTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enrereTipusAulaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_enrereTipusAulaMouseClicked
+    private void CancelTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelTipusAulaMouseClicked
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_CancelTipusAulaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -195,9 +196,9 @@ public class ForumariAula extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelTipusAula;
     private javax.swing.JComboBox TipusAula;
     private javax.swing.JButton afegirTipusAula;
-    private javax.swing.JButton enrereTipusAula;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

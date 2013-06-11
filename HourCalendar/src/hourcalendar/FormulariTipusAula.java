@@ -27,7 +27,7 @@ public class FormulariTipusAula extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        EnrereTipusAula = new javax.swing.JButton();
+        CancelTipusAula = new javax.swing.JButton();
         AfegirTipusAula = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -35,11 +35,11 @@ public class FormulariTipusAula extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        EnrereTipusAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        EnrereTipusAula.setText("Enrere");
-        EnrereTipusAula.addMouseListener(new java.awt.event.MouseAdapter() {
+        CancelTipusAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        CancelTipusAula.setText("Cancel·lar");
+        CancelTipusAula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EnrereTipusAulaMouseClicked(evt);
+                CancelTipusAulaMouseClicked(evt);
             }
         });
 
@@ -63,9 +63,9 @@ public class FormulariTipusAula extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EnrereTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(CancelTipusAula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1)
                 .addGap(18, 18, 18)
@@ -87,7 +87,7 @@ public class FormulariTipusAula extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AfegirTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(EnrereTipusAula)
+                .addComponent(CancelTipusAula)
                 .addGap(29, 29, 29))
         );
 
@@ -105,9 +105,10 @@ public class FormulariTipusAula extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EnrereTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnrereTipusAulaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EnrereTipusAulaMouseClicked
+    private void CancelTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelTipusAulaMouseClicked
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_CancelTipusAulaMouseClicked
 
     private void AfegirTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AfegirTipusAulaMouseClicked
         // TODO add your handling code here:
@@ -149,7 +150,7 @@ public class FormulariTipusAula extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AfegirTipusAula;
-    private javax.swing.JButton EnrereTipusAula;
+    private javax.swing.JButton CancelTipusAula;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel4;

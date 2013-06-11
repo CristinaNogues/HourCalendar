@@ -40,9 +40,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel15" min="-2" pref="97" max="-2" attributes="0"/>
-                      <Component id="EnrereTipusAula" min="-2" pref="82" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="CancelTipusAula" max="32767" attributes="0"/>
+                      <Component id="jLabel15" pref="97" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTextField1" max="32767" attributes="0"/>
@@ -69,22 +69,22 @@
                       <Component id="AfegirTipusAula" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="45" max="32767" attributes="0"/>
-                  <Component id="EnrereTipusAula" min="-2" max="-2" attributes="0"/>
+                  <Component id="CancelTipusAula" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="EnrereTipusAula">
+        <Component class="javax.swing.JButton" name="CancelTipusAula">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Enrere"/>
+            <Property name="text" type="java.lang.String" value="Cancel&#xb7;lar"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EnrereTipusAulaMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CancelTipusAulaMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="AfegirTipusAula">

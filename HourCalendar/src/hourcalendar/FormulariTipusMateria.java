@@ -31,7 +31,7 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         AfegirTipusMateria = new javax.swing.JButton();
-        EnrereTipusAula = new javax.swing.JButton();
+        CancelTipusAula = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,11 +49,11 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
             }
         });
 
-        EnrereTipusAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        EnrereTipusAula.setText("Enrere");
-        EnrereTipusAula.addMouseListener(new java.awt.event.MouseAdapter() {
+        CancelTipusAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        CancelTipusAula.setText("Cancel·lar");
+        CancelTipusAula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EnrereTipusAulaMouseClicked(evt);
+                CancelTipusAulaMouseClicked(evt);
             }
         });
 
@@ -65,8 +65,8 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(EnrereTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(CancelTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +92,7 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AfegirTipusMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(EnrereTipusAula))
+                .addComponent(CancelTipusAula))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,9 +115,10 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AfegirTipusMateriaMouseClicked
 
-    private void EnrereTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnrereTipusAulaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EnrereTipusAulaMouseClicked
+    private void CancelTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelTipusAulaMouseClicked
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_CancelTipusAulaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -155,7 +156,7 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AfegirTipusMateria;
-    private javax.swing.JButton EnrereTipusAula;
+    private javax.swing.JButton CancelTipusAula;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel4;

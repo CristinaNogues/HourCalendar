@@ -50,6 +50,7 @@ public class Base {
         ModsCalendari.load();
         assignatures = new Vector<Assignatura>();
         graus = new Vector<Grau>();
+        loadState();
         //updateDisponibilitatHoraria(1, 2012);
         addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
                     25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
@@ -90,6 +91,10 @@ public class Base {
         return null;
     }
     
+    public void removeAssignatura(Assignatura assignatura) {
+        assignatures.removeElement(assignatura);
+    }
+    
     /** Afegeix o modifica una nova assignatura segons el codi d'assignatura.
      * @return boolean indica si s'ha afegit l'assignatura correctament, no s'afegirà si algun dels paràmetres no és l'esperat
      **/
@@ -106,6 +111,7 @@ public class Base {
                 //Afegint una nova assignatura
                 assignatures.add(assignatura);
             }
+            saveState();
             return true;
         } else {
             return false;
@@ -124,6 +130,7 @@ public class Base {
     public void addGrau(String nom, String codi) {
         Grau grau = new Grau(nom, codi);
         graus.add(grau);
+        saveState();
     }
     
     /** Retorna cert si existeix l'objecte grau al vector graus. **/
@@ -357,6 +364,48 @@ public class Base {
     public void informar(String msg) {
         String newLine = "<br>";
         informe = informe.concat(msg).concat(newLine);
+    }
+    
+    public void saveState() {
+        FileOutputStream fout;
+        //FileOutputStream fout2;
+        ObjectOutputStream oos;
+        try {
+            fout = new FileOutputStream("graus.ser");
+            //fout2 = new FileOutputStream("assignatures.ser");
+            try {
+                oos = new ObjectOutputStream(fout);
+                oos.writeObject(graus);
+                //oos = new ObjectOutputStream(fout2);
+                //oos.writeObject(assignatures);
+            } catch (IOException ex) {
+                Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void loadState() {
+        
+        FileInputStream fin;
+        ObjectInputStream ois;
+        try {
+            fin = new FileInputStream("graus.ser");
+            try {
+                ois = new ObjectInputStream(fin);
+                try {
+                    graus = (Vector<Grau>) ois.readObject();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static class ModsCalendari {

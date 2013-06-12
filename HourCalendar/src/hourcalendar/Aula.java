@@ -8,7 +8,7 @@ package hourcalendar;
  *
  * @author Daniel
  */
-public class Aula {
+public class Aula implements java.io.Serializable {
     
     private Base base;
     public int id;

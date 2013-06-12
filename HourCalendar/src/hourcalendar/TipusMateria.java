@@ -4,7 +4,7 @@
  */
 package hourcalendar;
 
-public class TipusMateria {
+public class TipusMateria implements java.io.Serializable {
     public int id;
     public String nom;
     

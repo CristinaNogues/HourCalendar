@@ -181,6 +181,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5.setOpaque(false);
 
         BotoCrear.setText("Crear");
+        BotoCrear.setOpaque(false);
         BotoCrear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BotoCrearMouseClicked(evt);
@@ -188,6 +189,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         BotoGenerarHorari.setText("Generar horari");
+        BotoGenerarHorari.setOpaque(false);
         BotoGenerarHorari.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BotoGenerarHorariMouseClicked(evt);

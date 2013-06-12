@@ -20,7 +20,7 @@ public class AssignaturaPane extends javax.swing.JPanel {
     public AssignaturaPane(Assignatura assignatura) {
         initComponents();
         this.assignatura = assignatura;
-        sigles.setText(assignatura.getNom().substring(0, 4));
+        sigles.setText(assignatura.getSigles());
         codi.setText(String.valueOf(assignatura.getCodi()));
         nom.setText(assignatura.getNom());
     }
@@ -38,6 +38,7 @@ public class AssignaturaPane extends javax.swing.JPanel {
         codi = new javax.swing.JLabel();
         editar = new javax.swing.JButton();
         nom = new javax.swing.JLabel();
+        eliminar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 10, 3, 10));
@@ -51,6 +52,7 @@ public class AssignaturaPane extends javax.swing.JPanel {
 
         editar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         editar.setText("Editar");
+        editar.setOpaque(false);
         editar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editarMouseClicked(evt);
@@ -59,6 +61,15 @@ public class AssignaturaPane extends javax.swing.JPanel {
 
         nom.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         nom.setText("PROJECTE DE PROGRAMACIÓ");
+
+        eliminar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        eliminar.setText("Eliminar");
+        eliminar.setOpaque(false);
+        eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eliminarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -69,8 +80,10 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nom, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nom, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editar))
         );
         layout.setVerticalGroup(
@@ -79,7 +92,8 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 .addComponent(sigles, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(editar)
-                .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(eliminar))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -91,9 +105,16 @@ public class AssignaturaPane extends javax.swing.JPanel {
         });
     }//GEN-LAST:event_editarMouseClicked
 
+    private void eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarMouseClicked
+        Base base = HourCalendar.getBase();
+        base.removeAssignatura(assignatura);
+        HourCalendar.getMainFrame().updateAssignatures();
+    }//GEN-LAST:event_eliminarMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codi;
     private javax.swing.JButton editar;
+    private javax.swing.JButton eliminar;
     private javax.swing.JLabel nom;
     private javax.swing.JLabel sigles;
     // End of variables declaration//GEN-END:variables

@@ -4,7 +4,7 @@
  */
 package hourcalendar;
 
-public class Grau {
+public class Grau implements java.io.Serializable {
     public String nom;
     public String codi;
 

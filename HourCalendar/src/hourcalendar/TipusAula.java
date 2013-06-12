@@ -8,7 +8,7 @@ package hourcalendar;
  *
  * @author Daniel
  */
-public class TipusAula {
+public class TipusAula implements java.io.Serializable {
     
     private Base base;
     public int id;

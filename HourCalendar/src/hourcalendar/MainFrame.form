@@ -199,6 +199,7 @@
                     <Component class="javax.swing.JButton" name="BotoCrear">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Crear"/>
+                        <Property name="opaque" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BotoCrearMouseClicked"/>
@@ -210,6 +211,7 @@
                     <Component class="javax.swing.JButton" name="BotoGenerarHorari">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Generar horari"/>
+                        <Property name="opaque" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BotoGenerarHorariMouseClicked"/>

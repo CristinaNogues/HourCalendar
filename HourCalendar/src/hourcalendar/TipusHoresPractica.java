@@ -4,7 +4,7 @@
  */
 package hourcalendar;
 
-public class TipusHoresPractica {
+public class TipusHoresPractica implements java.io.Serializable {
     public int id;
     public String nom;
     

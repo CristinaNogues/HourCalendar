@@ -8,7 +8,7 @@ package hourcalendar;
  *
  * @author asus
  */
-public class Assignatura {
+public class Assignatura implements java.io.Serializable {
     private Base base;
     public Grau grau;
     public String nom;
@@ -65,6 +65,10 @@ public class Assignatura {
     
     public int getGrups() {
         return grups;
+    }
+    
+    public Grau getGrau() {
+        return grau;
     }
     
     public TipusMateria getTipus() {

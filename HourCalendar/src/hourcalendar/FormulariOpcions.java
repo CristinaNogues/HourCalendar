@@ -5,15 +5,19 @@
 package hourcalendar;
 
 import hourcalendar.Base.Regles;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author admin
  */
 public class FormulariOpcions extends javax.swing.JFrame {
+    static javax.swing.JFrame frameCalendari;
 
     /**
      * Creates new form FormulariOpcions
@@ -51,12 +55,16 @@ public class FormulariOpcions extends javax.swing.JFrame {
         prioritzar = new javax.swing.JCheckBox();
         iteracions = new javax.swing.JTextField();
         textIteracions = new javax.swing.JLabel();
-        BotoAceptar = new javax.swing.JButton();
+        BotoGenerar = new javax.swing.JButton();
         BotoCancelar = new javax.swing.JButton();
         quadrimestre = new javax.swing.JComboBox();
         textQuadrimestre = new javax.swing.JLabel();
         textConvocatoria = new javax.swing.JLabel();
         convocatoria = new javax.swing.JComboBox();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        BotoModificarCalendari = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Opcions");
@@ -90,11 +98,16 @@ public class FormulariOpcions extends javax.swing.JFrame {
         textIteracions.setText("jLabel1");
         textIteracions.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        BotoAceptar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        BotoAceptar.setText("Aceptar");
-        BotoAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+        BotoGenerar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        BotoGenerar.setText("Generar");
+        BotoGenerar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotoAceptarMouseClicked(evt);
+                BotoGenerarMouseClicked(evt);
+            }
+        });
+        BotoGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotoGenerarActionPerformed(evt);
             }
         });
 
@@ -120,6 +133,41 @@ public class FormulariOpcions extends javax.swing.JFrame {
         convocatoria.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         convocatoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012 - 2013" }));
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Disponibilitat Horària"));
+
+        jScrollPane1.setBorder(null);
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Dilluns: 14 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]\nDimarts: 13 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]\nDimecres: 14 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]\nDijous: 15 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]\nDivendres: 14 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]");
+        jTextArea1.setBorder(null);
+        jTextArea1.setOpaque(false);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        BotoModificarCalendari.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        BotoModificarCalendari.setText("Modificar Calendari!");
+        BotoModificarCalendari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoModificarCalendariMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,11 +175,13 @@ public class FormulariOpcions extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 218, Short.MAX_VALUE)
+                        .addComponent(BotoModificarCalendari)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotoCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotoAceptar))
+                        .addComponent(BotoGenerar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(convocatoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -169,13 +219,14 @@ public class FormulariOpcions extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textIteracions, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(iteracions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(iteracions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotoAceptar)
-                    .addComponent(BotoCancelar))
+                    .addComponent(BotoGenerar)
+                    .addComponent(BotoCancelar)
+                    .addComponent(BotoModificarCalendari))
                 .addContainerGap())
         );
 
@@ -186,7 +237,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
 
     }//GEN-LAST:event_solaparPropertyChange
 
-    private void BotoAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoAceptarMouseClicked
+    private void BotoGenerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoGenerarMouseClicked
         // TODO add your handling code here:
         Regles.SOLAPAR_HORES_PRACTICA.set(solapar.isSelected());
         Regles.ASSIGNAR_HORES_RESTANTS.set(assignar.isSelected());
@@ -195,9 +246,19 @@ public class FormulariOpcions extends javax.swing.JFrame {
         Regles.QUADRIMESTRE.set(quadrimestre.getSelectedIndex() + 1);
         Regles.CONVOCATORIA.set(convocatoria.getSelectedIndex() + 1);
         
+        //Mostrem el control de progrés
+        Base base = HourCalendar.getBase();
+        MainFrame mainFrame = HourCalendar.getMainFrame();
+        mainFrame.controlProgres.setVisible(true);
+        System.out.println("START UPDATE");
+        base.updateDisponibilitatHoraria(2, 2013);
+        System.out.println("END UPDATE");
+        mainFrame.controlProgres.startControl();
+        
+        //ocultem el formulari d'opcions
         setVisible(false);
         dispose();
-    }//GEN-LAST:event_BotoAceptarMouseClicked
+    }//GEN-LAST:event_BotoGenerarMouseClicked
 
     private void BotoCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoCancelarMouseClicked
         // TODO add your handling code here:
@@ -205,13 +266,39 @@ public class FormulariOpcions extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_BotoCancelarMouseClicked
 
+    private void BotoGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotoGenerarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotoGenerarActionPerformed
+
+    private void BotoModificarCalendariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoModificarCalendariMouseClicked
+        SwingUtilities.invokeLater(new Runnable() { 
+			@Override
+			public void run() {
+				SelectorDiesDocencia selectorDiesDocencia = new SelectorDiesDocencia();
+				frameCalendari = new JFrame();
+				frameCalendari.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				Container panel = frameCalendari.getContentPane();
+				panel.setLayout(new BorderLayout());
+				panel.add(selectorDiesDocencia, BorderLayout.CENTER);
+				frameCalendari.pack();
+				frameCalendari.setSize(441, 234);    //(435,206);
+                frameCalendari.setResizable(false);
+				frameCalendari.setVisible(true);
+			}
+		});
+    }//GEN-LAST:event_BotoModificarCalendariMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotoAceptar;
     private javax.swing.JButton BotoCancelar;
+    private javax.swing.JButton BotoGenerar;
+    private javax.swing.JButton BotoModificarCalendari;
     private javax.swing.JCheckBox assignar;
     private javax.swing.JComboBox convocatoria;
     private javax.swing.JTextField iteracions;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JCheckBox prioritzar;
     private javax.swing.JComboBox quadrimestre;
     private javax.swing.JCheckBox solapar;

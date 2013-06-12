@@ -412,7 +412,7 @@ public class DisponibilitatHoraria implements Cloneable {
             this.grupAsText = this.grupAsText.concat(String.valueOf((int) 5 + ((int) this.grup / 5)));
             if (this.grup != 0) this.grupAsText = this.grupAsText.concat(digitsGrup[this.grup % 4]);    //concat("1").concat(String.valueOf(this.grup));
             //set nom
-            this.nom = assignatura.getNom();
+            this.nom = assignatura.getSigles();  //getNom();
         }
 
         public static int getCodi(String codiCompacte) {

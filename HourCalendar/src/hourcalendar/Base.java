@@ -51,17 +51,17 @@ public class Base {
         //updateDisponibilitatHoraria(1, 2012);
         addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
                     25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
-            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "XACO", 340356, new TipusMateria(1, "ABC"),
+            addAssignatura(new Grau("Informatica", "01"), "XARXES DE COMPUTADORS", "XACO", 340356, new TipusMateria(1, "ABC"),
                     25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "ESIN", 300000, new TipusMateria(1, "ABC"),
+            addAssignatura(new Grau("Informatica", "01"), "ESTRUCTURA DE LA INFORMACIÓ", "ESIN", 300000, new TipusMateria(1, "ABC"),
                     25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 8, "I");
-            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "XAMU", 370251, new TipusMateria(1, "ABC"),
+            addAssignatura(new Grau("Informatica", "01"), "XARXES MULTIMÈDIA", "XAMU", 370251, new TipusMateria(1, "ABC"),
                     25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "EMPR", 670200, new TipusMateria(1, "ABC"),
+            addAssignatura(new Grau("Informatica", "01"), "EMPRESA", "EMPR", 670200, new TipusMateria(1, "ABC"),
                     25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0, "I");
-            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "SOST", 370001, new TipusMateria(1, "ABC"),
+            addAssignatura(new Grau("Informatica", "01"), "SOSTENIBILITAT", "SOST", 370001, new TipusMateria(1, "ABC"),
                     25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "PTIN", 555555, new TipusMateria(1, "ABC"),
+            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE TECNOLOGIES DE LA INFORMACIÓ", "PTIN", 555555, new TipusMateria(1, "ABC"),
                     25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
         
     }

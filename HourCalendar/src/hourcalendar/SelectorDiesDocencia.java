@@ -47,7 +47,9 @@ import com.javaswingcomponents.calendar.plaf.darksteel.DarkSteelMonthAndYearPane
 import com.javaswingcomponents.calendar.plaf.steel.SteelCellPanel;
 import com.javaswingcomponents.framework.graphics.GraphicsUtilities;
 import com.javaswingcomponents.framework.painters.configurationbound.BlankPainter;
+import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.FileInputStream;
@@ -72,6 +74,8 @@ public class SelectorDiesDocencia extends JPanel{
     }
 
 	public SelectorDiesDocencia() {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		_calendar = howToCreateACalendar();
         _calendar.setCalendarSelection(JSCCalendar.CalendarSelection.MULTIPLE_SELECTION);
 		howToChangeTheLookAndFeel(_calendar);

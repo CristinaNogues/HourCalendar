@@ -4,19 +4,24 @@
  */
 package hourcalendar;
 
+import com.sun.java.swing.plaf.windows.WindowsTabbedPaneUI;
+import com.sun.java.swing.plaf.windows.WindowsTableHeaderUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.util.Vector;
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 /**
  *
@@ -26,6 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
     static javax.swing.JFrame frameCalendari;
     public JPanel ContentPane;
     public ControlProgres controlProgres;
+    public boolean showTabsHeader = false;
     /**
      * Creates new form MainFrame
      */
@@ -40,11 +46,32 @@ public class MainFrame extends javax.swing.JFrame {
         ContentPane = new JPanel();
         ContentPane.setLayout(new GridBagLayout());
         ContentPane.setPreferredSize(new Dimension(Contenidor.getWidth(), Contenidor.getHeight()));
-        ContentPane.setBackground(Color.YELLOW);
+        //ContentPane.setBackground(Color.YELLOW);
         JLabel label = new JLabel("");
         ContentPane.add(label);
         Contenidor.setViewportView(ContentPane);
-        Contenidor.setBackground(Color.YELLOW);
+        //Contenidor.setBackground(Color.YELLOW);
+        //Contenidor.setVisible(false);
+        
+        TabbedPane.setUI(new WindowsTabbedPaneUI() {
+			@Override
+			protected int calculateTabAreaHeight(int tabPlacement, int horizRunCount, int maxTabHeight) {
+                HourCalendar.getBase().dbgUI("CALCULATETABAREAHEIGHT".concat(String.valueOf(tabPlacement)).concat(" - ").concat(String.valueOf(horizRunCount)));
+				if (showTabsHeader) {
+					return super.calculateTabAreaHeight(tabPlacement, horizRunCount, maxTabHeight);
+				} else {
+					return 0;
+				}
+			}
+            @Override
+            protected void paintTab(Graphics g, int tabPlacement, Rectangle[] rects, int tabIndex, Rectangle iconRect, Rectangle textRect) {
+                if (showTabsHeader) {
+                    super.paintTab(g, tabPlacement, rects, tabIndex, iconRect, textRect);
+                }
+            }
+
+		});
+
         
         //Contenidor.setLayout(new GridLayout(3,1));
         updateAssignatures();
@@ -80,18 +107,17 @@ public class MainFrame extends javax.swing.JFrame {
         CrearTipusAula = new javax.swing.JMenuItem();
         CrearTipusMateria = new javax.swing.JMenuItem();
         CrearAula = new javax.swing.JMenuItem();
-        jToolBar1 = new javax.swing.JToolBar();
-        BotoCalendari = new javax.swing.JButton();
-        BotoGenerarHorari = new javax.swing.JButton();
-        BotoOpcions = new javax.swing.JButton();
         TabbedPane = new javax.swing.JTabbedPane();
-        Contenidor = new javax.swing.JScrollPane();
         TabAssignatures = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         BotoCrear = new javax.swing.JButton();
+        BotoGenerarHorari = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         PanellAssignatures = new javax.swing.JPanel();
+        Contenidor = new javax.swing.JScrollPane();
+        TabInforme = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
 
         PopupCrear.setBackground(new java.awt.Color(255, 51, 51));
         PopupCrear.setInvoker(BotoCrear);
@@ -142,65 +168,9 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("HourCalendar");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jToolBar1.setRollover(true);
-
-        BotoCalendari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/calendar2.png"))); // NOI18N
-        BotoCalendari.setToolTipText("Editar el calendari de dies amb docència");
-        BotoCalendari.setFocusable(false);
-        BotoCalendari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BotoCalendari.setMaximumSize(new java.awt.Dimension(36, 32));
-        BotoCalendari.setMinimumSize(new java.awt.Dimension(32, 32));
-        BotoCalendari.setName(""); // NOI18N
-        BotoCalendari.setPreferredSize(new java.awt.Dimension(32, 32));
-        BotoCalendari.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        BotoCalendari.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotoCalendariMouseClicked(evt);
-            }
-        });
-        jToolBar1.add(BotoCalendari);
-
-        BotoGenerarHorari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/generar.png"))); // NOI18N
-        BotoGenerarHorari.setToolTipText("Generar totes les configuracions horàries pertinents segons les preferències");
-        BotoGenerarHorari.setFocusable(false);
-        BotoGenerarHorari.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BotoGenerarHorari.setMargin(new java.awt.Insets(2, 30, 2, 30));
-        BotoGenerarHorari.setMaximumSize(new java.awt.Dimension(36, 32));
-        BotoGenerarHorari.setMinimumSize(new java.awt.Dimension(32, 32));
-        BotoGenerarHorari.setPreferredSize(new java.awt.Dimension(32, 32));
-        BotoGenerarHorari.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        BotoGenerarHorari.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotoGenerarHorariMouseClicked(evt);
-            }
-        });
-        jToolBar1.add(BotoGenerarHorari);
-
-        BotoOpcions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/options.png"))); // NOI18N
-        BotoOpcions.setToolTipText("Editar preferències");
-        BotoOpcions.setFocusable(false);
-        BotoOpcions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BotoOpcions.setMaximumSize(new java.awt.Dimension(36, 32));
-        BotoOpcions.setMinimumSize(new java.awt.Dimension(32, 32));
-        BotoOpcions.setPreferredSize(new java.awt.Dimension(32, 32));
-        BotoOpcions.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        BotoOpcions.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotoOpcionsMouseClicked(evt);
-            }
-        });
-        jToolBar1.add(BotoOpcions);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        getContentPane().add(jToolBar1, gridBagConstraints);
-
         TabbedPane.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        TabbedPane.addTab("Horari generat", Contenidor);
 
+        TabAssignatures.setBorder(null);
         TabAssignatures.setPreferredSize(new java.awt.Dimension(400, 300));
 
         BotoCrear.setText("Crear");
@@ -210,17 +180,28 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        BotoGenerarHorari.setText("Generar horari");
+        BotoGenerarHorari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoGenerarHorariMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(404, Short.MAX_VALUE)
-                .addComponent(BotoCrear))
+                .addContainerGap(242, Short.MAX_VALUE)
+                .addComponent(BotoCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BotoGenerarHorari))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BotoCrear)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(BotoCrear)
+                .addComponent(BotoGenerarHorari))
         );
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -253,13 +234,27 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanellAssignatures, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(PanellAssignatures, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         TabAssignatures.setViewportView(jPanel4);
 
         TabbedPane.addTab("Assignatures", TabAssignatures);
+
+        Contenidor.setBorder(null);
+        TabbedPane.addTab("Horari generat", Contenidor);
+
+        TabInforme.setBorder(null);
+
+        jEditorPane1.setEditable(false);
+        jEditorPane1.setBorder(null);
+        jEditorPane1.setContentType("text/html"); // NOI18N
+        jEditorPane1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jEditorPane1.setOpaque(false);
+        TabInforme.setViewportView(jEditorPane1);
+
+        TabbedPane.addTab("Informe de resultats", TabInforme);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -271,44 +266,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BotoCalendariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoCalendariMouseClicked
-        // TODO add your handling code here:
-        SwingUtilities.invokeLater(new Runnable() { 
-			@Override
-			public void run() {
-				SelectorDiesDocencia selectorDiesDocencia = new SelectorDiesDocencia();
-				frameCalendari = new JFrame();
-				frameCalendari.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				Container panel = frameCalendari.getContentPane();
-				panel.setLayout(new BorderLayout());
-				panel.add(selectorDiesDocencia, BorderLayout.CENTER);
-				frameCalendari.pack();
-				frameCalendari.setSize(441, 234);    //(435,206);
-                frameCalendari.setResizable(false);
-				frameCalendari.setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_BotoCalendariMouseClicked
-
-    private void BotoGenerarHorariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoGenerarHorariMouseClicked
-        // TODO add your handling code here:
-        Base base = HourCalendar.getBase();
-        controlProgres.setVisible(true);
-        System.out.println("START UPDATE");
-        base.updateDisponibilitatHoraria(2, 2013);
-        System.out.println("END UPDATE");
-        controlProgres.startControl();
-    }//GEN-LAST:event_BotoGenerarHorariMouseClicked
-
-    private void BotoOpcionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoOpcionsMouseClicked
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormulariOpcions().setVisible(true);
-            }
-        });
-    }//GEN-LAST:event_BotoOpcionsMouseClicked
 
     private void CrearAssignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearAssignaturaActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -355,6 +312,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_CrearAulaActionPerformed
 
+    private void BotoGenerarHorariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoGenerarHorariMouseClicked
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormulariOpcions().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_BotoGenerarHorariMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -384,10 +349,8 @@ public class MainFrame extends javax.swing.JFrame {
         
     }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotoCalendari;
     public javax.swing.JButton BotoCrear;
     private javax.swing.JButton BotoGenerarHorari;
-    private javax.swing.JButton BotoOpcions;
     public javax.swing.JScrollPane Contenidor;
     private javax.swing.JMenuItem CrearAssignatura;
     private javax.swing.JMenuItem CrearAula;
@@ -397,10 +360,11 @@ public class MainFrame extends javax.swing.JFrame {
     public javax.swing.JPanel PanellAssignatures;
     public javax.swing.JPopupMenu PopupCrear;
     public javax.swing.JScrollPane TabAssignatures;
+    private javax.swing.JScrollPane TabInforme;
     public javax.swing.JTabbedPane TabbedPane;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

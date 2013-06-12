@@ -144,6 +144,11 @@ c.weightx = 0.0;
 c.gridwidth = 3;
 c.gridx = 0;
 c.gridy = 1;*/
+        //HourCalendar.getMainFrame().Contenidor.setVisible(true);
+        HourCalendar.getMainFrame().showTabsHeader = true;
+        HourCalendar.getMainFrame().TabbedPane.setSelectedIndex(1);
+        HourCalendar.getMainFrame().revalidate();
+        HourCalendar.getMainFrame().repaint();
         //constraints.gridheight = GridBagConstraints.
         //constraints.weightx = 1.0; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         //Inserim instancies de PanellHorari per a cada disponibilitat

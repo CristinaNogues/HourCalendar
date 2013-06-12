@@ -55,6 +55,10 @@ public class Assignatura {
         return nom;
     }
     
+    public String getSigles() {
+        return sigles;
+    }
+    
     public int getCodi() {
         return codi;
     }

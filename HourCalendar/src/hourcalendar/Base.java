@@ -49,6 +49,7 @@ public class Base {
         setmanaOrdreQ2 = new Vector<Integer>();
         ModsCalendari.load();
         assignatures = new Vector<Assignatura>();
+        graus = new Vector<Grau>();
         //updateDisponibilitatHoraria(1, 2012);
         addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
                     25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
@@ -128,6 +129,10 @@ public class Base {
     /** Retorna cert si existeix l'objecte grau al vector graus. **/
     public boolean hasGrau(Grau grau) {
         return graus.contains(grau);
+    }
+    
+    public int getIndexOfGrau(Grau grau) {
+        return graus.indexOf(grau);
     }
     
     /** Retorna cert si existeix l'objecte TipusHoresPractica al vector tipusHoresPractiques. **/

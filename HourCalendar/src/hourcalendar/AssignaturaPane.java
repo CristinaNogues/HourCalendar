@@ -51,6 +51,11 @@ public class AssignaturaPane extends javax.swing.JPanel {
 
         editar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         editar.setText("Editar");
+        editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editarMouseClicked(evt);
+            }
+        });
 
         nom.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         nom.setText("PROJECTE DE PROGRAMACIÓ");
@@ -77,6 +82,15 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseClicked
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormulariAssignatura(assignatura).setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_editarMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codi;
     private javax.swing.JButton editar;

@@ -63,6 +63,10 @@ public class Assignatura {
         return codi;
     }
     
+    public int getGrups() {
+        return grups;
+    }
+    
     public TipusMateria getTipus() {
         return tipus;
     }

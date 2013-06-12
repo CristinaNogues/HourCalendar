@@ -12,6 +12,7 @@ public class Assignatura {
     private Base base;
     public Grau grau;
     public String nom;
+    public String sigles;
     public int codi;
     public TipusMateria tipus;
     public int alumnes;
@@ -24,10 +25,11 @@ public class Assignatura {
     public boolean esValida = true;
     
     
-    public Assignatura(Base _base, Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups, String _inicial) {
+    public Assignatura(Base _base, Grau _grau, String _nom, String _sigles, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups, String _inicial) {
         base = _base;
         grau = _grau;
         nom = _nom;
+        sigles = _sigles;
         codi = _codi;
         tipus = _tipus;
         alumnes = _alumnes;

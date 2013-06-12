@@ -4,6 +4,8 @@
  */
 package hourcalendar;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Daniel
@@ -15,6 +17,7 @@ public class FormulariTipusAula extends javax.swing.JFrame {
      */
     public FormulariTipusAula() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

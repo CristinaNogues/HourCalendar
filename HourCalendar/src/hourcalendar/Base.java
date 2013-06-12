@@ -49,6 +49,20 @@ public class Base {
         ModsCalendari.load();
         assignatures = new Vector<Assignatura>();
         //updateDisponibilitatHoraria(1, 2012);
+        addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
+                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
+            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "XACO", 340356, new TipusMateria(1, "ABC"),
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
+            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "ESIN", 300000, new TipusMateria(1, "ABC"),
+                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 8, "I");
+            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "XAMU", 370251, new TipusMateria(1, "ABC"),
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
+            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "EMPR", 670200, new TipusMateria(1, "ABC"),
+                    25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0, "I");
+            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "SOST", 370001, new TipusMateria(1, "ABC"),
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
+            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "PTIN", 555555, new TipusMateria(1, "ABC"),
+                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
         
     }
     
@@ -77,9 +91,9 @@ public class Base {
     /** Afegeix o modifica una nova assignatura segons el codi d'assignatura.
      * @return boolean indica si s'ha afegit l'assignatura correctament, no s'afegirà si algun dels paràmetres no és l'esperat
      **/
-    public boolean addAssignatura(Grau _grau, String _nom, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups, String _inicial) {
+    public boolean addAssignatura(Grau _grau, String _nom, String _sigles, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups, String _inicial) {
         
-        Assignatura assignatura = new Assignatura(this, _grau, _nom, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups, _inicial);
+        Assignatura assignatura = new Assignatura(this, _grau, _nom, _sigles, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups, _inicial);
         
         if (assignatura.esValida()) {
             Assignatura aux = getAssignatura(_codi);
@@ -230,20 +244,7 @@ public class Base {
         disponibilitatsHoraries.add(disponibilitat);
         int horesDesquadrades = 0;
         //try {
-            addAssignatura(new Grau("Informatica", "01"), "PROP", 340380, new TipusMateria(1, "ABC"),
-                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
-            addAssignatura(new Grau("Informatica", "01"), "XACO", 340356, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "ESIN", 300000, new TipusMateria(1, "ABC"),
-                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 8, "I");
-            addAssignatura(new Grau("Informatica", "01"), "XAMU", 370251, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "EMPR", 670200, new TipusMateria(1, "ABC"),
-                    25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0, "I");
-            addAssignatura(new Grau("Informatica", "01"), "SOST", 370001, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "PTIN", 555555, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
+            
             //addAssignatura(new Grau("Informatica", "01"), "FISI", 205555, new TipusMateria(1, "ABC"),
             //        25, 2, 20, 40, new TipusHoresPractica(5, "Laboratori Informàtica"), 1);
             /*//PROP

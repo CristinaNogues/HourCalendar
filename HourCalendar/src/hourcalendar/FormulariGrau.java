@@ -4,6 +4,8 @@
  */
 package hourcalendar;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Cristina
@@ -15,6 +17,7 @@ public class FormulariGrau extends javax.swing.JFrame {
      */
     public FormulariGrau() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

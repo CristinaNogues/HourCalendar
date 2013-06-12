@@ -12,6 +12,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Vector;
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,6 +47,21 @@ public class MainFrame extends javax.swing.JFrame {
         Contenidor.setBackground(Color.YELLOW);
         
         //Contenidor.setLayout(new GridLayout(3,1));
+        updateAssignatures();
+    }
+    
+    public void updateAssignatures() {
+        PanellAssignatures.removeAll();
+        Base base = HourCalendar.getBase();
+        for (int i = base.getNumAssignatures(); --i >= 0;) {
+            AssignaturaPane a = new AssignaturaPane(base.getAssignaturaAt(i));  
+            a.setSize(300,50);  
+            a.setVisible(true);  
+            PanellAssignatures.add(a);
+            PanellAssignatures.add(Box.createRigidArea(new Dimension(0,3)));
+        }
+        PanellAssignatures.revalidate();
+        PanellAssignatures.repaint();
     }
 
     /**
@@ -58,11 +74,69 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        PopupCrear = new javax.swing.JPopupMenu();
+        CrearAssignatura = new javax.swing.JMenuItem();
+        CrearGrau = new javax.swing.JMenuItem();
+        CrearTipusAula = new javax.swing.JMenuItem();
+        CrearTipusMateria = new javax.swing.JMenuItem();
+        CrearAula = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
         BotoCalendari = new javax.swing.JButton();
         BotoGenerarHorari = new javax.swing.JButton();
         BotoOpcions = new javax.swing.JButton();
+        TabbedPane = new javax.swing.JTabbedPane();
         Contenidor = new javax.swing.JScrollPane();
+        TabAssignatures = new javax.swing.JScrollPane();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        BotoCrear = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        PanellAssignatures = new javax.swing.JPanel();
+
+        PopupCrear.setBackground(new java.awt.Color(255, 51, 51));
+        PopupCrear.setInvoker(BotoCrear);
+        PopupCrear.setLabel("asdasd");
+        PopupCrear.setMinimumSize(new java.awt.Dimension(100, 50));
+
+        CrearAssignatura.setText("Assignatura");
+        CrearAssignatura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearAssignaturaActionPerformed(evt);
+            }
+        });
+        PopupCrear.add(CrearAssignatura);
+
+        CrearGrau.setText("Grau");
+        CrearGrau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearGrauActionPerformed(evt);
+            }
+        });
+        PopupCrear.add(CrearGrau);
+
+        CrearTipusAula.setText("Tipus d'aula");
+        CrearTipusAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearTipusAulaActionPerformed(evt);
+            }
+        });
+        PopupCrear.add(CrearTipusAula);
+
+        CrearTipusMateria.setText("Tipus de matèria");
+        CrearTipusMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearTipusMateriaActionPerformed(evt);
+            }
+        });
+        PopupCrear.add(CrearTipusMateria);
+
+        CrearAula.setText("Aula");
+        CrearAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearAulaActionPerformed(evt);
+            }
+        });
+        PopupCrear.add(CrearAula);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HourCalendar");
@@ -124,25 +198,76 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         getContentPane().add(jToolBar1, gridBagConstraints);
 
-        Contenidor.setBackground(new java.awt.Color(255, 153, 153));
-        Contenidor.setBorder(null);
-        Contenidor.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        Contenidor.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        Contenidor.setMinimumSize(new java.awt.Dimension(200, 200));
-        Contenidor.setPreferredSize(new java.awt.Dimension(300, 300));
-        Contenidor.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                ContenidorComponentResized(evt);
+        TabbedPane.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        TabbedPane.addTab("Horari generat", Contenidor);
+
+        TabAssignatures.setPreferredSize(new java.awt.Dimension(400, 300));
+
+        BotoCrear.setText("Crear");
+        BotoCrear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoCrearMouseClicked(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(404, Short.MAX_VALUE)
+                .addComponent(BotoCrear))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BotoCrear)
+        );
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setText("Assignatures:");
+
+        PanellAssignatures.setBackground(new java.awt.Color(255, 255, 204));
+        PanellAssignatures.setOpaque(false);
+        PanellAssignatures.setLayout(new javax.swing.BoxLayout(PanellAssignatures, javax.swing.BoxLayout.PAGE_AXIS));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanellAssignatures, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanellAssignatures, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        TabAssignatures.setViewportView(jPanel4);
+
+        TabbedPane.addTab("Assignatures", TabAssignatures);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        getContentPane().add(Contenidor, gridBagConstraints);
+        getContentPane().add(TabbedPane, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,13 +310,50 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_BotoOpcionsMouseClicked
 
-    private void ContenidorComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ContenidorComponentResized
+    private void CrearAssignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearAssignaturaActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormulariAssignatura().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_CrearAssignaturaActionPerformed
+
+    private void BotoCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoCrearMouseClicked
         // TODO add your handling code here:
-        Base.dbgUI("CONTENIDOR COMPONENT RESIZED!".concat(String.valueOf(ContentPane.getComponentCount())).concat(String.valueOf(Contenidor.getHeight())));
-        ContentPane.setPreferredSize(new Dimension(Contenidor.getWidth(), (ContentPane.getComponentCount() == 1) ? Contenidor.getHeight() : ContentPane.getHeight()));
-        ContentPane.revalidate();
-        ContentPane.repaint();
-    }//GEN-LAST:event_ContenidorComponentResized
+        PopupCrear.show(BotoCrear, 0, BotoCrear.getHeight());
+    }//GEN-LAST:event_BotoCrearMouseClicked
+
+    private void CrearGrauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearGrauActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormulariGrau().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_CrearGrauActionPerformed
+
+    private void CrearTipusAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearTipusAulaActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormulariTipusAula().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_CrearTipusAulaActionPerformed
+
+    private void CrearTipusMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearTipusMateriaActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormulariTipusMateria().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_CrearTipusMateriaActionPerformed
+
+    private void CrearAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearAulaActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormulariAula().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_CrearAulaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,9 +385,22 @@ public class MainFrame extends javax.swing.JFrame {
     }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotoCalendari;
+    public javax.swing.JButton BotoCrear;
     private javax.swing.JButton BotoGenerarHorari;
     private javax.swing.JButton BotoOpcions;
     public javax.swing.JScrollPane Contenidor;
+    private javax.swing.JMenuItem CrearAssignatura;
+    private javax.swing.JMenuItem CrearAula;
+    private javax.swing.JMenuItem CrearGrau;
+    private javax.swing.JMenuItem CrearTipusAula;
+    private javax.swing.JMenuItem CrearTipusMateria;
+    public javax.swing.JPanel PanellAssignatures;
+    public javax.swing.JPopupMenu PopupCrear;
+    public javax.swing.JScrollPane TabAssignatures;
+    public javax.swing.JTabbedPane TabbedPane;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

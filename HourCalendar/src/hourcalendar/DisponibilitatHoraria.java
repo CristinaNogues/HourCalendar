@@ -203,6 +203,20 @@ public class DisponibilitatHoraria implements Cloneable {
         return (horesOrdreActual >= 0) ? horesOrdreActual + ocupacioActual : ocupacioActual + (horesOrdreActual * -1);
     }
 
+    public String toHTML() {
+        StringBuilder result = new StringBuilder();
+        String newLine = "<br>";
+        String[] nomDia = {"", "", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres"};
+
+        for (int i = 2; i < 7; ++i) {
+            result.append(nomDia[i].concat(": "));
+            result.append(disponibilitat.get(i).toHTML());
+            if (i != 6) result.append(newLine);
+        }
+
+        return result.toString();
+    }
+    
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -304,6 +318,37 @@ public class DisponibilitatHoraria implements Cloneable {
             return numClassesRepresentables - ((300 * numClassesDuplicadesExactes) + (10 * numClassesDuplicades));
         }
 
+        public String toHTML() {
+            StringBuilder result = new StringBuilder();
+            String newLine = "<br>";
+            
+            result.append(getDies());
+            result.append(" dies [");
+            result.append(getDies(0));
+            result.append(" :s11, ");
+            result.append(getDies(1));
+            result.append(" :s21, ");
+            result.append(getDies(2));
+            result.append(" :s12, ");
+            result.append(getDies(3));
+            result.append(" :s22]");
+            /*int numClassesOcupades = 0;
+            for (int ordre = 0; ordre <= 3; ++ordre) {
+                Vector<String> reserves = ocupacio.get(ordre);
+                if (reserves.size() > numClassesOcupades)
+                    numClassesOcupades = reserves.size();
+                
+                for (int i = 0; i < reserves.size(); ++i) {
+                    //int codi = Reserva.getCodi(reserves.get(i));
+                    result.append("\t".concat(reserves.get(i)).concat(" S").concat(String.valueOf(ordre)));
+                    result.append( newLine );
+                }
+                
+            }*/
+
+            return result.toString();
+        }
+        
         @Override
         public String toString() {
             StringBuilder result = new StringBuilder();

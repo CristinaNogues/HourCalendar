@@ -147,6 +147,7 @@ c.gridy = 1;*/
         //HourCalendar.getMainFrame().Contenidor.setVisible(true);
         HourCalendar.getMainFrame().showTabsHeader = true;
         HourCalendar.getMainFrame().TabbedPane.setSelectedIndex(1);
+        HourCalendar.getMainFrame().Informe.setText("<html><body style=\"font-family: Verdana,Tahoma,sans-serif; font-size: 10px;\">".concat(base.informe).concat("</body></html>"));
         HourCalendar.getMainFrame().revalidate();
         HourCalendar.getMainFrame().repaint();
         //constraints.gridheight = GridBagConstraints.

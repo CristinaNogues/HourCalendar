@@ -166,7 +166,7 @@ public class HoresRepresentables {
         }
         
         public String toString() {
-            String nom = HourCalendar.getBase().getAssignatura(codiAssignatura).getNom();
+            String nom = HourCalendar.getBase().getAssignatura(codiAssignatura).getSigles();
             
             String aula = (this.tipusAula == 0) ? "AULA" : "LAB";
             return nom.concat(" ").concat(aula).concat(" ").concat(this.grupAsText).concat(" ").concat(getOrdreAsString());

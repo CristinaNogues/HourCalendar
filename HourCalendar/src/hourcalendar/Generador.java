@@ -105,6 +105,7 @@ public class Generador extends SwingWorker<String, Object> {
                 Logger.getLogger(Generador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        base.informar(millorDisponibilitat.toHTML());
         finalitzat = true;
     }
     

@@ -39,6 +39,8 @@ public class FormulariOpcions extends javax.swing.JFrame {
         textQuadrimestre.setText(String.valueOf(Regles.QUADRIMESTRE.getMissatge()));
         convocatoria.setSelectedIndex(Regles.CONVOCATORIA.getInt() - 1);
         textConvocatoria.setText(String.valueOf(Regles.CONVOCATORIA.getMissatge()));
+        
+        HourCalendar.getBase().updateDisponibilitatHoraria();
     }
 
     /**
@@ -62,8 +64,8 @@ public class FormulariOpcions extends javax.swing.JFrame {
         textConvocatoria = new javax.swing.JLabel();
         convocatoria = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        DisponibilitatsHoraries = new javax.swing.JEditorPane();
         BotoModificarCalendari = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,6 +123,11 @@ public class FormulariOpcions extends javax.swing.JFrame {
 
         quadrimestre.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         quadrimestre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Q1", "Q2" }));
+        quadrimestre.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                quadrimestrePropertyChange(evt);
+            }
+        });
 
         textQuadrimestre.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         textQuadrimestre.setText("jLabel1");
@@ -132,32 +139,35 @@ public class FormulariOpcions extends javax.swing.JFrame {
 
         convocatoria.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         convocatoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012 - 2013" }));
+        convocatoria.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                convocatoriaPropertyChange(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Disponibilitat Horària"));
 
-        jScrollPane1.setBorder(null);
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setOpaque(false);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Dilluns: 14 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]\nDimarts: 13 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]\nDimecres: 14 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]\nDijous: 15 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]\nDivendres: 14 dies [4 :s11, 4 :s21, 3 :s12, 4 :s22]");
-        jTextArea1.setBorder(null);
-        jTextArea1.setOpaque(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        DisponibilitatsHoraries.setBorder(null);
+        DisponibilitatsHoraries.setContentType("text/html"); // NOI18N
+        DisponibilitatsHoraries.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        DisponibilitatsHoraries.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r\n    <p style=\"margin-top: 0\">\r\n      \r-- output --\n    </p>\r\n  </body>\r\n</html>\r\n");
+        DisponibilitatsHoraries.setOpaque(false);
+        jScrollPane2.setViewportView(DisponibilitatsHoraries);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
         BotoModificarCalendari.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
@@ -188,7 +198,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
                             .addComponent(quadrimestre, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textQuadrimestre, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                            .addComponent(textQuadrimestre, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                             .addComponent(textConvocatoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(prioritzar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(assignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -196,7 +206,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(iteracions)
                         .addGap(10, 10, 10)
-                        .addComponent(textIteracions, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))
+                        .addComponent(textIteracions, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -234,7 +244,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void solaparPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_solaparPropertyChange
-
+        
     }//GEN-LAST:event_solaparPropertyChange
 
     private void BotoGenerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoGenerarMouseClicked
@@ -251,7 +261,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
         MainFrame mainFrame = HourCalendar.getMainFrame();
         mainFrame.controlProgres.setVisible(true);
         System.out.println("START UPDATE");
-        base.updateDisponibilitatHoraria(2, 2013);
+        //base.updateDisponibilitatHoraria(2, 2013);
         System.out.println("END UPDATE");
         mainFrame.controlProgres.startControl();
         
@@ -288,17 +298,30 @@ public class FormulariOpcions extends javax.swing.JFrame {
 		});
     }//GEN-LAST:event_BotoModificarCalendariMouseClicked
 
+    private void quadrimestrePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_quadrimestrePropertyChange
+        HourCalendar.getBase().dbgUI("QUADRIMESTRE property changed!");
+        Regles.QUADRIMESTRE.set(quadrimestre.getSelectedIndex() + 1);
+        HourCalendar.getBase().updateDisponibilitatHoraria();
+        DisponibilitatsHoraries.setText("<html><body style=\"font-family: Verdana,Tahoma,sans-serif; font-size: 8px;\">".concat(HourCalendar.getBase().disponibilitatsHoraries.get(0).toHTML()).concat("</body></html>"));
+    }//GEN-LAST:event_quadrimestrePropertyChange
+
+    private void convocatoriaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_convocatoriaPropertyChange
+        Regles.CONVOCATORIA.set(convocatoria.getSelectedIndex() + 1);
+        HourCalendar.getBase().updateDisponibilitatHoraria();
+        DisponibilitatsHoraries.setText("<html><body style=\"font-family: Verdana,Tahoma,sans-serif; font-size: 8px;\">".concat(HourCalendar.getBase().disponibilitatsHoraries.get(0).toHTML()).concat("</body></html>"));
+    }//GEN-LAST:event_convocatoriaPropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotoCancelar;
     private javax.swing.JButton BotoGenerar;
     private javax.swing.JButton BotoModificarCalendari;
+    private javax.swing.JEditorPane DisponibilitatsHoraries;
     private javax.swing.JCheckBox assignar;
     private javax.swing.JComboBox convocatoria;
     private javax.swing.JTextField iteracions;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox prioritzar;
     private javax.swing.JComboBox quadrimestre;
     private javax.swing.JCheckBox solapar;

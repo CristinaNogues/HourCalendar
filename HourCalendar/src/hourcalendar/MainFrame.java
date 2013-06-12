@@ -5,7 +5,7 @@
 package hourcalendar;
 
 import com.sun.java.swing.plaf.windows.WindowsTabbedPaneUI;
-import com.sun.java.swing.plaf.windows.WindowsTableHeaderUI;
+//import com.sun.java.swing.plaf.windows.WindowsTableHeaderUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
+//import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 /**
  *
@@ -117,7 +117,7 @@ public class MainFrame extends javax.swing.JFrame {
         PanellAssignatures = new javax.swing.JPanel();
         Contenidor = new javax.swing.JScrollPane();
         TabInforme = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
+        Informe = new javax.swing.JEditorPane();
 
         PopupCrear.setBackground(new java.awt.Color(255, 51, 51));
         PopupCrear.setInvoker(BotoCrear);
@@ -170,8 +170,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         TabbedPane.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
 
+        TabAssignatures.setBackground(new java.awt.Color(255, 255, 255));
         TabAssignatures.setBorder(null);
         TabAssignatures.setPreferredSize(new java.awt.Dimension(400, 300));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel5.setOpaque(false);
 
         BotoCrear.setText("Crear");
         BotoCrear.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -242,17 +247,18 @@ public class MainFrame extends javax.swing.JFrame {
 
         TabbedPane.addTab("Assignatures", TabAssignatures);
 
+        Contenidor.setBackground(new java.awt.Color(255, 255, 255));
         Contenidor.setBorder(null);
         TabbedPane.addTab("Horari generat", Contenidor);
 
+        TabInforme.setBackground(new java.awt.Color(255, 255, 255));
         TabInforme.setBorder(null);
 
-        jEditorPane1.setEditable(false);
-        jEditorPane1.setBorder(null);
-        jEditorPane1.setContentType("text/html"); // NOI18N
-        jEditorPane1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        jEditorPane1.setOpaque(false);
-        TabInforme.setViewportView(jEditorPane1);
+        Informe.setEditable(false);
+        Informe.setBorder(null);
+        Informe.setContentType("text/html"); // NOI18N
+        Informe.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        TabInforme.setViewportView(Informe);
 
         TabbedPane.addTab("Informe de resultats", TabInforme);
 
@@ -357,12 +363,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem CrearGrau;
     private javax.swing.JMenuItem CrearTipusAula;
     private javax.swing.JMenuItem CrearTipusMateria;
+    public javax.swing.JEditorPane Informe;
     public javax.swing.JPanel PanellAssignatures;
     public javax.swing.JPopupMenu PopupCrear;
     public javax.swing.JScrollPane TabAssignatures;
     private javax.swing.JScrollPane TabInforme;
     public javax.swing.JTabbedPane TabbedPane;
-    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

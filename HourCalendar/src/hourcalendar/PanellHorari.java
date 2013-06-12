@@ -274,6 +274,7 @@ public class PanellHorari extends javax.swing.JPanel {
             String text = (String)obj;
             setText(text);
             setMargin(new Insets(3, 0, 3, 0));
+            setFont(new Font("Verdana", Font.PLAIN, 10));
             if (row == -1) {
                 setBackground(new Color(52, 136, 187));
                 setForeground(new Color(255, 255, 255));
@@ -314,7 +315,7 @@ public class PanellHorari extends javax.swing.JPanel {
         FiltreGrup7 = new javax.swing.JCheckBox();
         FiltreGrup8 = new javax.swing.JCheckBox();
 
-        setBackground(new java.awt.Color(204, 255, 204));
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(200, 200));
 
         jLabel1.setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
@@ -350,6 +351,7 @@ public class PanellHorari extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
 
+        TaulaHorari.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         TaulaHorari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"8:30-10:30", null, null, null, null, null},

@@ -41,6 +41,7 @@ public class Base {
     public int progres;
     public String nomProgres = "Inicialitzant...";
     public Generador generador;
+    public String informe = "";
     
     public Base() {
         loadDiesDocencia();
@@ -223,6 +224,12 @@ public class Base {
         return -1;
     }
     
+    public void updateDisponibilitatHoraria() {
+        int any = Regles.CONVOCATORIA.getInt() + 2010 + Regles.QUADRIMESTRE.getInt();
+        updateDisponibilitatHoraria(Regles.QUADRIMESTRE.getInt(), any);
+        
+    }
+    
     public void updateDisponibilitatHoraria(int quadri, int any) {
         List<Date> dies = getDiesDocencia(quadri, any);
         disponibilitatsHoraries = new Vector<DisponibilitatHoraria>();
@@ -242,7 +249,7 @@ public class Base {
             disponibilitat.addDia(diaDeLaSetmana, ordre);
         }
         disponibilitatsHoraries.add(disponibilitat);
-        int horesDesquadrades = 0;
+        //int horesDesquadrades = 0;
         //try {
             
             //addAssignatura(new Grau("Informatica", "01"), "FISI", 205555, new TipusMateria(1, "ABC"),
@@ -338,6 +345,12 @@ public class Base {
     
     public Vector<DisponibilitatHoraria> getDisponibilitatsHoraries() {
         return disponibilitatsHoraries;
+    }
+    
+    /** Afegeix el missatge com a una nova línea de l'informe de resultats. **/
+    public void informar(String msg) {
+        String newLine = "<br>";
+        informe = informe.concat(msg).concat(newLine);
     }
     
     public static class ModsCalendari {

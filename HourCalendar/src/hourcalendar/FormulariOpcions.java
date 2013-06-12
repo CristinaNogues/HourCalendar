@@ -40,7 +40,12 @@ public class FormulariOpcions extends javax.swing.JFrame {
         convocatoria.setSelectedIndex(Regles.CONVOCATORIA.getInt() - 1);
         textConvocatoria.setText(String.valueOf(Regles.CONVOCATORIA.getMissatge()));
         
+        updateDisponibilitatHoraria();
+    }
+    
+    public void updateDisponibilitatHoraria() {
         HourCalendar.getBase().updateDisponibilitatHoraria();
+        DisponibilitatsHoraries.setText("<html><body style=\"font-family: Verdana,Tahoma,sans-serif; font-size: 8px;\">".concat(HourCalendar.getBase().disponibilitatsHoraries.get(0).toHTML()).concat("</body></html>"));
     }
 
     /**
@@ -287,6 +292,8 @@ public class FormulariOpcions extends javax.swing.JFrame {
 				SelectorDiesDocencia selectorDiesDocencia = new SelectorDiesDocencia();
 				frameCalendari = new JFrame();
 				frameCalendari.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                frameCalendari.setLocation(dim.width/2-frameCalendari.getSize().width/2, dim.height/2-frameCalendari.getSize().height/2);
 				Container panel = frameCalendari.getContentPane();
 				panel.setLayout(new BorderLayout());
 				panel.add(selectorDiesDocencia, BorderLayout.CENTER);
@@ -301,14 +308,12 @@ public class FormulariOpcions extends javax.swing.JFrame {
     private void quadrimestrePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_quadrimestrePropertyChange
         HourCalendar.getBase().dbgUI("QUADRIMESTRE property changed!");
         Regles.QUADRIMESTRE.set(quadrimestre.getSelectedIndex() + 1);
-        HourCalendar.getBase().updateDisponibilitatHoraria();
-        DisponibilitatsHoraries.setText("<html><body style=\"font-family: Verdana,Tahoma,sans-serif; font-size: 8px;\">".concat(HourCalendar.getBase().disponibilitatsHoraries.get(0).toHTML()).concat("</body></html>"));
+        updateDisponibilitatHoraria();
     }//GEN-LAST:event_quadrimestrePropertyChange
 
     private void convocatoriaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_convocatoriaPropertyChange
         Regles.CONVOCATORIA.set(convocatoria.getSelectedIndex() + 1);
-        HourCalendar.getBase().updateDisponibilitatHoraria();
-        DisponibilitatsHoraries.setText("<html><body style=\"font-family: Verdana,Tahoma,sans-serif; font-size: 8px;\">".concat(HourCalendar.getBase().disponibilitatsHoraries.get(0).toHTML()).concat("</body></html>"));
+        updateDisponibilitatHoraria();
     }//GEN-LAST:event_convocatoriaPropertyChange
 
 

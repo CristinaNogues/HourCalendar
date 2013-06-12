@@ -74,8 +74,7 @@ public class SelectorDiesDocencia extends JPanel{
     }
 
 	public SelectorDiesDocencia() {
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
 		_calendar = howToCreateACalendar();
         _calendar.setCalendarSelection(JSCCalendar.CalendarSelection.MULTIPLE_SELECTION);
 		howToChangeTheLookAndFeel(_calendar);
@@ -83,9 +82,10 @@ public class SelectorDiesDocencia extends JPanel{
 		howToAddBusinessRules(_calendar);
 		howToSetHolidaysAndWeekends(_calendar);
 		//howToMoveToASpecificDate(calendar);
-		howToListenToChangesOnTheCalendar(_calendar);
+		
 		howToChangeTheAppearanceOfTheCells(_calendar);
 		//howToChangeTheAppearanceOfTheOverallUI(calendar);
+        howToListenToChangesOnTheCalendar(_calendar);
 		setLayout(new GridLayout(1,1,30,30));
 		add(_calendar);
         
@@ -110,7 +110,7 @@ public class SelectorDiesDocencia extends JPanel{
             Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
         }
         //addComponentListener(new resizeListener());
-        
+
 	}
     
     class resizeListener extends ComponentAdapter {
@@ -352,10 +352,13 @@ public class SelectorDiesDocencia extends JPanel{
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                HourCalendar.getBase().loadDiesDocencia();
+                Base.ModsCalendari.load();
+                HourCalendar.getMainFrame().formulariOpcions.updateDisponibilitatHoraria();
 				
 				//the type of event that has occurred.
 				CalendarSelectionEventType selectionEventType = calendarSelectionEvent.getCalendarSelectionEventType();
-				
+                
 				switch (selectionEventType) {
 					case DATE_REMOVED: {
 						//put your logic here to react to a date being removed.
@@ -414,6 +417,7 @@ public class SelectorDiesDocencia extends JPanel{
 			/*} catch (IOException e) {
 				e.printStackTrace();
 			}*/
+                
 			
 		}
         
@@ -495,7 +499,16 @@ public class SelectorDiesDocencia extends JPanel{
                     Date q2_inici = new GregorianCalendar(2013, 1, 2).getTime();
                     int quadri = 2;
                     if (date.before(q2_inici)) quadri = 1;
-                    int ordreSetmana = HourCalendar.getBase().getSetmanaOrdre(date, quadri);
+                    int mod = 0;
+                    Calendar dia = new GregorianCalendar();
+                    dia.setTime(date);
+                    Base base = HourCalendar.getBase();
+                    String[] modDies = {"", "dg", "dl", "dt", "dc", "dj", "dv", "ds"};
+                    int ordreSetmana = ((mod = Base.ModsCalendari.getModOrdre(dia)) != -1) ? mod : base.getSetmanaOrdre(date, quadri);
+                    int diaDeLaSetmana = ((mod = Base.ModsCalendari.getModDia(dia)) != -1) ? mod : dia.get(Calendar.DAY_OF_WEEK);
+                    String textToAppend = (diaDeLaSetmana != dia.get(Calendar.DAY_OF_WEEK)) ? " ".concat(modDies[diaDeLaSetmana]) : "";
+                    setText(text.concat(textToAppend));
+                    //int ordreSetmana = HourCalendar.getBase().getSetmanaOrdre(date, quadri);
                     //Calendar diaActual = calendar.getCalendarModel().createCalendar(date);
                     //int ordreSetmana = (diaActual.get(Calendar.WEEK_OF_YEAR) + 1) % 4;
                     setHorizontalAlignment(JLabel.LEFT);
@@ -569,6 +582,8 @@ public class SelectorDiesDocencia extends JPanel{
 			if (hasKeyboardFocus) {
 				//setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 			}
+            
+            
 			
 			return this;
 		}
@@ -581,6 +596,14 @@ public class SelectorDiesDocencia extends JPanel{
     public class CustomCellPanel extends SteelCellPanel {
         public CustomCellPanel(JSCCalendar calendar, StandardFormatCalendarUI standardFormatCalendarUI) {
             super(calendar, standardFormatCalendarUI);
+            this.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    System.out.println("You clicked the button, using a MouseListenr");
+                    if (SwingUtilities.isRightMouseButton(evt)) {
+                        System.out.println("RIGHT MOUSE CLICK!!!");
+                    }
+                }
+            });
         }
             
         @Override

@@ -32,6 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     public JPanel ContentPane;
     public ControlProgres controlProgres;
     public boolean showTabsHeader = false;
+    public FormulariOpcions formulariOpcions;
     /**
      * Creates new form MainFrame
      */
@@ -39,6 +40,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         setExtendedState( getExtendedState()|JFrame.MAXIMIZED_BOTH );
         
+        formulariOpcions = new FormulariOpcions();
         controlProgres = new ControlProgres(this);
         controlProgres.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         controlProgres.setVisible(false);
@@ -321,7 +323,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void BotoGenerarHorariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoGenerarHorariMouseClicked
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormulariOpcions().setVisible(true);
+                formulariOpcions.setVisible(true);
             }
         });
     }//GEN-LAST:event_BotoGenerarHorariMouseClicked

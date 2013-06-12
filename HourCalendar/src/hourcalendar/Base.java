@@ -140,10 +140,11 @@ public class Base {
         return tipusMateries.contains(tipus);
     }
     
-    private void loadDiesDocencia() {
+    public void loadDiesDocencia() {
         FileInputStream fin;
         ObjectInputStream ois;
         List<Date> selectedDates;
+        //diesDocencia = new List<Date>();
         try {
             fin = new FileInputStream("selectedDates.ser");
             try {

@@ -39,6 +39,8 @@ public class FormulariOpcions extends javax.swing.JFrame {
         textQuadrimestre.setText(String.valueOf(Regles.QUADRIMESTRE.getMissatge()));
         convocatoria.setSelectedIndex(Regles.CONVOCATORIA.getInt() - 1);
         textConvocatoria.setText(String.valueOf(Regles.CONVOCATORIA.getMissatge()));
+        modsCalendari.setText(Regles.APLICAR_MODS_CALENDARI.getMissatge());
+        modsCalendari.setSelected(Regles.APLICAR_MODS_CALENDARI.get());
         
         updateDisponibilitatHoraria();
     }
@@ -72,6 +74,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         DisponibilitatsHoraries = new javax.swing.JEditorPane();
         BotoModificarCalendari = new javax.swing.JButton();
+        modsCalendari = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Opcions");
@@ -183,6 +186,16 @@ public class FormulariOpcions extends javax.swing.JFrame {
             }
         });
 
+        modsCalendari.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        modsCalendari.setText("text");
+        modsCalendari.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        modsCalendari.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        modsCalendari.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                modsCalendariPropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,7 +224,8 @@ public class FormulariOpcions extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(iteracions)
                         .addGap(10, 10, 10)
-                        .addComponent(textIteracions, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)))
+                        .addComponent(textIteracions, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+                    .addComponent(modsCalendari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -231,13 +245,15 @@ public class FormulariOpcions extends javax.swing.JFrame {
                 .addComponent(assignar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(prioritzar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(modsCalendari)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textIteracions, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(iteracions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotoGenerar)
                     .addComponent(BotoCancelar)
@@ -260,6 +276,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
         Regles.ITERACIONS_GENERADOR.set(Integer.parseInt(iteracions.getText()));
         Regles.QUADRIMESTRE.set(quadrimestre.getSelectedIndex() + 1);
         Regles.CONVOCATORIA.set(convocatoria.getSelectedIndex() + 1);
+        Regles.APLICAR_MODS_CALENDARI.set(modsCalendari.isSelected());
         
         //Mostrem el control de progrés
         Base base = HourCalendar.getBase();
@@ -316,6 +333,11 @@ public class FormulariOpcions extends javax.swing.JFrame {
         updateDisponibilitatHoraria();
     }//GEN-LAST:event_convocatoriaPropertyChange
 
+    private void modsCalendariPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_modsCalendariPropertyChange
+        Regles.APLICAR_MODS_CALENDARI.set(modsCalendari.isSelected());
+        updateDisponibilitatHoraria();
+    }//GEN-LAST:event_modsCalendariPropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotoCancelar;
@@ -327,6 +349,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
     private javax.swing.JTextField iteracions;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JCheckBox modsCalendari;
     private javax.swing.JCheckBox prioritzar;
     private javax.swing.JComboBox quadrimestre;
     private javax.swing.JCheckBox solapar;

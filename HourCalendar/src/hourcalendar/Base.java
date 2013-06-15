@@ -257,9 +257,16 @@ public class Base {
             Date d = it.next();
             dia.setTime(d);
             //if ((mod = ModsCalendari.getModOrdre(dia)) != -1)
-            ordre = ((mod = ModsCalendari.getModOrdre(dia)) != -1) ? mod : getSetmanaOrdre(d, quadri);
-            diaDeLaSetmana = ((mod = ModsCalendari.getModDia(dia)) != -1) ? mod : dia.get(Calendar.DAY_OF_WEEK);
+            if (Regles.APLICAR_MODS_CALENDARI.get()) {
+                ordre = ((mod = ModsCalendari.getModOrdre(dia)) != -1) ? mod : getSetmanaOrdre(d, quadri);
+                diaDeLaSetmana = ((mod = ModsCalendari.getModDia(dia)) != -1) ? mod : dia.get(Calendar.DAY_OF_WEEK);
+            } else {
+                //No apliquem classe ModsCalendari
+                ordre = getSetmanaOrdre(d, quadri);
+                diaDeLaSetmana = dia.get(Calendar.DAY_OF_WEEK);
+            }
             disponibilitat.addDia(diaDeLaSetmana, ordre);
+            
         }
         disponibilitatsHoraries.add(disponibilitat);
         //int horesDesquadrades = 0;
@@ -416,9 +423,10 @@ public class Base {
             datesAmbDiaModificat = new Vector< Vector<Calendar> >();
             for (int i = 0; i <= 7; ++i)
                 datesAmbDiaModificat.add(new Vector<Calendar>());
+            //MODS Q2 2012-2013
             //Marquem el dijous 25 d'abril de 2013 com a dimarts
             datesAmbDiaModificat.get(3).add(new GregorianCalendar(2013, 3, 25));
-            datesAmbDiaModificat.get(4).add(new GregorianCalendar(2013, 3, 3));
+            datesAmbDiaModificat.get(4).add(new GregorianCalendar(2013, 4, 3)); //3 de maig com dimecres
 
             datesAmbOrdreModificat = new Vector< Vector<Calendar> >();
             for (int i = 0; i <= 3; ++i)
@@ -426,6 +434,11 @@ public class Base {
 
             datesAmbOrdreModificat.get(3).add(new GregorianCalendar(2013, 5, 7));
             datesAmbOrdreModificat.get(0).add(new GregorianCalendar(2013, 5, 10));
+            //MODS Q1 2012-2013
+            datesAmbOrdreModificat.get(3).add(new GregorianCalendar(2012, 10, 29)); //29 nov 2012 com setmana 2 2
+            datesAmbDiaModificat.get(5).add(new GregorianCalendar(2013, 0, 14));    //14 gener 2013 com dijous
+            datesAmbDiaModificat.get(6).add(new GregorianCalendar(2013, 0, 15));    //15 gener 2013 com divendres
+            
         }
         
         /** Retorna el dia de la setmana (1 = diumenge) d'un dia específic, -1 si no és un dia modificat. **/
@@ -467,6 +480,7 @@ public class Base {
         ITERACIONS_GENERADOR (1, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
         QUADRIMESTRE (1, "<html>Quadrimestre per al que generar els horaris.</html>"),
         CONVOCATORIA (1, "<html>Any de convocatòria.</html>"),
+        APLICAR_MODS_CALENDARI (1, "<html>Utilitzar modificacions del calendari. Exemple: Dilluns 14 de gener passa a ser dijous.</html>"),
         //REGLES INTERNES (NO MODIFICABLES A TRAVÉS DEL FORMULARI D'OPCIONS
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),

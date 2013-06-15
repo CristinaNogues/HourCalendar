@@ -504,8 +504,17 @@ public class SelectorDiesDocencia extends JPanel{
                     dia.setTime(date);
                     Base base = HourCalendar.getBase();
                     String[] modDies = {"", "dg", "dl", "dt", "dc", "dj", "dv", "ds"};
-                    int ordreSetmana = ((mod = Base.ModsCalendari.getModOrdre(dia)) != -1) ? mod : base.getSetmanaOrdre(date, quadri);
-                    int diaDeLaSetmana = ((mod = Base.ModsCalendari.getModDia(dia)) != -1) ? mod : dia.get(Calendar.DAY_OF_WEEK);
+                    int ordreSetmana = 0, diaDeLaSetmana = 0;
+                    if (Base.Regles.APLICAR_MODS_CALENDARI.get()) {
+                        ordreSetmana = ((mod = Base.ModsCalendari.getModOrdre(dia)) != -1) ? mod : base.getSetmanaOrdre(date, quadri);
+                        diaDeLaSetmana = ((mod = Base.ModsCalendari.getModDia(dia)) != -1) ? mod : dia.get(Calendar.DAY_OF_WEEK);
+                    } else {
+                        //No apliquem classe ModsCalendari
+                        ordreSetmana = base.getSetmanaOrdre(date, quadri);
+                        diaDeLaSetmana = dia.get(Calendar.DAY_OF_WEEK);
+                    }
+                    
+                    
                     String textToAppend = (diaDeLaSetmana != dia.get(Calendar.DAY_OF_WEEK)) ? " ".concat(modDies[diaDeLaSetmana]) : "";
                     setText(text.concat(textToAppend));
                     //int ordreSetmana = HourCalendar.getBase().getSetmanaOrdre(date, quadri);

@@ -4,12 +4,16 @@
  */
 package hourcalendar;
 
+import java.awt.Color;
+import java.util.Vector;
+
 /**
  *
  * @author admin
  */
 public class AssignaturaPane extends javax.swing.JPanel {
     Assignatura assignatura;
+    private Vector<Color> colors;
     /**
      * Creates new form AssignaturaPane
      */
@@ -19,10 +23,22 @@ public class AssignaturaPane extends javax.swing.JPanel {
     
     public AssignaturaPane(Assignatura assignatura) {
         initComponents();
+        colors = new Vector<Color>();
+        //colors pastel
+        colors.add(new Color(204, 255, 204));   //verd (no pastel)
+        colors.add(new Color(253, 253, 150));   //groc
+        colors.add(new Color(174, 198, 207));   //blau
+        colors.add(new Color(255, 105, 97));    //vermell
+        colors.add(new Color(130, 105, 83));    //marro
+        colors.add(new Color(255, 179, 71));    //taronja
+        colors.add(new Color(177, 156, 217));   //lila
         this.assignatura = assignatura;
         sigles.setText(assignatura.getSigles());
         codi.setText(String.valueOf(assignatura.getCodi()));
-        nom.setText(assignatura.getNom());
+        String prefixNom = "[Curs ".concat(String.valueOf(assignatura.getQuadrimestre()).concat("] "));
+        nom.setText(prefixNom.concat(assignatura.getNom()));
+        int colorGrau = HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau()) % 7;
+        this.setBackground(colors.get(colorGrau));
     }
 
     /**

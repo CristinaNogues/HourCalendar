@@ -52,20 +52,27 @@ public class Base {
         graus = new Vector<Grau>();
         loadState();
         //updateDisponibilitatHoraria(1, 2012);
-        addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
-                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
-            addAssignatura(new Grau("Informatica", "01"), "XARXES DE COMPUTADORS", "XACO", 340356, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "ESTRUCTURA DE LA INFORMACIÓ", "ESIN", 300000, new TipusMateria(1, "ABC"),
-                    25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 8, "I");
-            addAssignatura(new Grau("Informatica", "01"), "XARXES MULTIMÈDIA", "XAMU", 370251, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "EMPRESA", "EMPR", 670200, new TipusMateria(1, "ABC"),
-                    25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0, "I");
-            addAssignatura(new Grau("Informatica", "01"), "SOSTENIBILITAT", "SOST", 370001, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-            addAssignatura(new Grau("Informatica", "01"), "PROJECTE DE TECNOLOGIES DE LA INFORMACIÓ", "PTIN", 555555, new TipusMateria(1, "ABC"),
-                    25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
+        //addGrau("Informàtica", "01");
+        //addGrau("Enginyeria Mecànica", "02");
+        //addGrau("Disseny Industrial", "03");
+        addAssignatura(getGrau(0), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
+                25, 4, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
+        addAssignatura(getGrau(0), "XARXES DE COMPUTADORS", "XACO", 340356, new TipusMateria(1, "ABC"),
+                25, 4, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
+        addAssignatura(getGrau(0), "ESTRUCTURA DE LA INFORMACIÓ", "ESIN", 300000, new TipusMateria(1, "ABC"),
+                25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 8, "I");
+        addAssignatura(getGrau(0), "XARXES MULTIMÈDIA", "XAMU", 370251, new TipusMateria(1, "ABC"),
+                25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
+        addAssignatura(getGrau(0), "EMPRESA", "EMPR", 670200, new TipusMateria(1, "ABC"),
+                25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0, "I");
+        addAssignatura(getGrau(1), "SOSTENIBILITAT", "SOST", 370001, new TipusMateria(1, "ABC"),
+                25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "N");
+        addAssignatura(getGrau(1), "PROJECTE DE TECNOLOGIES DE LA INFORMACIÓ", "PTIN", 555555, new TipusMateria(1, "ABC"),
+                25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "N");
+        addAssignatura(getGrau(2), "GESTIÓ DE PROJECTES", "GEPR", 340037, new TipusMateria(1, "ABC"),
+                25, 4, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "N");
+        addAssignatura(getGrau(2), "DISSENY I REPRESENTACIÓ TÈCNICA", "DIRT", 340075, new TipusMateria(1, "ABC"),
+                25, 4, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "N");
         
     }
     

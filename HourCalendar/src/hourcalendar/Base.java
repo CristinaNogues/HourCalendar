@@ -43,6 +43,10 @@ public class Base {
     public Generador generador;
     public String informe = "";
     
+    public int idTipusMateria = 0;
+    public int idTipusAula = 0;
+    public int idAula = 0;
+    
     public Base() {
         loadDiesDocencia();
         setmanaOrdreQ1 = new Vector<Integer>();
@@ -139,6 +143,31 @@ public class Base {
         graus.add(grau);
         saveState();
     }
+    
+    public void addTipusMateria(String tipus) {
+        
+        int id = idTipusMateria++;
+        TipusMateria tipusmateria = new TipusMateria(id, tipus);
+        //tipusmateries.add(tipusmateria);
+        
+    }
+    
+    public void addTipusAula(String tipus) {
+        
+        int id = idTipusAula++;
+        TipusAula tipusaula = new TipusAula(id, tipus);
+        //tipusaules.add(tipusaula);
+        
+    }
+    
+    public void addAula(String nom, int capacitat, TipusAula tipusAula) {
+        
+        int id = idAula++;
+        Aula aula = new Aula(id, nom, capacitat, tipusAula);
+        //aules.add(aula);
+        
+    }
+    
     
     /** Retorna cert si existeix l'objecte grau al vector graus. **/
     public boolean hasGrau(Grau grau) {

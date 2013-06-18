@@ -31,11 +31,11 @@ public class FormulariAula extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        nom = new javax.swing.JTextField();
+        capacitat = new javax.swing.JTextField();
         CancelTipusAula = new javax.swing.JButton();
         afegirTipusAula = new javax.swing.JButton();
-        TipusAula = new javax.swing.JComboBox();
+        tipusaula = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -59,14 +59,9 @@ public class FormulariAula extends javax.swing.JFrame {
             }
         });
 
-        TipusAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        TipusAula.setMaximumRowCount(6);
-        TipusAula.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teoria", "Informàtica", "Laboratori" }));
-        TipusAula.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TipusAulaMouseClicked(evt);
-            }
-        });
+        tipusaula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tipusaula.setMaximumRowCount(6);
+        tipusaula.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teoria", "Informàtica", "Laboratori" }));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Nom");
@@ -104,9 +99,9 @@ public class FormulariAula extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(30, 30, 30)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField7)
-                    .addComponent(jTextField6)
-                    .addComponent(TipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(capacitat)
+                    .addComponent(nom)
+                    .addComponent(tipusaula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -120,15 +115,15 @@ public class FormulariAula extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(capacitat, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TipusAula)
+                    .addComponent(tipusaula)
                     .addComponent(jLabel3))
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -151,12 +146,11 @@ public class FormulariAula extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TipusAulaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TipusAulaMouseClicked
-
     private void afegirTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afegirTipusAulaMouseClicked
-        // TODO add your handling code here:
+        Base base = HourCalendar.getBase();
+        base.addAula(nom.getText(), capacitat.getText(), tipusaula.getSelectedItem());
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_afegirTipusAulaMouseClicked
 
     private void CancelTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelTipusAulaMouseClicked
@@ -200,14 +194,14 @@ public class FormulariAula extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelTipusAula;
-    private javax.swing.JComboBox TipusAula;
     private javax.swing.JButton afegirTipusAula;
+    private javax.swing.JTextField capacitat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField nom;
+    private javax.swing.JComboBox tipusaula;
     // End of variables declaration//GEN-END:variables
 }

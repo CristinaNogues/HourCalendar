@@ -34,7 +34,7 @@ public class FormulariTipusAula extends javax.swing.JFrame {
         AfegirTipusAula = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tipus = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,7 +70,7 @@ public class FormulariTipusAula extends javax.swing.JFrame {
                     .addComponent(CancelTipusAula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1)
+                .addComponent(tipus)
                 .addGap(18, 18, 18)
                 .addComponent(AfegirTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
@@ -87,7 +87,7 @@ public class FormulariTipusAula extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tipus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AfegirTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(CancelTipusAula)
@@ -114,7 +114,10 @@ public class FormulariTipusAula extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelTipusAulaMouseClicked
 
     private void AfegirTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AfegirTipusAulaMouseClicked
-        // TODO add your handling code here:
+        Base base = HourCalendar.getBase();
+        base.addTipusAula(tipus.getText());
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_AfegirTipusAulaMouseClicked
 
     /**
@@ -157,6 +160,6 @@ public class FormulariTipusAula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField tipus;
     // End of variables declaration//GEN-END:variables
 }

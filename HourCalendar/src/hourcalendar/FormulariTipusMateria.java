@@ -32,7 +32,7 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tipus = new javax.swing.JTextField();
         AfegirTipusMateria = new javax.swing.JButton();
         CancelTipusAula = new javax.swing.JButton();
 
@@ -75,7 +75,7 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tipus, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, Short.MAX_VALUE)
                                 .addComponent(AfegirTipusMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12))
@@ -92,7 +92,7 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tipus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AfegirTipusMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(CancelTipusAula))
@@ -115,7 +115,10 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AfegirTipusMateriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AfegirTipusMateriaMouseClicked
-        // TODO add your handling code here:
+        Base base = HourCalendar.getBase();
+        base.addTipusMateria(tipus.getText());
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_AfegirTipusMateriaMouseClicked
 
     private void CancelTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelTipusAulaMouseClicked
@@ -163,6 +166,6 @@ public class FormulariTipusMateria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField tipus;
     // End of variables declaration//GEN-END:variables
 }

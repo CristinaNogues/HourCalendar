@@ -19,11 +19,9 @@ public class TipusAula implements java.io.Serializable {
         nom = _nom;
     }
     
-    
     public int getID(){
         return id;
     }
-    
     
     public String getNom(){
         return nom;

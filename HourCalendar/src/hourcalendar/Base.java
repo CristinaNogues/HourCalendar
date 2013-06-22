@@ -34,6 +34,7 @@ public class Base {
     private Vector<Grau> graus;
     public Vector<TipusHoresPractica> tipusHoresPractiques;
     public Vector<TipusMateria> tipusMateries;
+    public Vector<TipusAula> tipusAules;
     private List<Date> diesDocencia;
     private Vector setmanaOrdreQ1;
     private Vector setmanaOrdreQ2;
@@ -153,11 +154,52 @@ public class Base {
     }
     
     public void addTipusAula(String tipus) {
-        
         int id = idTipusAula++;
         TipusAula tipusaula = new TipusAula(id, tipus);
-        //tipusaules.add(tipusaula);
-        
+        tipusAules.add(tipusaula);
+        saveState();
+    }
+    
+    public void removeTipusAula(TipusAula tipus) {
+        tipusAules.removeElement(tipus);
+    }
+    
+    public void removeAllTipusAula() {
+        if (!tipusAules.isEmpty()) {
+            System.out.println("BORRANT");
+            tipusAules.clear();
+            idTipusMateria = 0;
+            saveState();
+            System.out.println("BORRAT");
+        }
+    }
+    
+    public int getNumTipusAules() {
+        return idTipusAula;
+    }
+    
+    public TipusAula getTipusAula(int idTipus) {
+        int numTipusAules = getNumTipusAules();
+        System.out.println("Num tipus aules: " + numTipusAules);
+        for (int i = 0; i < numTipusAules; ++i) {
+            TipusAula tipusaula = tipusAules.get(i);
+            System.out.println("FIns aqui");
+            if (tipusaula.getID() == idTipus) {
+                return tipusaula;
+            }
+        }
+        return null; 
+    }
+    
+    public TipusAula getTipusAula(String nomTipus) {
+        int numTipusAules = getNumTipusAules();
+        for (int i = 0; i < numTipusAules; ++i) {
+            TipusAula tipusaula = tipusAules.get(i);
+            if (tipusaula.getNom().equals(nomTipus)) {
+                return tipusaula;
+            }
+        }
+        return null; 
     }
     
     public void addAula(String nom, int capacitat, TipusAula tipusAula) {
@@ -167,6 +209,7 @@ public class Base {
         //aules.add(aula);
         
     }
+    
     
     
     /** Retorna cert si existeix l'objecte grau al vector graus. **/

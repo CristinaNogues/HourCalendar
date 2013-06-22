@@ -6,18 +6,24 @@ package hourcalendar;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author Daniel
- */
 public class FormulariAula extends javax.swing.JFrame {
-
     /**
      * Creates new form ForumariAula
      */
     public FormulariAula() {
         initComponents();
-       // TipusAula.addItem(this);
+        
+        Base base = HourCalendar.getBase();
+        //base.removeAllTipusAula();
+        /* Fet per l'Antoni
+        for (int i = 0; i < base.getNumTipusAules(); ++i) {
+            TipusAula t = base.getTipusAula(i);
+            System.out.println(t.getNom());
+            tipusaula.addItem(t.getNom());
+        }
+        */
+                        
+        
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
@@ -32,7 +38,6 @@ public class FormulariAula extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         nom = new javax.swing.JTextField();
-        capacitat = new javax.swing.JTextField();
         CancelTipusAula = new javax.swing.JButton();
         afegirTipusAula = new javax.swing.JButton();
         tipusaula = new javax.swing.JComboBox();
@@ -40,6 +45,7 @@ public class FormulariAula extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        capacitat = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +81,8 @@ public class FormulariAula extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Aula");
 
+        capacitat.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -82,7 +90,7 @@ public class FormulariAula extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(CancelTipusAula)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(afegirTipusAula, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -99,10 +107,10 @@ public class FormulariAula extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(30, 30, 30)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(capacitat)
                     .addComponent(nom)
-                    .addComponent(tipusaula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                    .addComponent(tipusaula, 0, 140, Short.MAX_VALUE)
+                    .addComponent(capacitat))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
@@ -119,9 +127,9 @@ public class FormulariAula extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(capacitat, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(16, 16, 16)
+                    .addComponent(jLabel2)
+                    .addComponent(capacitat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tipusaula)
                     .addComponent(jLabel3))
@@ -148,7 +156,7 @@ public class FormulariAula extends javax.swing.JFrame {
 
     private void afegirTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afegirTipusAulaMouseClicked
         Base base = HourCalendar.getBase();
-        base.addAula(nom.getText(), capacitat.getText(), tipusaula.getSelectedItem());
+        base.addAula(nom.getText(), Integer.parseInt(capacitat.getValue().toString()), base.getTipusAula(tipusaula.getSelectedItem().toString()));
         setVisible(false);
         dispose();
     }//GEN-LAST:event_afegirTipusAulaMouseClicked
@@ -195,7 +203,7 @@ public class FormulariAula extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelTipusAula;
     private javax.swing.JButton afegirTipusAula;
-    private javax.swing.JTextField capacitat;
+    private javax.swing.JSpinner capacitat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

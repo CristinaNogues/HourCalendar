@@ -191,6 +191,11 @@ public class Base {
         saveState();
     }
     
+    public void removeGrau(Grau grau) {
+        graus.removeElement(grau);
+        saveState();
+    }
+    
     public void addTipusMateria(String tipus) {
         
         int id = idTipusMateria++;
@@ -216,6 +221,11 @@ public class Base {
     
     public TipusMateria getTipusMateriaAt(int index) {
         return tipusMateries.get(index);
+    }
+    
+    public void removeTipusMateria(TipusMateria tipusMateria) {
+        tipusMateries.removeElement(tipusMateria);
+        saveState();
     }
     
     public int getIndexOfTipusMateria(TipusMateria materia) {
@@ -251,6 +261,7 @@ public class Base {
     
     public void removeTipusAula(TipusAula tipus) {
         tipusAules.removeElement(tipus);
+        saveState();
     }
     
     public void removeAllTipusAula() {
@@ -309,11 +320,54 @@ public class Base {
         
     }
     
+    public int getNumAules() {
+        //NOTA: Si s'eliminen aules, al iterar el vector tipusAules faria saltar una excepció ja que intentaria accedir a una posició del vector inexistent
+        return aules.size();
+    }
     
+   public Aula getAula(int idAula) {
+        int numAules = getNumAules();
+        for (int i = 0; i < numAules; ++i) {
+            Aula aula = aules.get(i);
+            if (aula.getID() == idAula) {
+                return aula;
+            }
+        }
+        return null; 
+    }
     
+   public Aula getAulaAt(int index) {
+        return aules.get(index);
+    } 
+   
+   public int getIndexOfAula(Aula aula) {
+        return aules.indexOf(aula);
+    }
+   
+   public void removeAula(Aula aula) {
+        aules.removeElement(aula);
+        saveState();
+    }
+   
+   
     /** Retorna cert si existeix l'objecte grau al vector graus. **/
     public boolean hasGrau(Grau grau) {
         return graus.contains(grau);
+    }
+    
+    /** Retorna cert si existeix l'objecte TipusAula al vector tipusAules. **/
+    public boolean hasTipusAula(TipusAula tipusAula) {
+        return tipusAules.contains(tipusAula);
+    }
+    
+    /** Retorna cert si existeix l'objecte TipusMateria al vector tipusMateries. **/
+    public boolean hasTipusMateria(TipusMateria tipus) {
+        return tipusMateries.contains(tipus);
+    }
+    
+    /** Retorna cert si existeix l'objecte Aula al vector aules. **/
+    public boolean hasAula(Aula aula) {
+        return aules.contains(aula);
     }
     
     public int getIndexOfGrau(Grau grau) {
@@ -325,10 +379,6 @@ public class Base {
         return tipusHoresPractiques.contains(tipus);
     }*/
     
-    /** Retorna cert si existeix l'objecte TipusMateria al vector tipusMateries. **/
-    public boolean hasTipusMateria(TipusMateria tipus) {
-        return tipusMateries.contains(tipus);
-    }
     
     /** Actualitza la llista de dates "diesDocencia" amb les dades del fitxer "selectedDates.ser". */
     public void loadDiesDocencia() {

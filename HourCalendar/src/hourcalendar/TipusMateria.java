@@ -13,7 +13,7 @@ public class TipusMateria implements java.io.Serializable {
         nom = _nom;
     }
     
-    public int getId() {
+    public int getID() {
         return id;
     }
     

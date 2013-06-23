@@ -13,7 +13,8 @@ public class Aula implements java.io.Serializable {
     public int id;
     public String nom;
     public int capacitat;
-    public TipusAula tipus;
+    //public TipusAula tipus;
+    public int idTipusAula;
     
     
     public Aula(int _id, String _nom, int _capacitat, TipusAula _tipus){
@@ -21,7 +22,8 @@ public class Aula implements java.io.Serializable {
         id = _id;
         nom = _nom;
         capacitat = _capacitat;
-        tipus = _tipus;
+        //tipus = _tipus;
+        idTipusAula = _tipus.getID();
     }
     
     
@@ -38,6 +40,8 @@ public class Aula implements java.io.Serializable {
     }
     
     public TipusAula getTipusAula(){
-        return tipus;
+        //return tipus;
+        Base base = HourCalendar.getBase();
+        return base.getTipusAula(idTipusAula);
     }
 }

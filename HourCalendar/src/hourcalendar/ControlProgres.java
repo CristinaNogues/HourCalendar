@@ -117,18 +117,18 @@ public class ControlProgres extends javax.swing.JFrame {
         base.colorDisponibilitatsHoraries = new Vector<Color>();
         //Generem els horaris per a tots els graus i cursos
         for (int grau = 0; grau < numGraus; ++grau) {
-            base.dbg("\tGRAU LOOKUP: ".concat(base.getGrau(grau).getNom()));
+            base.dbg("\tGRAU LOOKUP: ".concat(base.getGrauAt(grau).getNom()));
             for (int curs = quadri; curs <= 8; curs+=2) {
                 base.dbg("\t\t CURS: ".concat(String.valueOf(curs)));
-                Vector<Assignatura> assignatures = base.getAssignatures(base.getGrau(grau), curs);
+                Vector<Assignatura> assignatures = base.getAssignatures(base.getGrauAt(grau), curs);
                 if (!assignatures.isEmpty()) {
                     base.dbg("\t\t\t Assignatures trobades: ".concat(String.valueOf(assignatures.size())));
                     base.progres = 0;
                     base.generador = new Generador(disponibilitatInicial, assignatures);
-                    base.nomProgres = "Q".concat(String.valueOf(curs)).concat(" - ").concat(base.getGrau(grau).getNom());
+                    base.nomProgres = "Q".concat(String.valueOf(curs)).concat(" - ").concat(base.getGrauAt(grau).getNom());
                     //indiquem el nom de l'horari a l'imprimir i el seu color
                     base.nomDisponibilitatsHoraries.add(base.nomProgres);
-                    base.colorDisponibilitatsHoraries.add(base.getGrau(grau).color);
+                    base.colorDisponibilitatsHoraries.add(base.getGrauAt(grau).color);
                     
                     base.dbg(base.nomProgres);
                     base.generador.execute();

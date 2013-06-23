@@ -81,7 +81,7 @@ public class FormulariAula extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Aula");
 
-        capacitat.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+        capacitat.setModel(new javax.swing.SpinnerNumberModel(60, 1, 100, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

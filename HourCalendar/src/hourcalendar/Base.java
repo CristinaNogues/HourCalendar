@@ -34,9 +34,10 @@ import javax.swing.SwingUtilities;
 public class Base {
     public Vector<Assignatura> assignatures;
     private Vector<Grau> graus;
-    public Vector<TipusHoresPractica> tipusHoresPractiques;
+    //public Vector<TipusHoresPractica> tipusHoresPractiques;
     public Vector<TipusMateria> tipusMateries;
     public Vector<TipusAula> tipusAules;
+    public Vector<Aula> aules;
     private List<Date> diesDocencia;
     private Vector setmanaOrdreQ1;
     private Vector setmanaOrdreQ2;
@@ -48,9 +49,11 @@ public class Base {
     public Generador generador;
     public String informe = "";
     
+    public int idTipusHoresPractica = 0;
     public int idTipusMateria = 0;
     public int idTipusAula = 0;
     public int idAula = 0;
+    public int idGrau = 0;
     
     public Base(int conjuntDeDades) {
         //loadDiesDocencia();
@@ -59,6 +62,11 @@ public class Base {
         ModsCalendari.load();
         assignatures = new Vector<Assignatura>();
         graus = new Vector<Grau>();
+        //tipusHoresPractiques = new Vector<TipusHoresPractica>();
+        tipusMateries = new Vector<TipusMateria>();
+        tipusAules = new Vector<TipusAula>();
+        aules = new Vector<Aula>();
+        
         //si conjuntDeDades == 0 utilitzem les dades de l'última sessió, per tant, no canviem res
         String directori = "";
         if (conjuntDeDades != 0) {
@@ -66,27 +74,38 @@ public class Base {
         }
         loadState(directori);
         //updateDisponibilitatHoraria(1, 2012);
-        //addGrau("Informàtica", "01");
-        //addGrau("Enginyeria Mecànica", "02");
-        //addGrau("Disseny Industrial", "03");
-        addAssignatura(getGrau(0), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
-                25, 4, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
-        addAssignatura(getGrau(0), "XARXES DE COMPUTADORS", "XACO", 340356, new TipusMateria(1, "ABC"),
-                25, 4, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-        addAssignatura(getGrau(0), "ESTRUCTURA DE LA INFORMACIÓ", "ESIN", 300000, new TipusMateria(1, "ABC"),
-                25, 2, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 8, "I");
-        addAssignatura(getGrau(0), "XARXES MULTIMÈDIA", "XAMU", 370251, new TipusMateria(1, "ABC"),
-                25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "I");
-        addAssignatura(getGrau(0), "EMPRESA", "EMPR", 670200, new TipusMateria(1, "ABC"),
-                25, 2, 60, 0, new TipusHoresPractica(5, "Laboratori Informàtica"), 0, "I");
-        addAssignatura(getGrau(1), "SOSTENIBILITAT", "SOST", 370001, new TipusMateria(1, "ABC"),
-                25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "N");
-        addAssignatura(getGrau(1), "PROJECTE DE TECNOLOGIES DE LA INFORMACIÓ", "PTIN", 555555, new TipusMateria(1, "ABC"),
-                25, 2, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "N");
-        addAssignatura(getGrau(2), "GESTIÓ DE PROJECTES", "GEPR", 340037, new TipusMateria(1, "ABC"),
-                25, 4, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "N");
-        addAssignatura(getGrau(2), "DISSENY I REPRESENTACIÓ TÈCNICA", "DIRT", 340075, new TipusMateria(1, "ABC"),
-                25, 4, 42, 18, new TipusHoresPractica(5, "Laboratori Informàtica"), 3, "N");
+        /*addGrau("Informàtica", "01");
+        addGrau("Enginyeria Mecànica", "02");
+        addGrau("Disseny Industrial", "03");
+        addTipusAula("Aula");
+        addTipusAula("Laboratori d'informàtica");
+        addTipusAula("Laboratori de mecànica");
+        addTipusAula("Laboratori de física");
+        addAula("AA205", 60, getTipusAula(0));
+        addTipusMateria("Matèries Bàsiques");
+        addTipusMateria("Matèries comuns d'àmbit");
+        addTipusMateria("Matèries d'especialitat");
+        
+        
+        addAssignatura(getGrauAt(0), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, getTipusMateria(0),
+                25, 4, 30, 30, getTipusAula(0), 2, "I");
+        addAssignatura(getGrauAt(0), "XARXES DE COMPUTADORS", "XACO", 340356, getTipusMateria(0),
+                25, 4, 42, 18, getTipusAula(0), 3, "I");
+        addAssignatura(getGrauAt(0), "ESTRUCTURA DE LA INFORMACIÓ", "ESIN", 300000, getTipusMateria(0),
+                25, 2, 30, 30, getTipusAula(0), 8, "I");
+        addAssignatura(getGrauAt(0), "XARXES MULTIMÈDIA", "XAMU", 370251, getTipusMateria(0),
+                25, 2, 42, 18, getTipusAula(0), 3, "I");
+        addAssignatura(getGrauAt(0), "EMPRESA", "EMPR", 670200, getTipusMateria(0),
+                25, 2, 60, 0, getTipusAula(0), 0, "I");
+        addAssignatura(getGrauAt(1), "SOSTENIBILITAT", "SOST", 370001, getTipusMateria(0),
+                25, 2, 42, 18, getTipusAula(0), 3, "N");
+        addAssignatura(getGrauAt(1), "PROJECTE DE TECNOLOGIES DE LA INFORMACIÓ", "PTIN", 555555, getTipusMateria(0),
+                25, 2, 42, 18, getTipusAula(0), 3, "N");
+        addAssignatura(getGrauAt(2), "GESTIÓ DE PROJECTES", "GEPR", 340037, getTipusMateria(0),
+                25, 4, 30, 30, getTipusAula(0), 3, "N");
+        addAssignatura(getGrauAt(2), "DISSENY I REPRESENTACIÓ TÈCNICA", "DIRT", 340075, getTipusMateria(0),
+                25, 4, 42, 18, getTipusAula(0), 3, "N");
+        */
         
     }
     
@@ -119,9 +138,9 @@ public class Base {
     /** Afegeix o modifica una nova assignatura segons el codi d'assignatura.
      * @return boolean indica si s'ha afegit l'assignatura correctament, no s'afegirà si algun dels paràmetres no és l'esperat
      **/
-    public boolean addAssignatura(Grau _grau, String _nom, String _sigles, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusHoresPractica _tipusHoresPractica, int _grups, String _inicial) {
+    public boolean addAssignatura(Grau _grau, String _nom, String _sigles, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusAula _tipusHoresPractica, int _grups, String _inicial) {
         
-        Assignatura assignatura = new Assignatura(this, _grau, _nom, _sigles, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups, _inicial);
+        Assignatura assignatura = new Assignatura(_grau, _nom, _sigles, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups, _inicial);
         
         if (assignatura.esValida()) {
             Assignatura aux = getAssignatura(_codi);
@@ -144,12 +163,23 @@ public class Base {
         return graus.size();
     }
     
-    public Grau getGrau(int idGrau) {
-        return graus.get(idGrau);
+    public Grau getGrauAt(int indexGrau) {
+        return graus.get(indexGrau);
+    }
+    
+    public Grau getGrau(int id) {
+        int numGraus = getNumGraus();
+        for (int i = 0; i < numGraus; ++i) {
+            Grau grau = graus.get(i);
+            if (grau.getID() == id) {
+                return grau;
+            }
+        }
+        return null; 
     }
     
     public void addGrau(String nom, String codi) {
-        Grau grau = new Grau(nom, codi);
+        Grau grau = new Grau(idGrau++, nom, codi);
         graus.add(grau);
         saveState();
     }
@@ -158,13 +188,48 @@ public class Base {
         
         int id = idTipusMateria++;
         TipusMateria tipusmateria = new TipusMateria(id, tipus);
-        //tipusmateries.add(tipusmateria);
-        
+        tipusMateries.add(tipusmateria);
+        saveState();
     }
     
+    public int getNumTipusMateries() {
+        return tipusMateries.size();
+    }
+    
+    public TipusMateria getTipusMateria(int idTipus) {
+        int numTipusMateries = getNumTipusMateries();
+        for (int i = 0; i < numTipusMateries; ++i) {
+            TipusMateria tipusMateria = tipusMateries.get(i);
+            if (tipusMateria.getID() == idTipus) {
+                return tipusMateria;
+            }
+        }
+        return null; 
+    }
+    
+    /*public void addTipusHoresPractica(String tipus) {
+        tipusHoresPractiques.add(new TipusHoresPractica(idTipusHoresPractica++, tipus));
+        saveState();
+    }*/
+    
+    /*public int getNumTipusHoresPractiques() {
+        return tipusHoresPractiques.size();
+    }*/
+    
+    /*public TipusHoresPractica getTipusHoresPractica(int idTipus) {
+        int numTipusHoresPractiques = getNumTipusHoresPractiques();
+        for (int i = 0; i < numTipusHoresPractiques; ++i) {
+            TipusHoresPractica tipusHoresPractica = tipusHoresPractiques.get(i);
+            if (tipusHoresPractica.getID() == idTipus) {
+                return tipusHoresPractica;
+            }
+        }
+        return null; 
+    }*/
+    
     public void addTipusAula(String tipus) {
-        int id = idTipusAula++;
-        TipusAula tipusaula = new TipusAula(id, tipus);
+        //int id = idTipusAula++;
+        TipusAula tipusaula = new TipusAula(idTipusAula++, tipus);
         tipusAules.add(tipusaula);
         saveState();
     }
@@ -184,7 +249,8 @@ public class Base {
     }
     
     public int getNumTipusAules() {
-        return idTipusAula;
+        //return idTipusAula; NOTA: Si s'eliminen aules, al iterar el vector tipusAules faria saltar una excepció ja que intentaria accedir a una posició del vector inexistent
+        return tipusAules.size();
     }
     
     public TipusAula getTipusAula(int idTipus) {
@@ -213,9 +279,10 @@ public class Base {
     
     public void addAula(String nom, int capacitat, TipusAula tipusAula) {
         
-        int id = idAula++;
-        Aula aula = new Aula(id, nom, capacitat, tipusAula);
-        //aules.add(aula);
+        //int id = idAula++;
+        Aula aula = new Aula(idAula++, nom, capacitat, tipusAula);
+        aules.add(aula);
+        saveState();
         
     }
     
@@ -231,9 +298,9 @@ public class Base {
     }
     
     /** Retorna cert si existeix l'objecte TipusHoresPractica al vector tipusHoresPractiques. **/
-    public boolean hasTipusHoresPractica(TipusHoresPractica tipus) {
+    /*public boolean hasTipusHoresPractica(TipusHoresPractica tipus) {
         return tipusHoresPractiques.contains(tipus);
-    }
+    }*/
     
     /** Retorna cert si existeix l'objecte TipusMateria al vector tipusMateries. **/
     public boolean hasTipusMateria(TipusMateria tipus) {
@@ -492,16 +559,28 @@ public class Base {
         ObjectOutputStream oos;
         try {
             fout = new FileOutputStream("graus.ser");
-            //fout2 = new FileOutputStream("assignatures.ser");
-            try {
-                oos = new ObjectOutputStream(fout);
-                oos.writeObject(graus);
-                //oos = new ObjectOutputStream(fout2);
-                //oos.writeObject(assignatures);
-            } catch (IOException ex) {
-                Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            oos = new ObjectOutputStream(fout);
+            oos.writeObject(graus);
+            fout = new FileOutputStream("tipusAules.ser");
+            oos = new ObjectOutputStream(fout);
+            oos.writeObject(tipusAules);
+            fout = new FileOutputStream("aules.ser");
+            oos = new ObjectOutputStream(fout);
+            oos.writeObject(aules);
+            fout = new FileOutputStream("tipusMateries.ser");
+            oos = new ObjectOutputStream(fout);
+            oos.writeObject(tipusMateries);
+            /*fout = new FileOutputStream("tipusHoresPractiques.ser");
+            oos = new ObjectOutputStream(fout);
+            oos.writeObject(tipusHoresPractiques);*/
+            fout = new FileOutputStream("assignatures.ser");
+            oos = new ObjectOutputStream(fout);
+            oos.writeObject(assignatures);
+
+            
         } catch (FileNotFoundException ex) {
+            Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -512,6 +591,11 @@ public class Base {
             //eliminem les dades de l'última sessió
             (new File("graus.ser")).delete();
             (new File("selectedDates.ser")).delete();
+            (new File("tipusAules.ser")).delete();
+            (new File("aules.ser")).delete();
+            (new File("tipusMateries.ser")).delete();
+            //(new File("tipusHoresPractiques.ser")).delete();
+            (new File("assignatures.ser")).delete();
             //copiem el contingut del directori de dades a carregar
             try {
                 HourCalendar.copyDirectory(new File(directori), new File("."));
@@ -531,6 +615,31 @@ public class Base {
                 fin = new FileInputStream("graus.ser");
                 ois = new ObjectInputStream(fin);
                 graus = (Vector<Grau>) ois.readObject();
+            }
+            if (new File("tipusAules.ser").exists()) {
+                fin = new FileInputStream("tipusAules.ser");
+                ois = new ObjectInputStream(fin);
+                tipusAules = (Vector<TipusAula>) ois.readObject();
+            }
+            if (new File("aules.ser").exists()) {
+                fin = new FileInputStream("aules.ser");
+                ois = new ObjectInputStream(fin);
+                aules = (Vector<Aula>) ois.readObject();
+            }
+            if (new File("tipusMateries.ser").exists()) {
+                fin = new FileInputStream("tipusMateries.ser");
+                ois = new ObjectInputStream(fin);
+                tipusMateries = (Vector<TipusMateria>) ois.readObject();
+            }
+            /*if (new File("tipusHoresPractiques.ser").exists()) {
+                fin = new FileInputStream("tipusHoresPractiques.ser");
+                ois = new ObjectInputStream(fin);
+                tipusHoresPractiques = (Vector<TipusHoresPractica>) ois.readObject();
+            }*/
+            if (new File("assignatures.ser").exists()) {
+                fin = new FileInputStream("assignatures.ser");
+                ois = new ObjectInputStream(fin);
+                assignatures = (Vector<Assignatura>) ois.readObject();
             }
 
         } catch (FileNotFoundException ex) {

@@ -40,7 +40,7 @@ public class Generador extends SwingWorker<String, Object> {
             Item docencia = new Item(a.horesTeoria, codi);
             items.add(docencia);
             for (int grup = 1; grup <= a.grups; ++grup) {
-                codi = String.valueOf(a.codi).concat("#").concat(String.valueOf(a.tipusHoresPractica.id).concat("#").concat(String.valueOf(grup)));
+                codi = String.valueOf(a.codi).concat("#").concat(String.valueOf(a.getTipusHoresPractica().getID()).concat("#").concat(String.valueOf(grup)));
                 docencia = new Item(a.horesPractica, codi);
                 items.add(docencia);
             }

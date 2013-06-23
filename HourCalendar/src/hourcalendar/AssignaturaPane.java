@@ -37,7 +37,8 @@ public class AssignaturaPane extends javax.swing.JPanel {
         codi.setText(String.valueOf(assignatura.getCodi()));
         String prefixNom = "[Curs ".concat(String.valueOf(assignatura.getQuadrimestre()).concat("] "));
         nom.setText(prefixNom.concat(assignatura.getNom()));
-        int colorGrau = HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau()) % 7;
+        int colorGrau = Math.abs(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau())) % 7;
+        System.out.println("COLORGRAU: ".concat(String.valueOf(colorGrau)));
         this.setBackground(colors.get(colorGrau));
         assignatura.getGrau().color = colors.get(colorGrau);
     }

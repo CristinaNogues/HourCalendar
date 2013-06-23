@@ -82,7 +82,8 @@ public class MainFrame extends javax.swing.JFrame {
     public void updateAssignatures() {
         PanellAssignatures.removeAll();
         Base base = HourCalendar.getBase();
-        for (int i = base.getNumAssignatures(); --i >= 0;) {
+        int numAssignatures = base.getNumAssignatures();
+        for (int i = 0; i < numAssignatures; ++i) {
             AssignaturaPane a = new AssignaturaPane(base.getAssignaturaAt(i));  
             a.setSize(300,50);  
             a.setVisible(true);  

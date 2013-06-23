@@ -57,6 +57,8 @@ public class AssignaturaPane extends javax.swing.JPanel {
         editar = new javax.swing.JButton();
         nom = new javax.swing.JLabel();
         eliminar = new javax.swing.JButton();
+        down = new javax.swing.JButton();
+        up = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 10, 3, 10));
@@ -89,6 +91,30 @@ public class AssignaturaPane extends javax.swing.JPanel {
             }
         });
 
+        down.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        down.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/down.png"))); // NOI18N
+        down.setIconTextGap(0);
+        down.setMinimumSize(new java.awt.Dimension(16, 23));
+        down.setOpaque(false);
+        down.setPreferredSize(new java.awt.Dimension(23, 23));
+        down.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                downMouseClicked(evt);
+            }
+        });
+
+        up.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        up.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hourcalendar/images/up.png"))); // NOI18N
+        up.setIconTextGap(0);
+        up.setMinimumSize(new java.awt.Dimension(16, 23));
+        up.setOpaque(false);
+        up.setPreferredSize(new java.awt.Dimension(23, 23));
+        up.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                upMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,9 +124,13 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nom, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(nom, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(up, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(down, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editar))
         );
@@ -112,6 +142,8 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 .addComponent(editar)
                 .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(eliminar))
+            .addComponent(up, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(down, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -129,11 +161,35 @@ public class AssignaturaPane extends javax.swing.JPanel {
         HourCalendar.getMainFrame().updateAssignatures();
     }//GEN-LAST:event_eliminarMouseClicked
 
+    private void downMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downMouseClicked
+        Base base = HourCalendar.getBase();
+        int index = base.getIndexOfAssignatura(assignatura);
+        if (index < base.getNumAssignatures() - 1) {
+            Assignatura inferior = base.assignatures.set(index + 1, assignatura);
+            base.assignatures.set(index, inferior);
+            base.saveState();
+            HourCalendar.getMainFrame().updateAssignatures();
+        }
+    }//GEN-LAST:event_downMouseClicked
+
+    private void upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseClicked
+        Base base = HourCalendar.getBase();
+        int index = base.getIndexOfAssignatura(assignatura);
+        if (index > 0) {
+            Assignatura superior = base.assignatures.set(index - 1, assignatura);
+            base.assignatures.set(index, superior);
+            base.saveState();
+            HourCalendar.getMainFrame().updateAssignatures();
+        }
+    }//GEN-LAST:event_upMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codi;
+    private javax.swing.JButton down;
     private javax.swing.JButton editar;
     private javax.swing.JButton eliminar;
     private javax.swing.JLabel nom;
     private javax.swing.JLabel sigles;
+    private javax.swing.JButton up;
     // End of variables declaration//GEN-END:variables
 }

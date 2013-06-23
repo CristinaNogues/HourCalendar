@@ -39,6 +39,7 @@ public class AssignaturaPane extends javax.swing.JPanel {
         nom.setText(prefixNom.concat(assignatura.getNom()));
         int colorGrau = HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau()) % 7;
         this.setBackground(colors.get(colorGrau));
+        assignatura.getGrau().color = colors.get(colorGrau);
     }
 
     /**

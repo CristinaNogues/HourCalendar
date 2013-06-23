@@ -72,16 +72,16 @@ public class Generador extends SwingWorker<String, Object> {
                 }
                 Base.dbg("END addReserva FOR ALL ITEMS");
                 int ponderacioActual = disponibilitatHorariaActual.avalua();
-                System.out.println("TEST PONDERACIO");
+                base.dbg("TEST PONDERACIO");
                 if (Regles.PRIORITZAR_QUADRAR_HORES.get()) {
                     if (horesQuadrades > millorHoresQuadrades) {
-                        System.out.println("\tMILLOR HORES QUADRADES, ponderacio actual = ".concat(String.valueOf(ponderacioActual)));
+                        base.dbg("\tMILLOR HORES QUADRADES, ponderacio actual = ".concat(String.valueOf(ponderacioActual)));
                         millorDisponibilitat = (DisponibilitatHoraria) disponibilitatHorariaActual.clone();
                         ponderacio = ponderacioActual;
                         millorHoresQuadrades = horesQuadrades;
                     } else if (horesQuadrades == millorHoresQuadrades) {
                         if (ponderacioActual > ponderacio) {
-                            System.out.println("\tMILLOR HORES QUADRADES AMB PONDERACIO ACTUAL > PONDERACIO: actual = ".concat(String.valueOf(ponderacioActual)));
+                            base.dbg("\tMILLOR HORES QUADRADES AMB PONDERACIO ACTUAL > PONDERACIO: actual = ".concat(String.valueOf(ponderacioActual)));
                             millorDisponibilitat = (DisponibilitatHoraria) disponibilitatHorariaActual.clone();
                             ponderacio = ponderacioActual;
                             millorHoresQuadrades = horesQuadrades;
@@ -89,16 +89,16 @@ public class Generador extends SwingWorker<String, Object> {
                     }
                 } else {
                     if (ponderacioActual > ponderacio) {
-                        System.out.println("\tPONDERACIO ACTUAL > PONDERACIO: actual = ".concat(String.valueOf(ponderacioActual)));
+                        base.dbg("\tPONDERACIO ACTUAL > PONDERACIO: actual = ".concat(String.valueOf(ponderacioActual)));
                         millorDisponibilitat = (DisponibilitatHoraria) disponibilitatHorariaActual.clone();
                         ponderacio = ponderacioActual;
 
                     }
                 }
-                disponibilitatHorariaActual.imprimeixPonderacio();
+                //disponibilitatHorariaActual.imprimeixPonderacio();
                 disponibilitatHorariaActual = null;
-                System.out.println("\thoresActual = ".concat(String.valueOf(horesActual)));
-                System.out.println("\thoresQuadrades = ".concat(String.valueOf(horesQuadrades)));
+                base.dbg("\thoresActual = ".concat(String.valueOf(horesActual)));
+                base.dbg("\thoresQuadrades = ".concat(String.valueOf(horesQuadrades)));
                 //Reordenem el vector d'items
                 Collections.shuffle(items);
             } catch (CloneNotSupportedException ex) {

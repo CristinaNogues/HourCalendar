@@ -5,6 +5,7 @@
 package hourcalendar;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,6 +40,8 @@ public class Base {
     private Vector setmanaOrdreQ1;
     private Vector setmanaOrdreQ2;
     public Vector<DisponibilitatHoraria> disponibilitatsHoraries;
+    public Vector<String> nomDisponibilitatsHoraries;
+    public Vector<Color> colorDisponibilitatsHoraries;
     public int progres;
     public String nomProgres = "Inicialitzant...";
     public Generador generador;
@@ -55,11 +58,11 @@ public class Base {
         ModsCalendari.load();
         assignatures = new Vector<Assignatura>();
         graus = new Vector<Grau>();
-        loadState();
+        //loadState();
         //updateDisponibilitatHoraria(1, 2012);
-        //addGrau("Informàtica", "01");
-        //addGrau("Enginyeria Mecànica", "02");
-        //addGrau("Disseny Industrial", "03");
+        addGrau("Informàtica", "01");
+        addGrau("Enginyeria Mecànica", "02");
+        addGrau("Disseny Industrial", "03");
         addAssignatura(getGrau(0), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
                 25, 4, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
         addAssignatura(getGrau(0), "XARXES DE COMPUTADORS", "XACO", 340356, new TipusMateria(1, "ABC"),
@@ -322,6 +325,32 @@ public class Base {
         
     }
     
+    /** Retorna les assignatures corresponents a un grau i un curs donat.
+     * 
+     * @param grau objecte tipus Grau
+     * @param curs enter indicant el curs on s'imparteix l'assignatura (1..8) (Atribut quadrimestre de la classe Assignatura)
+     */
+    public Vector<Assignatura> getAssignatures(Grau grau, int curs) {
+        dbg("getAssignatures(".concat(grau.getNom()).concat(", ").concat(String.valueOf(curs)).concat(")"));
+        int numAssignatures = getNumAssignatures();
+        Vector<Assignatura> seleccio = new Vector<Assignatura>();
+        Assignatura assig;
+        for (int i = 0; i < numAssignatures; ++i) {
+            assig = getAssignaturaAt(i);
+            dbg(assig.getGrau().getNom().concat(" == ").concat(grau.getNom()).concat(" && ").concat(String.valueOf(assig.getQuadrimestre()).concat(" == ").concat(String.valueOf(curs))));
+            if (assig.getGrau().equals(grau) && assig.getQuadrimestre() == curs) {
+                seleccio.add(assig);
+                dbg("ADD ".concat(assig.getNom()));
+            }
+        }
+        return seleccio;
+    }
+    
+    /** Genera la disponibilitatHoraria inicial donat el quadrimestre i l'any
+     * 
+     * @param quadri enter (1 o 2)
+     * @param any enter. ex: 2012
+     */
     public void updateDisponibilitatHoraria(int quadri, int any) {
         List<Date> dies = getDiesDocencia(quadri, any);
         disponibilitatsHoraries = new Vector<DisponibilitatHoraria>();
@@ -524,7 +553,7 @@ public class Base {
         public static int getModDia(Calendar dia) {
             for (int i = 0; i <= 7; ++i) {
                 if (datesAmbDiaModificat.get(i).indexOf(dia) != -1) {
-                    System.out.println("MOD DIA!!!");
+                    dbg("MOD DIA!!!");
                     return i;
                 }
             }
@@ -538,7 +567,7 @@ public class Base {
         public static int getModOrdre(Calendar dia) {
             for (int i = 0; i <= 3; ++i) {
                 if (datesAmbOrdreModificat.get(i).indexOf(dia) != -1) {
-                    System.out.println("MOD ORDRE!!!");
+                    dbg("MOD ORDRE!!!");
                     return i;
                 }
             }
@@ -563,7 +592,7 @@ public class Base {
         //REGLES INTERNES (NO MODIFICABLES A TRAVÉS DEL FORMULARI D'OPCIONS
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
-        DEBUG_UI_ENABLED (1, "Mostrar informació per consola d'operacions gràfiques que es van realitzant (DEBUG UI MODE)."),
+        DEBUG_UI_ENABLED (0, "Mostrar informació per consola d'operacions gràfiques que es van realitzant (DEBUG UI MODE)."),
         UTILITZA_ANTIC_ALGORISME (0, "Utilitzar l'antic algorisme per a generar els horaris. No soporta solapament d'hores de pràctica.");
 
         private int valor;

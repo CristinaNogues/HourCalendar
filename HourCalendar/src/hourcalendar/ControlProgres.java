@@ -6,6 +6,7 @@ package hourcalendar;
 
 import hourcalendar.Base.Regles;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -93,12 +94,74 @@ public class ControlProgres extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     public void startControl() {
-        System.out.println("START CONTROL");
+        
         setVisible(true);
         repaint();
         update(getGraphics());
         Base base = HourCalendar.getBase();
-
+        base.dbg("START CONTROL");
+        int numGraus = base.getNumGraus();
+        int quadri = Regles.QUADRIMESTRE.getInt();
+        DisponibilitatHoraria disponibilitatInicial = new DisponibilitatHoraria();;
+        //Clonem la disponibilitat horaria inicial
+        try {
+            disponibilitatInicial = (DisponibilitatHoraria) base.disponibilitatsHoraries.get(0).clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(ControlProgres.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        base.dbg("clear disponibilitatshoraries");
+        //treiem la disponibilitat horaria inicial per a que no s'imprimeixi
+        base.disponibilitatsHoraries.clear();
+        //reiniciem els noms dels horaris a imprimir i el color de fons
+        base.nomDisponibilitatsHoraries = new Vector<String>();
+        base.colorDisponibilitatsHoraries = new Vector<Color>();
+        //Generem els horaris per a tots els graus i cursos
+        for (int grau = 0; grau < numGraus; ++grau) {
+            base.dbg("\tGRAU LOOKUP: ".concat(base.getGrau(grau).getNom()));
+            for (int curs = quadri; curs <= 8; curs+=2) {
+                base.dbg("\t\t CURS: ".concat(String.valueOf(curs)));
+                Vector<Assignatura> assignatures = base.getAssignatures(base.getGrau(grau), curs);
+                if (!assignatures.isEmpty()) {
+                    base.dbg("\t\t\t Assignatures trobades: ".concat(String.valueOf(assignatures.size())));
+                    base.progres = 0;
+                    base.generador = new Generador(disponibilitatInicial, assignatures);
+                    base.nomProgres = "Q".concat(String.valueOf(curs)).concat(" - ").concat(base.getGrau(grau).getNom());
+                    //indiquem el nom de l'horari a l'imprimir i el seu color
+                    base.nomDisponibilitatsHoraries.add(base.nomProgres);
+                    base.colorDisponibilitatsHoraries.add(base.getGrau(grau).color);
+                    
+                    base.dbg(base.nomProgres);
+                    base.generador.execute();
+                    Generador generador = base.generador;
+                    NomProgres.setOpaque(true);
+                    
+                    //Actualitzem el formulari de control de progrés durant l'execució del generador
+                    while (generador == null) { generador = base.generador; }
+                    while (!generador.finalitzat) {
+                        int progresValue = (int)((base.progres / (float)Regles.ITERACIONS_GENERADOR.getInt()) * 100);
+                        if (BarraProgres.getValue() != progresValue) {
+                            BarraProgres.setValue(progresValue);
+                            BarraProgres.update(BarraProgres.getGraphics());
+                        }
+                        if (!NomProgres.getText().equals(base.nomProgres)) {
+                            NomProgres.setText(base.nomProgres);
+                            NomProgres.getUI().update(NomProgres.getGraphics(), NomProgres);
+                            NomProgres.repaint();
+                        }
+                    }
+                    
+                    //afegim l'horari generat al vector de disponibilitats horaries de la classe Base
+                    base.disponibilitatsHoraries.add(generador.getHorari());
+                    
+                    
+                }   //bucle curs
+            }   //bucle grau
+        }
+        //Imprimim els horaris generats a la finestra principal
+        actualitzaTaulerHoraris();
+        
+        //###################################################
+        /*
         base.generador = new Generador(base.disponibilitatsHoraries.get(0), base.assignatures);
         //base.generador.setProgressBar(BarraProgres);
         base.nomProgres = "Grau Informàtica Q2";
@@ -126,9 +189,17 @@ public class ControlProgres extends javax.swing.JFrame {
         
         System.out.println(generador.getHorari().toString());
         base.disponibilitatsHoraries.add(generador.getHorari());
+        * */
+
+    }
+    
+    private void actualitzaTaulerHoraris() {
+        Base base = HourCalendar.getBase();
+        //buidem la taula d'horaris de la finestra principal
         finestra.ContentPane.removeAll();
-        System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
+        
         finestra.ContentPane.add(new JTextArea(0,0));
+        //Especifiquem de quina manera s'han de mostrar les taules d'horaris a la finestra principal
         GridBagConstraints constraints = new GridBagConstraints();
         //constraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         constraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -139,11 +210,11 @@ public class ControlProgres extends javax.swing.JFrame {
         constraints.gridx = 0;
         constraints.insets = new Insets(0,0,0,16);
         /*c.fill = GridBagConstraints.HORIZONTAL;
-c.ipady = 40;      //make this component tall
-c.weightx = 0.0;
-c.gridwidth = 3;
-c.gridx = 0;
-c.gridy = 1;*/
+        c.ipady = 40;      //make this component tall
+        c.weightx = 0.0;
+        c.gridwidth = 3;
+        c.gridx = 0;
+        c.gridy = 1;*/
         //HourCalendar.getMainFrame().Contenidor.setVisible(true);
         HourCalendar.getMainFrame().showTabsHeader = true;
         HourCalendar.getMainFrame().TabbedPane.setSelectedIndex(1);
@@ -156,9 +227,13 @@ c.gridy = 1;*/
         int alturaPanell = 0;
         Vector<DisponibilitatHoraria> disponibilitats = base.getDisponibilitatsHoraries();
         for (int idDisponibilitat = 0; idDisponibilitat < disponibilitats.size(); ++idDisponibilitat) {
-            System.out.println("COMPTADOR DISPONIBILITATS");
+            base.dbg("COMPTADOR DISPONIBILITATS");
             PanellHorari horari = new PanellHorari(disponibilitats.elementAt(idDisponibilitat));
-            System.out.println("\t\t\t\t\tALTURA PANELL += ".concat(String.valueOf(horari.getPreferredSize().height)));
+            //establim el nom de l'horari a imprimir
+            horari.NomHorari.setText(" ".concat(base.nomDisponibilitatsHoraries.get(idDisponibilitat)));
+            horari.NomHorari.setBackground(base.colorDisponibilitatsHoraries.get(idDisponibilitat));
+
+            base.dbg("\t\t\t\t\tALTURA PANELL += ".concat(String.valueOf(horari.getPreferredSize().height)));
             alturaPanell += horari.getPreferredSize().height;
             //horari.add(new JTextArea(10,5));
             //finestra.Contenidor.setViewportView(horari);
@@ -168,12 +243,12 @@ c.gridy = 1;*/
             //finestra.Contenidor.getViewport().add(horari);
             //finestra.Contenidor.getViewport().add(horari);
             //finestra.ContentPane.add(new JTextArea(0,0));
-            System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
+            base.dbg(String.valueOf(finestra.ContentPane.getComponentCount()));
             //horari.setSize(finestra.Contenidor.getWidth(), 300);//horari.TaulaHorari.getHeight());
             finestra.ContentPane.add(horari, constraints);
             constraints = (GridBagConstraints) constraints.clone();
             constraints.anchor = GridBagConstraints.CENTER;
-            System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
+            base.dbg(String.valueOf(finestra.ContentPane.getComponentCount()));
             //finestra.ContentPane.add(horari);
             //finestra.ContentPane.add(new JTextArea(50,50), constraints);
             //finestra.ContentPane.add(new JTextArea(10,10), constraints);
@@ -194,6 +269,6 @@ c.gridy = 1;*/
         finestra.ContentPane.revalidate();
         finestra.ContentPane.repaint();
         setVisible(false);
-        System.out.println(String.valueOf(finestra.ContentPane.getComponentCount()));
+        base.dbg(String.valueOf(finestra.ContentPane.getComponentCount()));
     }
 }

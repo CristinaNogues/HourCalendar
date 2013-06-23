@@ -108,7 +108,7 @@ public class PanellHorari extends javax.swing.JPanel {
         String newLine = System.getProperty("line.separator");
         
         TaulaHorari.setSize(300, 400);
-        System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
+        Base.dbgUI("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
         for (int idDia = 2; idDia <= 6; ++idDia) {
             Base.dbgUI("PanellHorari idDia = ".concat(String.valueOf(idDia)));
             DisponibilitatHoraria.DiaDeLaSetmana dia = dies.get(idDia);
@@ -201,10 +201,10 @@ public class PanellHorari extends javax.swing.JPanel {
             }
         }
         if (!esUpdate) {
-            System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
-            System.out.println("ROW COUNT = ".concat(String.valueOf(TaulaHorari.getRowCount())));
+            Base.dbgUI("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
+            Base.dbgUI("ROW COUNT = ".concat(String.valueOf(TaulaHorari.getRowCount())));
             for (int i = 0; i < TaulaHorari.getRowCount() && TaulaHorari.getRowCount() > (maxHoresOcupades + 1); ++i) {
-                System.out.println("REMOVING!!");
+                Base.dbgUI("REMOVING!!");
                 ((DefaultTableModel)TaulaHorari.getModel()).removeRow(TaulaHorari.getRowCount() - 1);
             }
             
@@ -302,7 +302,7 @@ public class PanellHorari extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        NomHorari = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         FiltreGrup1 = new javax.swing.JCheckBox();
         FiltreGrup2 = new javax.swing.JCheckBox();
@@ -318,11 +318,11 @@ public class PanellHorari extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(200, 200));
 
-        jLabel1.setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText(" Grau Informàtica Q2");
-        jLabel1.setOpaque(true);
+        NomHorari.setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
+        NomHorari.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        NomHorari.setForeground(new java.awt.Color(102, 102, 102));
+        NomHorari.setText(" Grau Informàtica Q2");
+        NomHorari.setOpaque(true);
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel2.setText("Filtre:");
@@ -402,7 +402,7 @@ public class PanellHorari extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(NomHorari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,7 +431,7 @@ public class PanellHorari extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(NomHorari, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -458,8 +458,8 @@ public class PanellHorari extends javax.swing.JPanel {
     private javax.swing.JCheckBox FiltreGrup6;
     private javax.swing.JCheckBox FiltreGrup7;
     private javax.swing.JCheckBox FiltreGrup8;
+    public javax.swing.JLabel NomHorari;
     public javax.swing.JTable TaulaHorari;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

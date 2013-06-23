@@ -348,8 +348,7 @@ public class Base {
         aules.removeElement(aula);
         saveState();
     }
-   
-   
+      
     /** Retorna cert si existeix l'objecte grau al vector graus. **/
     public boolean hasGrau(Grau grau) {
         return graus.contains(grau);
@@ -373,6 +372,7 @@ public class Base {
     public int getIndexOfGrau(Grau grau) {
         return graus.indexOf(grau);
     }
+  
     
     /** Retorna cert si existeix l'objecte TipusHoresPractica al vector tipusHoresPractiques. **/
     /*public boolean hasTipusHoresPractica(TipusHoresPractica tipus) {

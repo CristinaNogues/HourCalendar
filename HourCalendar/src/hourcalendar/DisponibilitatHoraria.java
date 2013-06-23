@@ -453,7 +453,7 @@ public class DisponibilitatHoraria implements Cloneable {
             this.grup = Integer.parseInt(parts[2]);
             //set groupAsText
             Assignatura assignatura = HourCalendar.getBase().getAssignatura(this.codi);
-            this.grupAsText = assignatura.inicial.concat(String.valueOf(assignatura.getQuadrimestre()));
+            this.grupAsText = assignatura.getGrau().getInicials().concat(String.valueOf(assignatura.getQuadrimestre()));
             this.grupAsText = this.grupAsText.concat(String.valueOf((int) 5 + ((int) this.grup / 5)));
             if (this.grup != 0) this.grupAsText = this.grupAsText.concat(digitsGrup[this.grup % 4]);    //concat("1").concat(String.valueOf(this.grup));
             //set nom

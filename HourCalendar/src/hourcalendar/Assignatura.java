@@ -23,11 +23,10 @@ public class Assignatura implements java.io.Serializable {
     //public TipusHoresPractica tipusHoresPractica;
     public int idTipusHoresPractica;    //id TipusAula
     public int grups;
-    public String inicial;  //Lletra inicial que representa la titulació (grau), exemples: I = Informàtica, T = Telecos, M = Mecànica; Poden estar repetits
     public boolean esValida = true;
     
     
-    public Assignatura(Grau _grau, String _nom, String _sigles, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusAula _tipusHoresPractica, int _grups, String _inicial) {
+    public Assignatura(Grau _grau, String _nom, String _sigles, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusAula _tipusHoresPractica, int _grups) {
         Base base = HourCalendar.getBase();
         idGrau = _grau.getID();//base.getGrauAt(base.getIndexOfGrau(_grau)).getID();
         //grau = _grau;
@@ -43,7 +42,6 @@ public class Assignatura implements java.io.Serializable {
         //tipusHoresPractica = _tipusHoresPractica;
         idTipusHoresPractica = _tipusHoresPractica.getID();
         grups = _grups;
-        inicial = _inicial;
         /*
         if (!(base.hasGrau(grau) && base.hasTipusMateria(tipus) && base.hasTipusHoresPractica(tipusHoresPractica)))
             esValida = false;

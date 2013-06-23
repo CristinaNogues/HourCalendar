@@ -36,6 +36,9 @@ public class FormulariAssignatura extends javax.swing.JFrame {
         loadDefaults();
         
         grau.setSelectedIndex(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau()));
+        tipusAula.setSelectedIndex(HourCalendar.getBase().getIndexOfTipusAula(assignatura.getTipusHoresPractica()));
+        tipusMateria.setSelectedIndex(HourCalendar.getBase().getIndexOfTipusMateria(assignatura.getTipus()));
+        curs.setSelectedIndex(assignatura.getQuadrimestre() - 1);
     }
     
     private void loadDefaults() {
@@ -44,6 +47,16 @@ public class FormulariAssignatura extends javax.swing.JFrame {
         for (int i = 0; i < base.getNumGraus(); ++i) {
             Grau grau = base.getGrau(i);
             this.grau.addItem(grau.getCodi().concat(" - ").concat(grau.getNom()));
+        }
+        tipusAula.removeAllItems();
+        for (int i = 0; i < base.getNumTipusAules(); ++i) {
+            TipusAula aula = base.getTipusAulaAt(i);
+            this.tipusAula.addItem(aula.getNom());
+        }
+        tipusMateria.removeAllItems();
+        for (int i = 0; i < base.getNumTipusMateries(); ++i) {
+            TipusMateria materia = base.getTipusMateriaAt(i);
+            this.tipusMateria.addItem(materia.getNom());
         }
 
     }
@@ -76,86 +89,114 @@ public class FormulariAssignatura extends javax.swing.JFrame {
         tipusMateria = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         grau = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        BotoAcceptar = new javax.swing.JButton();
+        BotoCancelar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         sigles = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel1.setText("Assignatura");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel2.setText("Nom");
 
+        nom.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         nom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomActionPerformed(evt);
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel3.setText("Codi");
 
+        codi.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        codi.setText("0");
         codi.setToolTipText("El codi és l'identificador de l'assignatura, no es podrà editar!");
-        codi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codiActionPerformed(evt);
+        codi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                codiKeyReleased(evt);
             }
         });
 
-        jLabel4.setText("Nº grups");
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jLabel4.setText("Nº grups pràctiques");
 
+        grups.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        grups.setText("0");
         grups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 grupsActionPerformed(evt);
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel5.setText("Curs");
 
+        curs.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         curs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8" }));
 
+        jLabel6.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel6.setText("H.Teoria");
 
-        jLabel7.setText("H.Laboratori");
+        horesTeoria.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        horesTeoria.setText("0");
 
-        jLabel8.setText("Tipus H.Laboratori");
+        jLabel7.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jLabel7.setText("H.Pràctiques");
 
+        horesPractica.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        horesPractica.setText("0");
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jLabel8.setText("Tipus H.Pràctiques");
+
+        tipusAula.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         tipusAula.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel9.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel9.setText("Tipus");
 
+        tipusMateria.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         tipusMateria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel10.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel10.setText("Grau");
 
+        grau.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         grau.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Acceptar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        BotoAcceptar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        BotoAcceptar.setText("Acceptar");
+        BotoAcceptar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                BotoAcceptarMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BotoAcceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BotoAcceptarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancel·lar");
+        BotoCancelar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        BotoCancelar.setText("Cancel·lar");
+        BotoCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoCancelarMouseClicked(evt);
+            }
+        });
 
+        jLabel11.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel11.setText("Sigles");
 
+        sigles.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         sigles.setToolTipText("");
-        sigles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                siglesActionPerformed(evt);
-            }
-        });
         sigles.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                siglesKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                siglesKeyReleased(evt);
             }
         });
 
@@ -178,7 +219,7 @@ public class FormulariAssignatura extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(BotoCancelar)
                                 .addGap(61, 61, 61))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -206,26 +247,27 @@ public class FormulariAssignatura extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(20, 20, 20)
-                                        .addComponent(jButton1))
+                                        .addComponent(BotoAcceptar))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(13, 13, 13)
                                         .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
                                         .addComponent(grups, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                                .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sigles, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(curs, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(codi)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(sigles, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(curs, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(162, 162, 162)
                 .addComponent(jLabel1)
@@ -270,8 +312,8 @@ public class FormulariAssignatura extends javax.swing.JFrame {
                     .addComponent(grau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(BotoAcceptar)
+                    .addComponent(BotoCancelar))
                 .addGap(22, 22, 22))
         );
 
@@ -282,33 +324,49 @@ public class FormulariAssignatura extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomActionPerformed
 
-    private void codiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codiActionPerformed
-
     private void grupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grupsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_grupsActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void BotoAcceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoAcceptarMouseClicked
         Base base = HourCalendar.getBase();
-        
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
+        TipusAula _tipusHoresPractica = base.getTipusAulaAt(tipusAula.getSelectedIndex());
+        Grau _grau = base.getGrauAt(grau.getSelectedIndex());
+        TipusMateria _tipusMateria = base.getTipusMateriaAt(tipusMateria.getSelectedIndex());
+        int _curs = curs.getSelectedIndex() + 1;
+                                                                                                                   //int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusAula _tipusHoresPractica, int _grups) {
+        base.addAssignatura(_grau, nom.getText(), sigles.getText(), Integer.parseInt(codi.getText()), _tipusMateria, 0, _curs, Integer.parseInt(horesTeoria.getText()), Integer.parseInt(horesPractica.getText()), _tipusHoresPractica, Integer.parseInt(grups.getText()));
+        HourCalendar.getMainFrame().updateAssignatures();
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_BotoAcceptarMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BotoAcceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotoAcceptarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BotoAcceptarActionPerformed
 
-    private void siglesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siglesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_siglesActionPerformed
-
-    private void siglesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_siglesKeyPressed
-        if (sigles.getText().length() >= 4) {
-            sigles.setText(sigles.getText().substring(0, 3));
+    private void codiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codiKeyReleased
+        //codi.setText(String.valueOf(Integer.parseInt(codi.getText())));
+        String temp = codi.getText().replaceAll("\\D", "");
+        if (temp.length() >= 7) {
+            temp = temp.substring(0, 6);
         }
-    }//GEN-LAST:event_siglesKeyPressed
+        if (!codi.getText().equals(temp)) {
+            codi.setText(temp);
+        }
+    }//GEN-LAST:event_codiKeyReleased
+
+    private void siglesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_siglesKeyReleased
+        sigles.setText(sigles.getText().toUpperCase());
+        if (sigles.getText().length() >= 6) {
+            sigles.setText(sigles.getText().substring(0, 5));
+        }
+    }//GEN-LAST:event_siglesKeyReleased
+
+    private void BotoCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoCancelarMouseClicked
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_BotoCancelarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -345,14 +403,14 @@ public class FormulariAssignatura extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotoAcceptar;
+    private javax.swing.JButton BotoCancelar;
     private javax.swing.JTextField codi;
     private javax.swing.JComboBox curs;
     private javax.swing.JComboBox grau;
     private javax.swing.JTextField grups;
     private javax.swing.JTextField horesPractica;
     private javax.swing.JTextField horesTeoria;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

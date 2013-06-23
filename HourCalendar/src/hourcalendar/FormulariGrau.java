@@ -36,6 +36,8 @@ public class FormulariGrau extends javax.swing.JFrame {
         codi = new javax.swing.JTextField();
         BotoCancelar = new javax.swing.JButton();
         BotoAcceptar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        inicials = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +67,14 @@ public class FormulariGrau extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Inicials");
+
+        inicials.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inicialsKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,7 +89,12 @@ public class FormulariGrau extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(inicials, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
                                 .addComponent(BotoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -98,8 +113,12 @@ public class FormulariGrau extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(inicials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)))
@@ -120,7 +139,7 @@ public class FormulariGrau extends javax.swing.JFrame {
 
     private void BotoAcceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoAcceptarMouseClicked
         Base base = HourCalendar.getBase();
-        base.addGrau(nom.getText(), codi.getText());
+        base.addGrau(nom.getText(), codi.getText(), inicials.getText());
         // TODO add your handling code here:
         setVisible(false);
         dispose();
@@ -131,13 +150,22 @@ public class FormulariGrau extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_BotoCancelarMouseClicked
 
+    private void inicialsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inicialsKeyReleased
+        inicials.setText(inicials.getText().toUpperCase());
+        if (inicials.getText().length() >= 3) {
+            inicials.setText(inicials.getText().substring(0, 2));
+        }
+    }//GEN-LAST:event_inicialsKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotoAcceptar;
     private javax.swing.JButton BotoCancelar;
     private javax.swing.JTextField codi;
+    private javax.swing.JTextField inicials;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField nom;
     // End of variables declaration//GEN-END:variables
 }

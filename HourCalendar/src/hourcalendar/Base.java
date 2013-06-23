@@ -74,9 +74,9 @@ public class Base {
         }
         loadState(directori);
         //updateDisponibilitatHoraria(1, 2012);
-        /*addGrau("Informàtica", "01");
-        addGrau("Enginyeria Mecànica", "02");
-        addGrau("Disseny Industrial", "03");
+        /*addGrau("Informàtica", "01", "I");
+        addGrau("Enginyeria Mecànica", "02", "N");
+        addGrau("Disseny Industrial", "03", "D");
         addTipusAula("Aula");
         addTipusAula("Laboratori d'informàtica");
         addTipusAula("Laboratori de mecànica");
@@ -88,25 +88,25 @@ public class Base {
         
         
         addAssignatura(getGrauAt(0), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, getTipusMateria(0),
-                25, 4, 30, 30, getTipusAula(0), 2, "I");
+                25, 4, 30, 30, getTipusAula(0), 2);
         addAssignatura(getGrauAt(0), "XARXES DE COMPUTADORS", "XACO", 340356, getTipusMateria(0),
-                25, 4, 42, 18, getTipusAula(0), 3, "I");
+                25, 4, 42, 18, getTipusAula(0), 3);
         addAssignatura(getGrauAt(0), "ESTRUCTURA DE LA INFORMACIÓ", "ESIN", 300000, getTipusMateria(0),
-                25, 2, 30, 30, getTipusAula(0), 8, "I");
+                25, 2, 30, 30, getTipusAula(0), 8);
         addAssignatura(getGrauAt(0), "XARXES MULTIMÈDIA", "XAMU", 370251, getTipusMateria(0),
-                25, 2, 42, 18, getTipusAula(0), 3, "I");
+                25, 2, 42, 18, getTipusAula(0), 3);
         addAssignatura(getGrauAt(0), "EMPRESA", "EMPR", 670200, getTipusMateria(0),
-                25, 2, 60, 0, getTipusAula(0), 0, "I");
+                25, 2, 60, 0, getTipusAula(0), 0);
         addAssignatura(getGrauAt(1), "SOSTENIBILITAT", "SOST", 370001, getTipusMateria(0),
-                25, 2, 42, 18, getTipusAula(0), 3, "N");
+                25, 2, 42, 18, getTipusAula(0), 3);
         addAssignatura(getGrauAt(1), "PROJECTE DE TECNOLOGIES DE LA INFORMACIÓ", "PTIN", 555555, getTipusMateria(0),
-                25, 2, 42, 18, getTipusAula(0), 3, "N");
+                25, 2, 42, 18, getTipusAula(0), 3);
         addAssignatura(getGrauAt(2), "GESTIÓ DE PROJECTES", "GEPR", 340037, getTipusMateria(0),
-                25, 4, 30, 30, getTipusAula(0), 3, "N");
+                25, 4, 30, 30, getTipusAula(0), 3);
         addAssignatura(getGrauAt(2), "DISSENY I REPRESENTACIÓ TÈCNICA", "DIRT", 340075, getTipusMateria(0),
-                25, 4, 42, 18, getTipusAula(0), 3, "N");
-        */
+                25, 4, 42, 18, getTipusAula(0), 3);
         
+        */
     }
     
     public int getNumAssignatures() {
@@ -133,20 +133,27 @@ public class Base {
     
     public void removeAssignatura(Assignatura assignatura) {
         assignatures.removeElement(assignatura);
+        saveState();
+    }
+    
+    public int getIndexOfAssignatura(Assignatura assignatura) {
+        return assignatures.indexOf(assignatura);
     }
     
     /** Afegeix o modifica una nova assignatura segons el codi d'assignatura.
      * @return boolean indica si s'ha afegit l'assignatura correctament, no s'afegirà si algun dels paràmetres no és l'esperat
      **/
-    public boolean addAssignatura(Grau _grau, String _nom, String _sigles, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusAula _tipusHoresPractica, int _grups, String _inicial) {
+    public boolean addAssignatura(Grau _grau, String _nom, String _sigles, int _codi, TipusMateria _tipus, int _alumnes, int _quadrimestre, int _horesTeoria, int _horesPractica, TipusAula _tipusHoresPractica, int _grups) {
         
-        Assignatura assignatura = new Assignatura(_grau, _nom, _sigles, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups, _inicial);
+        Assignatura assignatura = new Assignatura(_grau, _nom, _sigles, _codi, _tipus, _alumnes, _quadrimestre, _horesTeoria, _horesPractica, _tipusHoresPractica, _grups);
         
         if (assignatura.esValida()) {
             Assignatura aux = getAssignatura(_codi);
             if (aux != null) {
                 //L'assignatura ja existia, la modifiquem
-                aux = assignatura;
+                int indexExistent = getIndexOfAssignatura(aux);
+                assignatures.setElementAt(assignatura, indexExistent);
+                aux = null;//assignatura;
             } else {
                 //Afegint una nova assignatura
                 assignatures.add(assignatura);
@@ -178,8 +185,8 @@ public class Base {
         return null; 
     }
     
-    public void addGrau(String nom, String codi) {
-        Grau grau = new Grau(idGrau++, nom, codi);
+    public void addGrau(String nom, String codi, String inicial) {
+        Grau grau = new Grau(idGrau++, nom, codi, inicial);
         graus.add(grau);
         saveState();
     }
@@ -205,6 +212,14 @@ public class Base {
             }
         }
         return null; 
+    }
+    
+    public TipusMateria getTipusMateriaAt(int index) {
+        return tipusMateries.get(index);
+    }
+    
+    public int getIndexOfTipusMateria(TipusMateria materia) {
+        return tipusMateries.indexOf(materia);
     }
     
     /*public void addTipusHoresPractica(String tipus) {
@@ -264,6 +279,14 @@ public class Base {
             }
         }
         return null; 
+    }
+    
+    public int getIndexOfTipusAula(TipusAula aula) {
+        return tipusAules.indexOf(aula);
+    }
+    
+    public TipusAula getTipusAulaAt(int index) {
+        return tipusAules.get(index);
     }
     
     public TipusAula getTipusAula(String nomTipus) {

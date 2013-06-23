@@ -7,6 +7,7 @@ package hourcalendar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -51,18 +52,23 @@ public class Base {
     public int idTipusAula = 0;
     public int idAula = 0;
     
-    public Base() {
-        loadDiesDocencia();
+    public Base(int conjuntDeDades) {
+        //loadDiesDocencia();
         setmanaOrdreQ1 = new Vector<Integer>();
         setmanaOrdreQ2 = new Vector<Integer>();
         ModsCalendari.load();
         assignatures = new Vector<Assignatura>();
         graus = new Vector<Grau>();
-        //loadState();
+        //si conjuntDeDades == 0 utilitzem les dades de l'última sessió, per tant, no canviem res
+        String directori = "";
+        if (conjuntDeDades != 0) {
+            directori = (conjuntDeDades == 1) ? "dades\\default\\" : "dades\\empty\\";
+        }
+        loadState(directori);
         //updateDisponibilitatHoraria(1, 2012);
-        addGrau("Informàtica", "01");
-        addGrau("Enginyeria Mecànica", "02");
-        addGrau("Disseny Industrial", "03");
+        //addGrau("Informàtica", "01");
+        //addGrau("Enginyeria Mecànica", "02");
+        //addGrau("Disseny Industrial", "03");
         addAssignatura(getGrau(0), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, new TipusMateria(1, "ABC"),
                 25, 4, 30, 30, new TipusHoresPractica(5, "Laboratori Informàtica"), 2, "I");
         addAssignatura(getGrau(0), "XARXES DE COMPUTADORS", "XACO", 340356, new TipusMateria(1, "ABC"),
@@ -234,11 +240,10 @@ public class Base {
         return tipusMateries.contains(tipus);
     }
     
+    /** Actualitza la llista de dates "diesDocencia" amb les dades del fitxer "selectedDates.ser". */
     public void loadDiesDocencia() {
         FileInputStream fin;
         ObjectInputStream ois;
-        List<Date> selectedDates;
-        //diesDocencia = new List<Date>();
         try {
             fin = new FileInputStream("selectedDates.ser");
             try {
@@ -501,24 +506,38 @@ public class Base {
         }
     }
     
-    public void loadState() {
-        
+    public void loadState(String directori) {
+        //Si directory no és buit, eliminem les dades de l'última sessió i en copiem les del directori especificat
+        if (!directori.isEmpty()) {
+            //eliminem les dades de l'última sessió
+            (new File("graus.ser")).delete();
+            (new File("selectedDates.ser")).delete();
+            //copiem el contingut del directori de dades a carregar
+            try {
+                HourCalendar.copyDirectory(new File(directori), new File("."));
+            } catch (IOException ex) {
+                Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         FileInputStream fin;
         ObjectInputStream ois;
         try {
-            fin = new FileInputStream("graus.ser");
-            try {
+            if (new File("selectedDates.ser").exists()) {
+                fin = new FileInputStream("selectedDates.ser");
                 ois = new ObjectInputStream(fin);
-                try {
-                    graus = (Vector<Grau>) ois.readObject();
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+                diesDocencia = (List<Date>) ois.readObject();
             }
-            
+            if (new File("graus.ser").exists()) {
+                fin = new FileInputStream("graus.ser");
+                ois = new ObjectInputStream(fin);
+                graus = (Vector<Grau>) ois.readObject();
+            }
+
         } catch (FileNotFoundException ex) {
+            Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

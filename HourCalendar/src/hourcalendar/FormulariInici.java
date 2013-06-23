@@ -26,56 +26,143 @@ public class FormulariInici extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        BotoInicialitzar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        dades_conjuntBuit = new javax.swing.JRadioButton();
+        dades_perDefecte = new javax.swing.JRadioButton();
+        dades_ultimaSessio = new javax.swing.JRadioButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HourCalendar");
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel1.setText("<html><p align=\"justify\">Per a no tenir que afegir les dades manualment cada vegada que s'executa l'aplicació, us proporcionem vàries opcions que us permeten carregar del disc uns conjunts predefinits d'aquestes dades. Amb dades ens referim als diferents graus, aules, assignatures, etc.</p></html>");
+
+        BotoInicialitzar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        BotoInicialitzar.setText("Inicialitzar");
+        BotoInicialitzar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotoInicialitzarMouseClicked(evt);
+            }
+        });
+        BotoInicialitzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotoInicialitzarActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(dades_conjuntBuit);
+        dades_conjuntBuit.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        dades_conjuntBuit.setText("<html>Utilitzar un nou conjunt de dades buit.</html>");
+        dades_conjuntBuit.setToolTipText("");
+        dades_conjuntBuit.setActionCommand("<html>Utilitzar un nou conjunt de dades buit.</html>");
+        dades_conjuntBuit.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        dades_conjuntBuit.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
+        buttonGroup1.add(dades_perDefecte);
+        dades_perDefecte.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        dades_perDefecte.setText("<html><p align=\"justify\">Utilitzar les dades per defecte. (Conjunt d'assignatures i altres dades utilitzades per realitzar proves i que són el  més similar possible a les dades reals de l'epsevg)</p></html>");
+        dades_perDefecte.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        dades_perDefecte.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
+        buttonGroup1.add(dades_ultimaSessio);
+        dades_ultimaSessio.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        dades_ultimaSessio.setSelected(true);
+        dades_ultimaSessio.setText("Utilitzar les dades de l'última sessió.");
+        dades_ultimaSessio.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        dades_ultimaSessio.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dades_perDefecte, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(dades_ultimaSessio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dades_conjuntBuit, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 113, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(dades_ultimaSessio)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(dades_perDefecte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(dades_conjuntBuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 359, Short.MAX_VALUE)
+                        .addComponent(BotoInicialitzar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BotoInicialitzar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormulariInici.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormulariInici.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormulariInici.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormulariInici.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void BotoInicialitzarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoInicialitzarMouseClicked
+        int opcio = 0;
+        if (dades_ultimaSessio.isSelected()) {
+            System.out.println("ultima sessio");
+            opcio = 0;
+        } else if (dades_perDefecte.isSelected()) {
+            System.out.println("per defecte");
+            opcio = 1;
+        } else {
+            System.out.println("Conjunt buit");
+            opcio = 2;
         }
-        //</editor-fold>
+        
+        HourCalendar.inicialitza(opcio);
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_BotoInicialitzarMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormulariInici().setVisible(true);
-            }
-        });
-    }
+    private void BotoInicialitzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotoInicialitzarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotoInicialitzarActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotoInicialitzar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JRadioButton dades_conjuntBuit;
+    private javax.swing.JRadioButton dades_perDefecte;
+    private javax.swing.JRadioButton dades_ultimaSessio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

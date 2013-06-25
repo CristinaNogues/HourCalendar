@@ -15,21 +15,22 @@ public class FormulariAula extends javax.swing.JFrame {
         initComponents();
         
         Base base = HourCalendar.getBase();
+        System.out.println("AGR - 1");
 
         /** Omplim la JList les aules guardades */
         DefaultListModel model = new DefaultListModel();
         for(int i = 0; i < base.getNumAules(); ++i){
             Aula aula = base.getAula(i);
-            model.addElement(aula.getNom());
+            if (aula != null) model.addElement(aula.getNom());
         }
         llistaAules.setModel(model);
-        
+        System.out.println("AGR - 2");
         /** Omplim el JComboBox amb els tipus d'aula */
         for (int i = 0; i < base.getNumTipusAules(); ++i) {
             TipusAula tipus = base.getTipusAula(i);
             tipusaula.addItem(tipus.getNom());
         }
-        
+        System.out.println("AGR - 3");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
@@ -222,7 +223,7 @@ public class FormulariAula extends javax.swing.JFrame {
     private void llistaAulesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llistaAulesMouseClicked
         Base base = HourCalendar.getBase();
         Aula aula = base.getAula(llistaAules.getSelectedValue().toString());
-        System.out.println("Has seleccionat: " + llistaAules.getSelectedValue().toString());
+        //System.out.println("Has seleccionat: " + llistaAules.getSelectedValue().toString());
         nom.setText(aula.getNom());
         capacitat.setValue(aula.getCapacitat());
         tipusaula.setSelectedIndex(aula.getTipusAula().getID());

@@ -31,8 +31,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="codi" min="-2" pref="58" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="nom" pref="260" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="nom" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="grau" pref="72" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="eliminar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="up" min="-2" max="-2" attributes="0"/>
@@ -51,6 +53,7 @@
               <Component id="editar" alignment="3" min="-2" max="-2" attributes="0"/>
               <Component id="nom" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
               <Component id="eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="grau" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
           <Component id="up" min="-2" max="-2" attributes="0"/>
           <Component id="down" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -148,6 +151,13 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="upMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="grau">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="Inform&#xe0;tica"/>
+        <Property name="verticalAlignment" type="int" value="3"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

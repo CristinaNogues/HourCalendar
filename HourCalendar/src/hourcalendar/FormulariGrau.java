@@ -54,11 +54,6 @@ public class FormulariGrau extends javax.swing.JFrame {
                 BotoCancelarMouseClicked(evt);
             }
         });
-        BotoCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotoCancelarActionPerformed(evt);
-            }
-        });
 
         BotoAcceptar.setText("Acceptar");
         BotoAcceptar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,10 +127,6 @@ public class FormulariGrau extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BotoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotoCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotoCancelarActionPerformed
 
     private void BotoAcceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotoAcceptarMouseClicked
         Base base = HourCalendar.getBase();

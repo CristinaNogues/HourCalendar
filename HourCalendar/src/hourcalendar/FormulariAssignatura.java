@@ -45,8 +45,8 @@ public class FormulariAssignatura extends javax.swing.JFrame {
         Base base = HourCalendar.getBase();
         grau.removeAllItems();
         for (int i = 0; i < base.getNumGraus(); ++i) {
-            Grau grau = base.getGrau(i);
-            this.grau.addItem(grau.getCodi().concat(" - ").concat(grau.getNom()));
+            Grau grauT = base.getGrauAt(i);
+            this.grau.addItem(grauT.getCodi().concat(" - ").concat(grauT.getNom()));
         }
         tipusAula.removeAllItems();
         for (int i = 0; i < base.getNumTipusAules(); ++i) {

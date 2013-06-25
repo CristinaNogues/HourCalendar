@@ -37,6 +37,16 @@ public class AssignaturaPane extends javax.swing.JPanel {
         codi.setText(String.valueOf(assignatura.getCodi()));
         String prefixNom = "[Curs ".concat(String.valueOf(assignatura.getQuadrimestre()).concat("] "));
         nom.setText(prefixNom.concat(assignatura.getNom()));
+        int idGrau = Integer.valueOf(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau()));
+        Base base = HourCalendar.getBase();
+        for (int i = 0; i < base.getNumGraus(); ++i) {
+            Grau grauT = base.getGrauAt(i);
+            if(idGrau == grauT.getID()){
+                grau.setText(String.valueOf(grauT.getNom()));
+                break;
+            }
+        }
+        //grau.setText(String.valueOf(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau())));
         int colorGrau = Math.abs(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau())) % 7;
         System.out.println("COLORGRAU: ".concat(String.valueOf(colorGrau)));
         this.setBackground(colors.get(colorGrau));
@@ -59,6 +69,7 @@ public class AssignaturaPane extends javax.swing.JPanel {
         eliminar = new javax.swing.JButton();
         down = new javax.swing.JButton();
         up = new javax.swing.JButton();
+        grau = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 10, 3, 10));
@@ -115,6 +126,10 @@ public class AssignaturaPane extends javax.swing.JPanel {
             }
         });
 
+        grau.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        grau.setText("Informàtica");
+        grau.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,8 +139,10 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nom, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(grau, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(eliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(up, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,7 +158,8 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(editar)
                 .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(eliminar))
+                .addComponent(eliminar)
+                .addComponent(grau))
             .addComponent(up, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(down, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
@@ -188,6 +206,7 @@ public class AssignaturaPane extends javax.swing.JPanel {
     private javax.swing.JButton down;
     private javax.swing.JButton editar;
     private javax.swing.JButton eliminar;
+    private javax.swing.JLabel grau;
     private javax.swing.JLabel nom;
     private javax.swing.JLabel sigles;
     private javax.swing.JButton up;

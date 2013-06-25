@@ -66,7 +66,7 @@ public class Generador extends SwingWorker<String, Object> {
                 for (int idItem = items.size(); --idItem >= 0;) {
                     Base.dbg("BEFORE addReserva CALL FOR item ".concat(String.valueOf(idItem)));
                     int hores = disponibilitatHorariaActual.addReserva(items.get(idItem).hores, items.get(idItem).codi);
-                    Base.dbg("AFTER addReserva CALL FOR item ".concat(String.valueOf(idItem)));
+                    Base.dbgAUX("AFTER addReserva CALL FOR item ".concat(String.valueOf(idItem)).concat(", hores: ").concat(String.valueOf(hores)));
                     if (hores == 0) ++horesQuadrades;
                     horesActual += hores;
                 }
@@ -75,13 +75,13 @@ public class Generador extends SwingWorker<String, Object> {
                 base.dbg("TEST PONDERACIO");
                 if (Regles.PRIORITZAR_QUADRAR_HORES.get()) {
                     if (horesQuadrades > millorHoresQuadrades) {
-                        base.dbg("\tMILLOR HORES QUADRADES, ponderacio actual = ".concat(String.valueOf(ponderacioActual)));
+                        base.dbgAUX("\tMILLOR HORES QUADRADES, ponderacio actual = ".concat(String.valueOf(ponderacioActual)));
                         millorDisponibilitat = (DisponibilitatHoraria) disponibilitatHorariaActual.clone();
                         ponderacio = ponderacioActual;
                         millorHoresQuadrades = horesQuadrades;
                     } else if (horesQuadrades == millorHoresQuadrades) {
                         if (ponderacioActual > ponderacio) {
-                            base.dbg("\tMILLOR HORES QUADRADES AMB PONDERACIO ACTUAL > PONDERACIO: actual = ".concat(String.valueOf(ponderacioActual)));
+                            base.dbgAUX("\tMILLOR HORES QUADRADES AMB PONDERACIO ACTUAL > PONDERACIO: actual = ".concat(String.valueOf(ponderacioActual)));
                             millorDisponibilitat = (DisponibilitatHoraria) disponibilitatHorariaActual.clone();
                             ponderacio = ponderacioActual;
                             millorHoresQuadrades = horesQuadrades;
@@ -89,7 +89,7 @@ public class Generador extends SwingWorker<String, Object> {
                     }
                 } else {
                     if (ponderacioActual > ponderacio) {
-                        base.dbg("\tPONDERACIO ACTUAL > PONDERACIO: actual = ".concat(String.valueOf(ponderacioActual)));
+                        base.dbgAUX("\tPONDERACIO ACTUAL > PONDERACIO: actual = ".concat(String.valueOf(ponderacioActual)));
                         millorDisponibilitat = (DisponibilitatHoraria) disponibilitatHorariaActual.clone();
                         ponderacio = ponderacioActual;
 
@@ -97,8 +97,8 @@ public class Generador extends SwingWorker<String, Object> {
                 }
                 //disponibilitatHorariaActual.imprimeixPonderacio();
                 disponibilitatHorariaActual = null;
-                base.dbg("\thoresActual = ".concat(String.valueOf(horesActual)));
-                base.dbg("\thoresQuadrades = ".concat(String.valueOf(horesQuadrades)));
+                base.dbgAUX("\thoresActual = ".concat(String.valueOf(horesActual)));
+                base.dbgAUX("\thoresQuadrades = ".concat(String.valueOf(horesQuadrades)));
                 //Reordenem el vector d'items
                 Collections.shuffle(items);
             } catch (CloneNotSupportedException ex) {

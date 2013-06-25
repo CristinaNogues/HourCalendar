@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
  */
 public class FormulariOpcions extends javax.swing.JFrame {
     static javax.swing.JFrame frameCalendari;
+    private boolean inicialitzat = false;
 
     /**
      * Creates new form FormulariOpcions
@@ -43,6 +44,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
         modsCalendari.setSelected(Regles.APLICAR_MODS_CALENDARI.get());
         
         updateDisponibilitatHoraria();
+        inicialitzat = true;
     }
     
     public void updateDisponibilitatHoraria() {
@@ -324,18 +326,24 @@ public class FormulariOpcions extends javax.swing.JFrame {
 
     private void quadrimestrePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_quadrimestrePropertyChange
         HourCalendar.getBase().dbgUI("QUADRIMESTRE property changed!");
-        Regles.QUADRIMESTRE.set(quadrimestre.getSelectedIndex() + 1);
-        updateDisponibilitatHoraria();
+        if (inicialitzat) {
+            Regles.QUADRIMESTRE.set(quadrimestre.getSelectedIndex() + 1);
+            updateDisponibilitatHoraria();
+        }
     }//GEN-LAST:event_quadrimestrePropertyChange
 
     private void convocatoriaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_convocatoriaPropertyChange
-        Regles.CONVOCATORIA.set(convocatoria.getSelectedIndex() + 1);
-        updateDisponibilitatHoraria();
+        if (inicialitzat) {
+            Regles.CONVOCATORIA.set(convocatoria.getSelectedIndex() + 1);
+            updateDisponibilitatHoraria();
+        }
     }//GEN-LAST:event_convocatoriaPropertyChange
 
     private void modsCalendariPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_modsCalendariPropertyChange
-        Regles.APLICAR_MODS_CALENDARI.set(modsCalendari.isSelected());
-        updateDisponibilitatHoraria();
+        if (inicialitzat) {
+            Regles.APLICAR_MODS_CALENDARI.set(modsCalendari.isSelected());
+            updateDisponibilitatHoraria();
+        }
     }//GEN-LAST:event_modsCalendariPropertyChange
 
 

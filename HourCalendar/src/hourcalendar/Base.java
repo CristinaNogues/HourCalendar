@@ -281,10 +281,10 @@ public class Base {
     
     public TipusAula getTipusAula(int idTipus) {
         int numTipusAules = getNumTipusAules();
-        System.out.println("Num tipus aules: " + numTipusAules);
+        //System.out.println("Num tipus aules: " + numTipusAules);
         for (int i = 0; i < numTipusAules; ++i) {
             TipusAula tipusaula = tipusAules.get(i);
-            System.out.println("FIns aqui");
+            //System.out.println("FIns aqui");
             if (tipusaula.getID() == idTipus) {
                 return tipusaula;
             }
@@ -784,15 +784,16 @@ public class Base {
     
     public enum Regles {
         SOLAPAR_HORES_PRACTICA (1, "<html>Solapar les hores de pràctica d'assignatures i grups diferents.</html>"),
-        ASSIGNAR_HORES_RESTANTS (1, "<html>Sobrepassar les hores assignades a les assignatures si no <br>existeix combinació possible que les quadri al calendari.</html>"),
-        PRIORITZAR_QUADRAR_HORES (0, "<html>Donar prioritat a quadrar les hores de les assignatures enlloc <br>d'obtenir un calendari més ben repartit.</html>"),
-        ITERACIONS_GENERADOR (1, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
-        QUADRIMESTRE (1, "<html>Quadrimestre per al que generar els horaris.</html>"),
+        ASSIGNAR_HORES_RESTANTS (0, "<html>Sobrepassar les hores assignades a les assignatures si no <br>existeix combinació possible que les quadri al calendari.</html>"),
+        PRIORITZAR_QUADRAR_HORES (1, "<html>Donar prioritat a quadrar les hores de les assignatures enlloc <br>d'obtenir un calendari més ben repartit.</html>"),
+        ITERACIONS_GENERADOR (200, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
+        QUADRIMESTRE (2, "<html>Quadrimestre per al que generar els horaris.</html>"),
         CONVOCATORIA (1, "<html>Any de convocatòria.</html>"),
         APLICAR_MODS_CALENDARI (1, "<html>Utilitzar modificacions del calendari. Exemple: Dilluns 14 de gener passa a ser dijous.</html>"),
         //REGLES INTERNES (NO MODIFICABLES A TRAVÉS DEL FORMULARI D'OPCIONS
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
+        DEBUG_AUX_ENABLED (1, "Mostrar informació per consola d'operacions auxiliars (DEBUG AUX MODE)."),
         DEBUG_UI_ENABLED (0, "Mostrar informació per consola d'operacions gràfiques que es van realitzant (DEBUG UI MODE)."),
         UTILITZA_ANTIC_ALGORISME (0, "Utilitzar l'antic algorisme per a generar els horaris. No soporta solapament d'hores de pràctica.");
 
@@ -820,6 +821,12 @@ public class Base {
     public static void dbg2(String msg) {
         if (Regles.DEBUG2_ENABLED.get()) {
             System.out.println(msg);
+        }
+    }
+    
+    public static void dbgAUX(String msg) {
+        if (Regles.DEBUG_AUX_ENABLED.get()) {
+            System.out.println("[AUX] ".concat(msg));
         }
     }
     

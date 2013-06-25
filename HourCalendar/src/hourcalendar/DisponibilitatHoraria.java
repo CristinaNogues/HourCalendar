@@ -74,38 +74,52 @@ public class DisponibilitatHoraria implements Cloneable {
 
     public int addReserva(int hores, String codi) throws CloneNotSupportedException {
         Base.dbg2("RESERVA - ".concat(codi).concat(": ").concat(String.valueOf(hores)));
+        boolean assignarHoresRestants = Base.Regles.ASSIGNAR_HORES_RESTANTS.get();
+        
         int millorPonderacio = -20480;
         //int diaAmbMillorPonderacio = 0;
         int horesMillorPonderacio = 0;
+        
+        
         Vector<DiaDeLaSetmana> millorDisponibilitat = new Vector<DiaDeLaSetmana>();
         for (int i = 6; i >= 2; --i) {
             DisponibilitatHoraria disponibilitatHorariaActual = (DisponibilitatHoraria) this.clone();
             int horesActual = hores;
-
-            horesActual = disponibilitatHorariaActual.addReserva(horesActual, codi, i);
+            boolean esReservaNoSobrepassada = false;
+            
+            int horesActualAux = disponibilitatHorariaActual.addReserva(horesActual, codi, i);
             Base.dbg2("\taddReservaElDia(".concat(codi).concat(")[").concat(String.valueOf(i)).concat("]: ").concat(String.valueOf(horesActual)).concat(" / ").concat(String.valueOf(hores)).concat(" TOTAL RESERVES SETMANA: ").concat(String.valueOf(disponibilitatHorariaActual.getReserves())));
-            if (horesActual > 0) {
+            if (horesActualAux == horesActual) {
+                //No s'assignen més hores a l'assignatura
+                esReservaNoSobrepassada = true;
+            } else horesActual = horesActualAux;
+                        
+            if (horesActual > 0 && !esReservaNoSobrepassada) {
                 //Si encara queden hores per col·locar, iterem recursivament
                 horesActual = disponibilitatHorariaActual.addReserva(horesActual, codi);
             }
+
             
             //TODO: AVALUA SEGONS HORES ACTUAL I PONDERACIÓ HORARI GENERAT
             int ponderacio = disponibilitatHorariaActual.avalua();  //valor <= 0
-            Base.dbg2(codi.concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(" > ").concat(String.valueOf(millorPonderacio)).concat(" ???"));
-            if (ponderacio - horesActual > millorPonderacio) {
-                Base.dbg2("\t".concat("TRUE!").concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(String.valueOf(millorPonderacio)));
-                millorPonderacio = ponderacio - horesActual;
-                
-                //diaAmbMillorPonderacio = i;
-                horesMillorPonderacio = horesActual;
-                //CLON millorDisponibilitat!
-                //millorDisponibilitat = (Vector<DiaDeLaSetmana>) disponibilitatHorariaActual.disponibilitat.clone();
-                millorDisponibilitat = new Vector<DiaDeLaSetmana>();
-                for (int u = 0; u <= 6; ++u)
-                    millorDisponibilitat.add((DiaDeLaSetmana) disponibilitatHorariaActual.disponibilitat.get(u).clone());
-            }
+            Base.dbg2("[".concat(String.valueOf(horesActual)).concat("] "));
+                Base.dbg2(codi.concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(" > ").concat(String.valueOf(millorPonderacio)).concat(" ???"));
+                if (ponderacio - (50*((!assignarHoresRestants) ? horesActual : horesActual * (-1))) > millorPonderacio) {
+                    Base.dbg2("\t".concat("TRUE!").concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(String.valueOf(millorPonderacio)));
+                    millorPonderacio = ponderacio - (50*((!assignarHoresRestants) ? horesActual : horesActual * (-1)));
+
+                    //diaAmbMillorPonderacio = i;
+                    horesMillorPonderacio = horesActual;
+                    //CLON millorDisponibilitat!
+                    //millorDisponibilitat = (Vector<DiaDeLaSetmana>) disponibilitatHorariaActual.disponibilitat.clone();
+                    millorDisponibilitat = new Vector<DiaDeLaSetmana>();
+                    for (int u = 0; u <= 6; ++u)
+                        millorDisponibilitat.add((DiaDeLaSetmana) disponibilitatHorariaActual.disponibilitat.get(u).clone());
+                }
+            
             
             disponibilitatHorariaActual = null;
+            if (esReservaNoSobrepassada) continue;
         }
         
         this.disponibilitat = millorDisponibilitat;
@@ -124,6 +138,7 @@ public class DisponibilitatHoraria implements Cloneable {
      * @return Número d'hores restants una vegada feta la reserva
      */
     public int addReserva(int hores, String codi, int diaDeLaSetmana) {
+        boolean assignarHoresRestants = Base.Regles.ASSIGNAR_HORES_RESTANTS.get();
         int i = diaDeLaSetmana;
         //ocupem aquest dia
         int dies = disponibilitat.get(i).getDies();
@@ -165,18 +180,27 @@ public class DisponibilitatHoraria implements Cloneable {
                 }
             }
             if (!ocupatPerSetmanaX) {
-                int millorOrdre = 0;
-                int ponderacioMillorOrdre = 250;
-                for (int e = 0; e < 4; ++e) {
-                    int ponderacioActual = avaluaOcupacioOrdreUnic(i, e, hores);
-                    if (ponderacioMillorOrdre > ponderacioActual) {
-                        ponderacioMillorOrdre = ponderacioActual;
-                        millorOrdre = e;
+                //if (!assignarHoresRestants) {
+                    int millorOrdre = -1;
+                    int ponderacioMillorOrdre = 2500;
+                    for (int e = 0; e < 4; ++e) {
+                        int ponderacioActual = avaluaOcupacioOrdreUnic(i, e, hores);
+                        int horesOrdreActual = hores - disponibilitat.get(i).getDies(e) * 2;
+                        if (ponderacioMillorOrdre > ponderacioActual) {
+                            if (!assignarHoresRestants && !(horesOrdreActual >= 0)) continue;
+                            ponderacioMillorOrdre = ponderacioActual;
+                            millorOrdre = e;
+                        }
                     }
-                }
-                //Finalment, ocupem l'ordre escollit
-                hores -= disponibilitat.get(i).getDies(millorOrdre) * 2;
-                disponibilitat.get(i).addReserva(millorOrdre, codi);
+                    //Finalment, ocupem l'ordre escollit
+                    if (millorOrdre != -1) {
+                        hores -= disponibilitat.get(i).getDies(millorOrdre) * 2;
+                        disponibilitat.get(i).addReserva(millorOrdre, codi);
+                    }
+                /*} else {
+                    //No podem sobrepassar les hores de les assignatures, avaluem de forma diferent
+                    int horesOrdreActual = hores - disponibilitat.get(dia).getDies(ordre) * 2;
+                }*/
             }
         }
         return hores;
@@ -194,7 +218,6 @@ public class DisponibilitatHoraria implements Cloneable {
 
     /** Simula la reserva d'un dia segons ordre donades unes hores i en retorna la ponderació, quant més petita millor.
      *
-     * TODO: Un professor no pot estar a la vegada impartint dues classes en una mateixa hora!!
      */
     private int avaluaOcupacioOrdreUnic(int dia, int ordre, int hores) {
         int ocupacioActual = disponibilitat.get(dia).getReserves(ordre) + 1;

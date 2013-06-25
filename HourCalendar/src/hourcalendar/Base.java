@@ -253,7 +253,6 @@ public class Base {
     }*/
     
     public void addTipusAula(String tipus) {
-        //int id = idTipusAula++;
         TipusAula tipusaula = new TipusAula(idTipusAula++, tipus);
         tipusAules.add(tipusaula);
         saveState();
@@ -281,10 +280,8 @@ public class Base {
     
     public TipusAula getTipusAula(int idTipus) {
         int numTipusAules = getNumTipusAules();
-        //System.out.println("Num tipus aules: " + numTipusAules);
         for (int i = 0; i < numTipusAules; ++i) {
             TipusAula tipusaula = tipusAules.get(i);
-            //System.out.println("FIns aqui");
             if (tipusaula.getID() == idTipus) {
                 return tipusaula;
             }
@@ -312,12 +309,18 @@ public class Base {
     }
     
     public void addAula(String nom, int capacitat, TipusAula tipusAula) {
-        
         //int id = idAula++;
         Aula aula = new Aula(idAula++, nom, capacitat, tipusAula);
         aules.add(aula);
         saveState();
         
+    }
+    
+    public void editAula(String nom, int capacitat, TipusAula tipusAula, int id) {
+        Aula aula = new Aula(id, nom, capacitat, tipusAula);
+        aules.remove(id);
+        aules.add(id, aula);
+        saveState();
     }
     
     public int getNumAules() {
@@ -330,6 +333,17 @@ public class Base {
         for (int i = 0; i < numAules; ++i) {
             Aula aula = aules.get(i);
             if (aula.getID() == idAula) {
+                return aula;
+            }
+        }
+        return null; 
+    }
+   
+    public Aula getAula(String nom) {
+        int numAules = getNumAules();
+        for (int i = 0; i < numAules; ++i) {
+            Aula aula = aules.get(i);
+            if (aula.getNom().equals(nom)) {
                 return aula;
             }
         }
@@ -782,7 +796,7 @@ public class Base {
         
     }*/
     
-    public enum Regles {
+     public enum Regles {
         SOLAPAR_HORES_PRACTICA (1, "<html>Solapar les hores de pràctica d'assignatures i grups diferents.</html>"),
         ASSIGNAR_HORES_RESTANTS (0, "<html>Sobrepassar les hores assignades a les assignatures si no <br>existeix combinació possible que les quadri al calendari.</html>"),
         PRIORITZAR_QUADRAR_HORES (1, "<html>Donar prioritat a quadrar les hores de les assignatures enlloc <br>d'obtenir un calendari més ben repartit.</html>"),

@@ -15,7 +15,8 @@ public class FormulariAula extends javax.swing.JFrame {
         initComponents();
         
         Base base = HourCalendar.getBase();
-        
+
+        /** Omplim la JList les aules guardades */
         DefaultListModel model = new DefaultListModel();
         for(int i = 0; i < base.getNumAules(); ++i){
             Aula aula = base.getAula(i);
@@ -23,15 +24,11 @@ public class FormulariAula extends javax.swing.JFrame {
         }
         llistaAules.setModel(model);
         
-        //base.removeAllTipusAula();
-        /* Fet per l'Antoni
+        /** Omplim el JComboBox amb els tipus d'aula */
         for (int i = 0; i < base.getNumTipusAules(); ++i) {
-            TipusAula t = base.getTipusAula(i);
-            System.out.println(t.getNom());
-            tipusaula.addItem(t.getNom());
+            TipusAula tipus = base.getTipusAula(i);
+            tipusaula.addItem(tipus.getNom());
         }
-        */
-                        
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -79,7 +76,12 @@ public class FormulariAula extends javax.swing.JFrame {
 
         tipusaula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tipusaula.setMaximumRowCount(6);
-        tipusaula.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teoria", "Informàtica", "Laboratori" }));
+        tipusaula.setToolTipText("");
+        tipusaula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipusaulaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Nom");
@@ -95,6 +97,11 @@ public class FormulariAula extends javax.swing.JFrame {
 
         capacitat.setModel(new javax.swing.SpinnerNumberModel(60, 1, 100, 1));
 
+        llistaAules.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                llistaAulesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(llistaAules);
 
         llistat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -104,9 +111,9 @@ public class FormulariAula extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(CancelTipusAula)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -128,13 +135,14 @@ public class FormulariAula extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addGap(30, 30, 30)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tipusaula, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(nom)
-                                    .addComponent(tipusaula, 0, 140, Short.MAX_VALUE)
-                                    .addComponent(capacitat))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                                    .addComponent(capacitat, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(llistat, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(llistat, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
@@ -172,7 +180,7 @@ public class FormulariAula extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,8 +191,21 @@ public class FormulariAula extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void afegirTipusAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afegirTipusAulaMouseClicked
+        int id = 0;
+        boolean trobat = false;
         Base base = HourCalendar.getBase();
-        base.addAula(nom.getText(), Integer.parseInt(capacitat.getValue().toString()), base.getTipusAula(tipusaula.getSelectedItem().toString()));  
+        for(int i = 0; i < base.getNumAules(); ++i){
+            if (base.getAula(i).getNom().equals(nom.getText())) {
+                trobat = true;
+                id = base.getAula(i).getID();
+            }
+        }
+        System.out.println();
+        if (trobat) {
+            base.editAula(nom.getText(), Integer.parseInt(capacitat.getValue().toString()), base.getTipusAula(tipusaula.getSelectedItem().toString()), id);
+        } else {
+            base.addAula(nom.getText(), Integer.parseInt(capacitat.getValue().toString()), base.getTipusAula(tipusaula.getSelectedItem().toString()));  
+        }
         setVisible(false);
         dispose();
     }//GEN-LAST:event_afegirTipusAulaMouseClicked
@@ -193,6 +214,20 @@ public class FormulariAula extends javax.swing.JFrame {
         setVisible(false);
         dispose();
     }//GEN-LAST:event_CancelTipusAulaMouseClicked
+
+    private void tipusaulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipusaulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipusaulaActionPerformed
+
+    private void llistaAulesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llistaAulesMouseClicked
+        Base base = HourCalendar.getBase();
+        Aula aula = base.getAula(llistaAules.getSelectedValue().toString());
+        System.out.println("Has seleccionat: " + llistaAules.getSelectedValue().toString());
+        nom.setText(aula.getNom());
+        capacitat.setValue(aula.getCapacitat());
+        tipusaula.setSelectedIndex(aula.getTipusAula().getID());
+        
+    }//GEN-LAST:event_llistaAulesMouseClicked
 
     /**
      * @param args the command line arguments

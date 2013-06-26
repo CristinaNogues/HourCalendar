@@ -121,6 +121,8 @@ public class PanellHorari extends javax.swing.JPanel {
                     boolean saltar = false;
                     ClasseAgrupada classe = classes.get(index);
                     if (!this.esUpdate) {
+                        //Si es la primera vegada que representem aquesta classe, li assignem una aula
+                        classe.aula = HourCalendar.getBase().ocupacioAules.assigna(idDia, hora, classe);
                         if (classe.grup != 0) {
                             //Inicialitzem valors dels checkbox de filtres per a grups de pràctiques
                             switch (classe.grup) {

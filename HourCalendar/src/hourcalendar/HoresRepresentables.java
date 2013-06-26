@@ -104,6 +104,7 @@ public class HoresRepresentables {
         public int codiAssignatura;     //360380
         public int tipusAula;           //5
         public int grup;                //1
+        public Aula aula;
         public String grupAsText;       //I2511
         public String nom;              //PROP
         public Vector<Integer> ordres;  //{0, 2}
@@ -118,13 +119,13 @@ public class HoresRepresentables {
             grup = reserva.grup;
             grupAsText = reserva.grupAsText;
             nom = reserva.nom;
+            aula = null;
             this.ordres = new Vector<Integer>();
             for (int i = 0; i < ordres.size(); ++i) {
                 this.ordres.add(ordres.get(i));
                 disposicio += Math.pow(2, ordres.get(i));
             }
         }
-        
         
         public boolean esSolapable(ClasseAgrupada other) {
             return esSolapable(other, Regles.SOLAPAR_HORES_PRACTICA.get());
@@ -168,7 +169,7 @@ public class HoresRepresentables {
         public String toString() {
             String nom = HourCalendar.getBase().getAssignatura(codiAssignatura).getSigles();
             
-            String aula = (this.tipusAula == 0) ? "AULA" : "LAB";
+            String aula = (this.aula != null) ? this.aula.getNom() : "NO_HI_HA_MES_AULES_LLIURES";
             return nom.concat(" ").concat(aula).concat(" ").concat(this.grupAsText).concat(" ").concat(getOrdreAsString());
         }
         

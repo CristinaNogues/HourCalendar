@@ -48,6 +48,7 @@ public class Base {
     public String nomProgres = "Inicialitzant...";
     public Generador generador;
     public String informe = "";
+    public OcupacioAules ocupacioAules;
     
     public int idTipusHoresPractica = 0;
     public int idTipusMateria = 0;
@@ -107,6 +108,98 @@ public class Base {
                 25, 4, 42, 18, getTipusAula(0), 3);
         
         */
+        /*System.out.println("Aula aula;");
+        for (int indexAula = 0; indexAula < getNumAules(); ++indexAula) {
+            Aula aula = aules.get(indexAula);
+            System.out.println("aula = new Aula(".concat(String.valueOf(aula.getID())).concat(", \"").concat(aula.getNom()).concat("\", ").concat(String.valueOf(aula.capacitat)).concat(", getTipusAula(").concat(String.valueOf(aula.idTipusAula)).concat("));"));
+            System.out.println("aules.add(aula);");
+        }
+        System.out.println("saveState();");*/
+    }
+    
+    public void tempReloadAules() {
+        Aula aula;
+        aula = new Aula(0, "AA201", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(1, "AA202", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(2, "AA203", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(3, "AA204", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(4, "AA205", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(5, "AA206", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(6, "AA208", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(7, "AI101", 25, getTipusAula(2));
+        aules.add(aula);
+        aula = new Aula(8, "AI109", 25, getTipusAula(2));
+        aules.add(aula);
+        aula = new Aula(9, "AI111", 25, getTipusAula(2));
+        aules.add(aula);
+        aula = new Aula(10, "AI112", 25, getTipusAula(2));
+        aules.add(aula);
+        aula = new Aula(11, "AI115", 25, getTipusAula(2));
+        aules.add(aula);
+        aula = new Aula(12, "AI117", 25, getTipusAula(2));
+        aules.add(aula);
+        aula = new Aula(13, "AL001", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(14, "AL002", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(15, "AL007", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(16, "AL010", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(17, "AL012", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(18, "AL013", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(19, "AL014", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(20, "AL019", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(21, "AL102", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(22, "AL103", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(23, "AL104", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(24, "AL106", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(25, "AL107", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(26, "AL114", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(27, "AL116", 25, getTipusAula(1));
+        aules.add(aula);
+        aula = new Aula(28, "BA001", 100, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(29, "BA002", 100, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(30, "BA004", 100, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(31, "BA006", 100, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(32, "BA008", 100, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(33, "BA102", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(34, "BA103", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(35, "BA107", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(36, "BA108", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(37, "BA109", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(38, "BA110", 60, getTipusAula(0));
+        aules.add(aula);
+        aula = new Aula(39, "BA111", 60, getTipusAula(0));
+        aules.add(aula);
+        saveState();
     }
     
     public int getNumAssignatures() {

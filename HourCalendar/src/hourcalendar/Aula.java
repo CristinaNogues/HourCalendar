@@ -26,6 +26,13 @@ public class Aula implements java.io.Serializable {
         idTipusAula = _tipus.getID();
     }
     
+    public Aula(Aula other) {
+        id = other.id;
+        nom = other.nom;
+        capacitat = other.capacitat;
+        idTipusAula = other.idTipusAula;
+    }
+    
     
     public int getID(){
         return id;

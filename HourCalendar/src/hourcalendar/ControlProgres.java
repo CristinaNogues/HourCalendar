@@ -102,7 +102,10 @@ public class ControlProgres extends javax.swing.JFrame {
         base.dbg("START CONTROL");
         int numGraus = base.getNumGraus();
         int quadri = Regles.QUADRIMESTRE.getInt();
-        DisponibilitatHoraria disponibilitatInicial = new DisponibilitatHoraria();;
+        //reiniciem l'ocupació d'aules
+        base.ocupacioAules = new OcupacioAules();
+        
+        DisponibilitatHoraria disponibilitatInicial = new DisponibilitatHoraria();
         //Clonem la disponibilitat horaria inicial
         try {
             disponibilitatInicial = (DisponibilitatHoraria) base.disponibilitatsHoraries.get(0).clone();

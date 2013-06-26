@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import hourcalendar.Base.Regles;
@@ -9,9 +5,11 @@ import hourcalendar.Base;
 import hourcalendar.DisponibilitatHoraria.Reserva;
 import java.util.Vector;
 
-/**
- *
- * @author admin
+/** Donades les ocupacions d'un dia com a paràmetre de la constructora, aquesta
+ *  classe realitza totes les possibles combinacions i solapaments vàlids per
+ *  obtenir un vector on cada posició és una hora a l'horari (bé, en realitat dues hores),
+ *  aquest vector conté les classes agrupades que es poden solapar/combinar en cada
+ *  una d'aquestes hores.
  */
 public class HoresRepresentables {
     //public Vector<Reserva> reserves;
@@ -99,6 +97,9 @@ public class HoresRepresentables {
     
     //##########################################################################
     
+    /** Una classe agrupada són les diferents reserves en un mateix dia d'una mateixa assignatura per a diferents ordres.
+     * Exemple: PROP I45 :s11 i PROP I45 :s12 formarien una sola classe agrupada que sería: PROP I45 :s1
+     */
     public class ClasseAgrupada {
         public String codi;             //360380#5#1
         public int codiAssignatura;     //360380

@@ -131,6 +131,11 @@ public class FormulariAssignatura extends javax.swing.JFrame {
                 grupsActionPerformed(evt);
             }
         });
+        grups.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                grupsKeyReleased(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel5.setText("Curs");
@@ -367,6 +372,19 @@ public class FormulariAssignatura extends javax.swing.JFrame {
         setVisible(false);
         dispose();
     }//GEN-LAST:event_BotoCancelarMouseClicked
+
+    private void grupsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grupsKeyReleased
+        String temp = grups.getText().replaceAll("\\D", "");
+        if (temp.isEmpty()) {
+            temp = "0";
+        }
+        if (Integer.parseInt(temp) > 4) {
+            temp = "4";
+        }
+        if (!grups.getText().equals(temp)) {
+            grups.setText(temp);
+        }
+    }//GEN-LAST:event_grupsKeyReleased
 
     /**
      * @param args the command line arguments

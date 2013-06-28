@@ -1,11 +1,20 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package hourcalendar;
 
 import java.awt.Color;
 import java.util.Vector;
 
+/**
+ *
+ * @author admin
+ */
 public class AssignaturaPane extends javax.swing.JPanel {
     Assignatura assignatura;
     private Vector<Color> colors;
+    private Color color;
     /**
      * Creates new form AssignaturaPane
      */
@@ -16,6 +25,7 @@ public class AssignaturaPane extends javax.swing.JPanel {
     public AssignaturaPane(Assignatura assignatura) {
         initComponents();
         colors = new Vector<Color>();
+        //colors pastel
         colors.add(new Color(204, 255, 204));   //verd (no pastel)
         colors.add(new Color(253, 253, 150));   //groc
         colors.add(new Color(174, 198, 207));   //blau
@@ -37,9 +47,10 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 break;
             }
         }
+        //grau.setText(String.valueOf(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau())));
         int colorGrau = Math.abs(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau())) % 7;
-        System.out.println("COLORGRAU: ".concat(String.valueOf(colorGrau)));
-        this.setBackground(colors.get(colorGrau));
+        this.color = colors.get(colorGrau);
+        this.setBackground(this.color);
         assignatura.getGrau().color = colors.get(colorGrau);
     }
 
@@ -63,6 +74,16 @@ public class AssignaturaPane extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(204, 255, 204));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 10, 3, 10));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
+            }
+        });
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         sigles.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         sigles.setText("PROP");
@@ -78,6 +99,14 @@ public class AssignaturaPane extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editarMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                editarMouseExited(evt);
+            }
+        });
+        editar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                editarMouseMoved(evt);
+            }
         });
 
         nom.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
@@ -89,6 +118,14 @@ public class AssignaturaPane extends javax.swing.JPanel {
         eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 eliminarMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eliminarMouseExited(evt);
+            }
+        });
+        eliminar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                eliminarMouseMoved(evt);
             }
         });
 
@@ -102,6 +139,14 @@ public class AssignaturaPane extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 downMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                downMouseExited(evt);
+            }
+        });
+        down.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                downMouseMoved(evt);
+            }
         });
 
         up.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
@@ -113,6 +158,14 @@ public class AssignaturaPane extends javax.swing.JPanel {
         up.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 upMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                upMouseExited(evt);
+            }
+        });
+        up.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                upMouseMoved(evt);
             }
         });
 
@@ -190,6 +243,46 @@ public class AssignaturaPane extends javax.swing.JPanel {
             HourCalendar.getMainFrame().updateAssignatures();
         }
     }//GEN-LAST:event_upMouseClicked
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
+    }//GEN-LAST:event_formMouseMoved
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        this.setBackground(this.color);
+    }//GEN-LAST:event_formMouseExited
+
+    private void editarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseMoved
+        setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
+    }//GEN-LAST:event_editarMouseMoved
+
+    private void editarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseExited
+        this.setBackground(this.color);
+    }//GEN-LAST:event_editarMouseExited
+
+    private void downMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downMouseMoved
+        setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
+    }//GEN-LAST:event_downMouseMoved
+
+    private void downMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downMouseExited
+        this.setBackground(this.color);
+    }//GEN-LAST:event_downMouseExited
+
+    private void upMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseExited
+        this.setBackground(this.color);
+    }//GEN-LAST:event_upMouseExited
+
+    private void upMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseMoved
+        setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
+    }//GEN-LAST:event_upMouseMoved
+
+    private void eliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarMouseExited
+        this.setBackground(this.color);
+    }//GEN-LAST:event_eliminarMouseExited
+
+    private void eliminarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarMouseMoved
+        setBackground(javax.swing.UIManager.getDefaults().getColor("PasswordField.selectionBackground"));
+    }//GEN-LAST:event_eliminarMouseMoved
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codi;

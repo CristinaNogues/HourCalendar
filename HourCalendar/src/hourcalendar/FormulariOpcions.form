@@ -8,7 +8,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -43,19 +42,19 @@
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textQuadrimestre" pref="297" max="32767" attributes="0"/>
+                          <Component id="textQuadrimestre" pref="357" max="32767" attributes="0"/>
                           <Component id="textConvocatoria" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="prioritzar" max="32767" attributes="0"/>
                   <Component id="assignar" alignment="0" max="32767" attributes="0"/>
                   <Component id="solapar" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="iteracions" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="textIteracions" pref="323" max="32767" attributes="0"/>
+                      <Component id="textIteracions" pref="383" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="modsCalendari" alignment="1" pref="402" max="32767" attributes="0"/>
+                  <Component id="modsCalendari" alignment="1" pref="462" max="32767" attributes="0"/>
+                  <Component id="prioritzar" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -80,12 +79,12 @@
               <Component id="assignar" min="-2" pref="36" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="prioritzar" min="-2" pref="38" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="modsCalendari" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="textIteracions" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="iteracions" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="iteracions" min="-2" max="-2" attributes="0"/>
+                  <Component id="textIteracions" min="-2" pref="82" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -95,7 +94,7 @@
                   <Component id="BotoCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BotoModificarCalendari" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

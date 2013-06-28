@@ -55,7 +55,7 @@ public class Base {
         
         String directori = "";
         if (conjuntDeDades != 0) {
-            directori = (conjuntDeDades == 1) ? "dades\\default\\" : "dades\\empty\\";
+            directori = (conjuntDeDades == 1) ? "dades".concat(File.pathSeparator).concat("default").concat(File.pathSeparator) : "dades".concat(File.pathSeparator).concat("empty").concat(File.pathSeparator);
         }
         loadState(directori);
     }
@@ -694,8 +694,8 @@ public class Base {
         SOLAPAR_HORES_PRACTICA (1, "<html>Solapar les hores de pràctica d'assignatures i grups diferents.</html>"),
         ASSIGNAR_HORES_RESTANTS (0, "<html>Sobrepassar les hores assignades a les assignatures si no <br>existeix combinació possible que les quadri al calendari.</html>"),
         PRIORITZAR_QUADRAR_HORES (1, "<html>Donar prioritat a quadrar les hores de les assignatures enlloc <br>d'obtenir un calendari més ben repartit.</html>"),
-        ITERACIONS_GENERADOR (200, "<html>Número d'iteracions que realitza el generador <br>d'horaris per a trobar la millor combinació.</html>"),
-        QUADRIMESTRE (2, "<html>Quadrimestre per al que generar els horaris.</html>"),
+        ITERACIONS_GENERADOR (20, "<html>Número d'iteracions que realitza el generador d'horaris per a trobar la millor combinació. Per fer proves, amb 20 n'hi ha prou, però per generar l'horari definitiu recomanem utilitzar un valor superior a 200.000, depenent de la potència de l'ordinador, s'hi pot estar dies. La raó d'aquest valor està explicada a la informació del projecte.</html>"),
+        QUADRIMESTRE (1, "<html>Quadrimestre per al que generar els horaris.</html>"),
         CONVOCATORIA (1, "<html>Any de convocatòria.</html>"),
         APLICAR_MODS_CALENDARI (1, "<html>Utilitzar modificacions del calendari. Exemple: Dilluns 14 de gener passa a ser dijous.</html>"),
         //REGLES INTERNES (NO MODIFICABLES A TRAVÉS DEL FORMULARI D'OPCIONS

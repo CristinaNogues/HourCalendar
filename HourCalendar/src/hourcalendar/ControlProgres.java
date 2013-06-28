@@ -41,6 +41,7 @@ public class ControlProgres extends javax.swing.JFrame {
         setTitle("Progrés");
 
         BarraProgres.setToolTipText("");
+        BarraProgres.setStringPainted(true);
 
         jLabel1.setText("Calculant:");
 
@@ -133,6 +134,7 @@ public class ControlProgres extends javax.swing.JFrame {
                         int progresValue = (int)((base.progres / (float)Regles.ITERACIONS_GENERADOR.getInt()) * 100);
                         if (BarraProgres.getValue() != progresValue) {
                             BarraProgres.setValue(progresValue);
+                            BarraProgres.setString(String.valueOf(progresValue).concat("%"));
                             BarraProgres.update(BarraProgres.getGraphics());
                         }
                         if (!NomProgres.getText().equals(base.nomProgres)) {

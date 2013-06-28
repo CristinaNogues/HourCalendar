@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
-import hourcalendar.Base.Regles;
 import hourcalendar.HoresRepresentables.ClasseAgrupada;
 import java.awt.Color;
 import java.awt.Component;
@@ -17,10 +12,6 @@ import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-/**
- *
- * @author admin
- */
 public class PanellHorari extends javax.swing.JPanel {
     private DisponibilitatHoraria disponibilitat;
     private boolean esUpdate = false;
@@ -90,7 +81,6 @@ public class PanellHorari extends javax.swing.JPanel {
     }
     
     private void update() {
-        //Regles.DEBUG_ENABLED.set(true);
         if (!this.esUpdate) {
             FiltreGrup1.setVisible(false);
             FiltreGrup2.setVisible(false);
@@ -210,15 +200,7 @@ public class PanellHorari extends javax.swing.JPanel {
                 ((DefaultTableModel)TaulaHorari.getModel()).removeRow(TaulaHorari.getRowCount() - 1);
             }
             
-            /*TaulaHorari.setPreferredSize(new Dimension(600, -36 - 8 + 24 + (98 * (maxHoresOcupades + 1))));
-            TaulaHorari.setMinimumSize(new Dimension(600, -36 - 8 + 24 + (98 * (maxHoresOcupades + 1))));
-            Base.dbgUI("SETTING TAULA HORARI SIZE");
-            Base.dbgUI("PREFERRED DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getPreferredSize().width)).concat(", ").concat(String.valueOf(TaulaHorari.getPreferredSize().height)));
-            Base.dbgUI("PREFERRED DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getPreferredSize().width)).concat(", ").concat(String.valueOf(jScrollPane1.getPreferredSize().height)));
-            Base.dbgUI("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
-            Base.dbgUI("DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getWidth())).concat(", ").concat(String.valueOf(jScrollPane1.getHeight())));
-*/
-            //System.out.println("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getX())).concat(", ").concat(String.valueOf(TaulaHorari.getY())));
+            
             this.setPreferredSize(new Dimension(600, 75 + 24 + 12 + 12 + (97 * (maxHoresOcupades + 1))));//84 + 32 - 3 + (98 * (maxHoresOcupades + 1))));
                                                    //84 = filtres + capçalera (Nom assignatura + Quadri)
                                                    //     32 = capçalera taula
@@ -226,45 +208,10 @@ public class PanellHorari extends javax.swing.JPanel {
                                                    //               98 = 96 row height + 2x1 vora (border)
             this.setMinimumSize(new Dimension(600, 75 + 24 + 12 + 12 + (97 * (maxHoresOcupades + 1))));//84 + 32 - 3 +(98 * (maxHoresOcupades + 1))));
         }
-        //this.setPreferredSize(new Dimension());
-        //jScrollPane1.setPreferredSize(this.getWidth(), 800);
         revalidate();
         repaint();
-        /*Base.dbgUI("PREFERRED DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getPreferredSize().width)).concat(", ").concat(String.valueOf(TaulaHorari.getPreferredSize().height)));
-        Base.dbgUI("PREFERRED DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getPreferredSize().width)).concat(", ").concat(String.valueOf(jScrollPane1.getPreferredSize().height)));
-        Base.dbgUI("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
-        Base.dbgUI("DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getWidth())).concat(", ").concat(String.valueOf(jScrollPane1.getHeight())));
-*/
-        /*jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                Base.dbgUI("RELEASED ON JScrollPane");
-            }
-        });
-        TaulaHorari.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                Base.dbgUI("RELEASED ON TaulaHorari");
-                Base.dbgUI("PREFERRED DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getPreferredSize().width)).concat(", ").concat(String.valueOf(TaulaHorari.getPreferredSize().height)));
-                Base.dbgUI("PREFERRED DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getPreferredSize().width)).concat(", ").concat(String.valueOf(jScrollPane1.getPreferredSize().height)));
-                Base.dbgUI("DIMENSIO TAULA: ".concat(String.valueOf(TaulaHorari.getWidth())).concat(", ").concat(String.valueOf(TaulaHorari.getHeight())));
-                Base.dbgUI("DIMENSIO JScrollPane: ".concat(String.valueOf(jScrollPane1.getWidth())).concat(", ").concat(String.valueOf(jScrollPane1.getHeight())));
-                Base.dbgUI("PREFERRED DIMENSIO FRAME: ".concat(String.valueOf(jScrollPane1.getParent().getPreferredSize().width)).concat(", ").concat(String.valueOf(jScrollPane1.getParent().getPreferredSize().height)));
-                Base.dbgUI("DIMENSIO FRAME: ".concat(String.valueOf(jScrollPane1.getParent().getWidth())).concat(", ").concat(String.valueOf(jScrollPane1.getParent().getHeight())));
-                
-                TaulaHorari.setPreferredSize(new Dimension(600, -8 + (97 * (maxHoresOcupades + 1))));
-                TaulaHorari.setMinimumSize(new Dimension(600, -8 + (97 * (maxHoresOcupades + 1))));
-                jScrollPane1.setPreferredSize(new Dimension(600, -8 + (97 * (maxHoresOcupades + 1))));
-                jScrollPane1.setMinimumSize(new Dimension(600, -8 + (97 * (maxHoresOcupades + 1))));
-                TaulaHorari.revalidate();
-                TaulaHorari.repaint();
-                jScrollPane1.revalidate();
-                jScrollPane1.repaint();
-                revalidate();
-                repaint();
-            }
-        });*/
     }
-    
-    
+        
     public class TextAreaRenderer extends JTextArea implements TableCellRenderer {
 
         public TextAreaRenderer() {
@@ -280,8 +227,6 @@ public class PanellHorari extends javax.swing.JPanel {
             if (row == -1) {
                 setBackground(new Color(52, 136, 187));
                 setForeground(new Color(255, 255, 255));
-                //Font font = getFont();
-                //font.getF
                 setFont(new Font("Arial", Font.BOLD, 14));
             } else if (text != null && !text.isEmpty() && column != 0) {
                 setBackground(new Color(238, 245, 255));
@@ -289,7 +234,6 @@ public class PanellHorari extends javax.swing.JPanel {
             } else {
                 setBackground(Color.WHITE);
                 setForeground(new Color(88, 87, 146));
-                //setText(getSize().toString());
             }
             return this;
         }

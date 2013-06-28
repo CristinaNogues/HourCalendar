@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author Cristina
- */
 public class FormulariAssignatura extends javax.swing.JFrame {
 
     /**
@@ -351,7 +343,6 @@ public class FormulariAssignatura extends javax.swing.JFrame {
     }//GEN-LAST:event_BotoAcceptarActionPerformed
 
     private void codiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codiKeyReleased
-        //codi.setText(String.valueOf(Integer.parseInt(codi.getText())));
         String temp = codi.getText().replaceAll("\\D", "");
         if (temp.length() >= 7) {
             temp = temp.substring(0, 6);

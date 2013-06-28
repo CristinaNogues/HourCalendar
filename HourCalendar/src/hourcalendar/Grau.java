@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import java.awt.Color;
@@ -36,5 +32,4 @@ public class Grau implements java.io.Serializable {
     public String getInicials() {
         return inicials;
     }
-    
 }

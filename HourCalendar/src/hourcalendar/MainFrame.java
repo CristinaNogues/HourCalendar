@@ -5,32 +5,19 @@
 package hourcalendar;
 
 import com.sun.java.swing.plaf.windows.WindowsTabbedPaneUI;
-//import com.sun.java.swing.plaf.windows.WindowsTableHeaderUI;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Rectangle;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-//import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
-/**
- *
- * @author admin
- */
 public class MainFrame extends javax.swing.JFrame {
     static javax.swing.JFrame frameCalendari;
     public JPanel ContentPane;
@@ -65,12 +52,9 @@ public class MainFrame extends javax.swing.JFrame {
         ContentPane = new JPanel();
         ContentPane.setLayout(new GridBagLayout());
         ContentPane.setPreferredSize(new Dimension(Contenidor.getWidth(), Contenidor.getHeight()));
-        //ContentPane.setBackground(Color.YELLOW);
         JLabel label = new JLabel("");
         ContentPane.add(label);
         Contenidor.setViewportView(ContentPane);
-        //Contenidor.setBackground(Color.YELLOW);
-        //Contenidor.setVisible(false);
         
         TabbedPane.setUI(new WindowsTabbedPaneUI() {
 			@Override
@@ -91,8 +75,6 @@ public class MainFrame extends javax.swing.JFrame {
 
 		});
 
-        
-        //Contenidor.setLayout(new GridLayout(3,1));
         updateAssignatures();
     }
     
@@ -351,34 +333,6 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_BotoGenerarHorariMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String args[]) {
-        //Set the Nimbus look and feel
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-
-        
-    }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton BotoCrear;
     private javax.swing.JButton BotoGenerarHorari;

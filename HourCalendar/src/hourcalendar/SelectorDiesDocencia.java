@@ -1,15 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +16,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -37,7 +29,6 @@ import com.javaswingcomponents.calendar.listeners.CalendarSelectionListener;
 import com.javaswingcomponents.calendar.model.AbstractCalendarModel;
 import com.javaswingcomponents.calendar.model.DayOfWeek;
 import com.javaswingcomponents.calendar.model.Holiday;
-import com.javaswingcomponents.calendar.plaf.CalendarUI;
 import com.javaswingcomponents.calendar.plaf.StandardFormatCalendarUI;
 import com.javaswingcomponents.calendar.plaf.StandardFormatCellPanel;
 import com.javaswingcomponents.calendar.plaf.darksteel.DarkSteelCalendarUI;
@@ -47,9 +38,6 @@ import com.javaswingcomponents.calendar.plaf.darksteel.DarkSteelMonthAndYearPane
 import com.javaswingcomponents.calendar.plaf.steel.SteelCellPanel;
 import com.javaswingcomponents.framework.graphics.GraphicsUtilities;
 import com.javaswingcomponents.framework.painters.configurationbound.BlankPainter;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
-import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.FileInputStream;
@@ -61,10 +49,6 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author admin
- */
 public class SelectorDiesDocencia extends JPanel{
 
     private JSCCalendar _calendar;
@@ -78,13 +62,10 @@ public class SelectorDiesDocencia extends JPanel{
 		_calendar = howToCreateACalendar();
         _calendar.setCalendarSelection(JSCCalendar.CalendarSelection.MULTIPLE_SELECTION);
 		howToChangeTheLookAndFeel(_calendar);
-		//howToChangeTheLocaleAndTimezone(calendar);
 		howToAddBusinessRules(_calendar);
 		howToSetHolidaysAndWeekends(_calendar);
-		//howToMoveToASpecificDate(calendar);
 		
 		howToChangeTheAppearanceOfTheCells(_calendar);
-		//howToChangeTheAppearanceOfTheOverallUI(calendar);
         howToListenToChangesOnTheCalendar(_calendar);
 		setLayout(new GridLayout(1,1,30,30));
 		add(_calendar);
@@ -109,9 +90,7 @@ public class SelectorDiesDocencia extends JPanel{
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //addComponentListener(new resizeListener());
-
-	}
+}
     
     class resizeListener extends ComponentAdapter {
         public void componentResized(ComponentEvent e) {
@@ -150,7 +129,6 @@ public class SelectorDiesDocencia extends JPanel{
 	private void howToChangeTheLookAndFeel(JSCCalendar calendar) {
 		//We create a new instance of the UI
 		//DarkSteelCalendarUI newUI = (DarkSteelCalendarUI) DarkSteelCalendarUI.createUI(calendar);
-        //CustomCalendarUI newUI = (CustomCalendarUI) CustomCalendarUI.createUI(calendar);
         CustomCalendarUI newUI = new CustomCalendarUI();
         newUI.installUI(calendar);
 		//We set the UI
@@ -269,7 +247,6 @@ public class SelectorDiesDocencia extends JPanel{
 			public String getTextForCell(Date date) {
 				//this will return the day of the month for each cell
 				Calendar calendar = createCalendar(date);
-                //String ordreSetmana = Integer.toString((calendar.get(Calendar.WEEK_OF_YEAR) + 1) % 4);
 				return Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));//.concat(" ").concat(ordreSetmana);
                 
 			}
@@ -368,13 +345,11 @@ public class SelectorDiesDocencia extends JPanel{
 					case DATE_SELECTED: {
 						//put your logic here to react to a date being selected/added
 						System.out.println("A date has been selected");
-                        //calendar.setSelectedDate(selectedDates.get(0));
 						break;
 					}
 					case DATES_SELECTED: {
 						//put your logic here to react to multiple dates being selected/added
 						System.out.println("Dates have been selected");
-                        //calendar.setSelectedDates(selectedDates);
 						break;
 					}
 					case DATES_CLEARED: {
@@ -407,18 +382,10 @@ public class SelectorDiesDocencia extends JPanel{
 		Icon setmana0, setmana1, setmana2, setmana3;
 		
 		public CustomCellRenderer() {
-			//try {
-				//ordreSetmana0 = GraphicsUtilities.loadCompatibleImage(Thread.currentThread().getContextClassLoader().getResourceAsStream("setmana11.png"));
-				//setmana0 = new ImageIcon(ordreSetmana0);
-                setmana0 = createImageIcon("images/setmana11.png", "Setmana 1 Ordre 1");
-                setmana1 = createImageIcon("images/setmana21.png", "Setmana 2 Ordre 1");
-                setmana2 = createImageIcon("images/setmana12.png", "Setmana 1 Ordre 2");
-                setmana3 = createImageIcon("images/setmana22.png", "Setmana 2 Ordre 2");
-			/*} catch (IOException e) {
-				e.printStackTrace();
-			}*/
-                
-			
+                    setmana0 = createImageIcon("images/setmana11.png", "Setmana 1 Ordre 1");
+                    setmana1 = createImageIcon("images/setmana21.png", "Setmana 2 Ordre 1");
+                    setmana2 = createImageIcon("images/setmana12.png", "Setmana 1 Ordre 2");
+                    setmana3 = createImageIcon("images/setmana22.png", "Setmana 2 Ordre 2");
 		}
         
         /** Returns an ImageIcon, or null if the path was invalid. */
@@ -442,7 +409,6 @@ public class SelectorDiesDocencia extends JPanel{
 			setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 			setForeground(Color.BLACK);
 			setIcon(null);
-            //setVisible(false);
 			//our headings will have a transparent background and black foreground 
 			return this;
 		}
@@ -474,14 +440,6 @@ public class SelectorDiesDocencia extends JPanel{
 			Date date = parameterObject.getDate();
 			//the calendar
 			JSCCalendar calendar = parameterObject.getCalendar();
-		
-            //Label ordre
-            /*JLabel labelOrdre = new JLabel();
-            setLayout(new GridLayout(1, 2));
-            add(labelOrdre);
-            labelOrdre.setSize(50, 30);
-            labelOrdre.setVisible(false);*/
-            
 
 			
 			//for this example all dates will render the same except for the unselectable dates.
@@ -517,9 +475,6 @@ public class SelectorDiesDocencia extends JPanel{
                     
                     String textToAppend = (diaDeLaSetmana != dia.get(Calendar.DAY_OF_WEEK)) ? " ".concat(modDies[diaDeLaSetmana]) : "";
                     setText(text.concat(textToAppend));
-                    //int ordreSetmana = HourCalendar.getBase().getSetmanaOrdre(date, quadri);
-                    //Calendar diaActual = calendar.getCalendarModel().createCalendar(date);
-                    //int ordreSetmana = (diaActual.get(Calendar.WEEK_OF_YEAR) + 1) % 4;
                     setHorizontalAlignment(JLabel.LEFT);
                     setIconTextGap(6);
                     switch (ordreSetmana) {
@@ -537,16 +492,6 @@ public class SelectorDiesDocencia extends JPanel{
                             break;
                     }
                     
-                    /*labelOrdre.setText(ordreSetmana);
-
-                    labelOrdre.setOpaque(true);
-                    labelOrdre.setHorizontalAlignment(JLabel.RIGHT);
-                    labelOrdre.setForeground(Color.BLACK);
-                    labelOrdre.setIcon(null);
-                    labelOrdre.setBackground(Color.RED);
-                    labelOrdre.setVisible(true);
-                    revalidate();*/
-                    //setText(text.concat(" ").concat(ordreSetmana));
                 } else {
                     if (isMouseOver) {
                         setBackground(Color.CYAN.brighter());
@@ -564,7 +509,6 @@ public class SelectorDiesDocencia extends JPanel{
                     setBackground(Color.getHSBColor(59, 138, 136));   //Color.getHSBColor(220, 240, 114));
                 } else {
                     setBackground(Color.GREEN.darker());//Color.getHSBColor(59, 138, 136));
-                    //setBackground(Color.GREEN);
                 }
                 
 			}
@@ -650,10 +594,7 @@ public class SelectorDiesDocencia extends JPanel{
 		DarkSteelMonthAndYearPanel monthAndYearPanel = (DarkSteelMonthAndYearPanel) calendarUI.getMonthAndYearPanel();
 		DarkSteelCellPanel cellPanel = (DarkSteelCellPanel) calendarUI.getCellPanel();
         cellPanel.getCellPadding();
-        //cellPanel.setBorder(null);
-        
-        //calendarUI.createCellPanel(calendar, calendarUI);
-		DarkSteelCellPanelBackgroundPainter cellPanelBackgroundPainter = (DarkSteelCellPanelBackgroundPainter) cellPanel.getBackgroundPainter();
+        	DarkSteelCellPanelBackgroundPainter cellPanelBackgroundPainter = (DarkSteelCellPanelBackgroundPainter) cellPanel.getBackgroundPainter();
 		
 		//The DarkSteelCalendarUI does not make use of a backgroundPainter on the monthAndYearPanel.
 		//that is why the blankPainter was assigned. However any painter could be applied in its place.
@@ -706,6 +647,4 @@ public class SelectorDiesDocencia extends JPanel{
 			throw new RuntimeException("Unable to load image with path '" + imagePath + "'", e);
 		}
 	}
-
-	
 }

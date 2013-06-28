@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import java.awt.Color;
 import java.util.Vector;
 
-/**
- *
- * @author admin
- */
 public class AssignaturaPane extends javax.swing.JPanel {
     Assignatura assignatura;
     private Vector<Color> colors;
@@ -24,7 +16,6 @@ public class AssignaturaPane extends javax.swing.JPanel {
     public AssignaturaPane(Assignatura assignatura) {
         initComponents();
         colors = new Vector<Color>();
-        //colors pastel
         colors.add(new Color(204, 255, 204));   //verd (no pastel)
         colors.add(new Color(253, 253, 150));   //groc
         colors.add(new Color(174, 198, 207));   //blau
@@ -46,7 +37,6 @@ public class AssignaturaPane extends javax.swing.JPanel {
                 break;
             }
         }
-        //grau.setText(String.valueOf(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau())));
         int colorGrau = Math.abs(HourCalendar.getBase().getIndexOfGrau(assignatura.getGrau())) % 7;
         System.out.println("COLORGRAU: ".concat(String.valueOf(colorGrau)));
         this.setBackground(colors.get(colorGrau));

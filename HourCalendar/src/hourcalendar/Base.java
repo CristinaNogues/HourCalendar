@@ -1,12 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,17 +18,10 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
-/**
- *
- * @author asus
- */
 public class Base {
     public Vector<Assignatura> assignatures;
     private Vector<Grau> graus;
-    //public Vector<TipusHoresPractica> tipusHoresPractiques;
     public Vector<TipusMateria> tipusMateries;
     public Vector<TipusAula> tipusAules;
     public Vector<Aula> aules;
@@ -57,64 +44,20 @@ public class Base {
     public int idGrau = 0;
     
     public Base(int conjuntDeDades) {
-        //loadDiesDocencia();
         setmanaOrdreQ1 = new Vector<Integer>();
         setmanaOrdreQ2 = new Vector<Integer>();
         ModsCalendari.load();
         assignatures = new Vector<Assignatura>();
         graus = new Vector<Grau>();
-        //tipusHoresPractiques = new Vector<TipusHoresPractica>();
         tipusMateries = new Vector<TipusMateria>();
         tipusAules = new Vector<TipusAula>();
         aules = new Vector<Aula>();
         
-        //si conjuntDeDades == 0 utilitzem les dades de l'última sessió, per tant, no canviem res
         String directori = "";
         if (conjuntDeDades != 0) {
             directori = (conjuntDeDades == 1) ? "dades\\default\\" : "dades\\empty\\";
         }
         loadState(directori);
-        //updateDisponibilitatHoraria(1, 2012);
-        /*addGrau("Informàtica", "01", "I");
-        addGrau("Enginyeria Mecànica", "02", "N");
-        addGrau("Disseny Industrial", "03", "D");
-        addTipusAula("Aula");
-        addTipusAula("Laboratori d'informàtica");
-        addTipusAula("Laboratori de mecànica");
-        addTipusAula("Laboratori de física");
-        addAula("AA205", 60, getTipusAula(0));
-        addTipusMateria("Matèries Bàsiques");
-        addTipusMateria("Matèries comuns d'àmbit");
-        addTipusMateria("Matèries d'especialitat");
-        
-        
-        addAssignatura(getGrauAt(0), "PROJECTE DE PROGRAMACIÓ", "PROP", 340380, getTipusMateria(0),
-                25, 4, 30, 30, getTipusAula(0), 2);
-        addAssignatura(getGrauAt(0), "XARXES DE COMPUTADORS", "XACO", 340356, getTipusMateria(0),
-                25, 4, 42, 18, getTipusAula(0), 3);
-        addAssignatura(getGrauAt(0), "ESTRUCTURA DE LA INFORMACIÓ", "ESIN", 300000, getTipusMateria(0),
-                25, 2, 30, 30, getTipusAula(0), 8);
-        addAssignatura(getGrauAt(0), "XARXES MULTIMÈDIA", "XAMU", 370251, getTipusMateria(0),
-                25, 2, 42, 18, getTipusAula(0), 3);
-        addAssignatura(getGrauAt(0), "EMPRESA", "EMPR", 670200, getTipusMateria(0),
-                25, 2, 60, 0, getTipusAula(0), 0);
-        addAssignatura(getGrauAt(1), "SOSTENIBILITAT", "SOST", 370001, getTipusMateria(0),
-                25, 2, 42, 18, getTipusAula(0), 3);
-        addAssignatura(getGrauAt(1), "PROJECTE DE TECNOLOGIES DE LA INFORMACIÓ", "PTIN", 555555, getTipusMateria(0),
-                25, 2, 42, 18, getTipusAula(0), 3);
-        addAssignatura(getGrauAt(2), "GESTIÓ DE PROJECTES", "GEPR", 340037, getTipusMateria(0),
-                25, 4, 30, 30, getTipusAula(0), 3);
-        addAssignatura(getGrauAt(2), "DISSENY I REPRESENTACIÓ TÈCNICA", "DIRT", 340075, getTipusMateria(0),
-                25, 4, 42, 18, getTipusAula(0), 3);
-        
-        */
-        /*System.out.println("Aula aula;");
-        for (int indexAula = 0; indexAula < getNumAules(); ++indexAula) {
-            Aula aula = aules.get(indexAula);
-            System.out.println("aula = new Aula(".concat(String.valueOf(aula.getID())).concat(", \"").concat(aula.getNom()).concat("\", ").concat(String.valueOf(aula.capacitat)).concat(", getTipusAula(").concat(String.valueOf(aula.idTipusAula)).concat("));"));
-            System.out.println("aules.add(aula);");
-        }
-        System.out.println("saveState();");*/
     }
     
     public void tempReloadAules() {
@@ -290,7 +233,6 @@ public class Base {
     }
     
     public void addTipusMateria(String tipus) {
-        
         int id = idTipusMateria++;
         TipusMateria tipusmateria = new TipusMateria(id, tipus);
         tipusMateries.add(tipusmateria);
@@ -325,26 +267,6 @@ public class Base {
         return tipusMateries.indexOf(materia);
     }
     
-    /*public void addTipusHoresPractica(String tipus) {
-        tipusHoresPractiques.add(new TipusHoresPractica(idTipusHoresPractica++, tipus));
-        saveState();
-    }*/
-    
-    /*public int getNumTipusHoresPractiques() {
-        return tipusHoresPractiques.size();
-    }*/
-    
-    /*public TipusHoresPractica getTipusHoresPractica(int idTipus) {
-        int numTipusHoresPractiques = getNumTipusHoresPractiques();
-        for (int i = 0; i < numTipusHoresPractiques; ++i) {
-            TipusHoresPractica tipusHoresPractica = tipusHoresPractiques.get(i);
-            if (tipusHoresPractica.getID() == idTipus) {
-                return tipusHoresPractica;
-            }
-        }
-        return null; 
-    }*/
-    
     public void addTipusAula(String tipus) {
         TipusAula tipusaula = new TipusAula(idTipusAula++, tipus);
         tipusAules.add(tipusaula);
@@ -367,7 +289,6 @@ public class Base {
     }
     
     public int getNumTipusAules() {
-        //return idTipusAula; NOTA: Si s'eliminen aules, al iterar el vector tipusAules faria saltar una excepció ja que intentaria accedir a una posició del vector inexistent
         return tipusAules.size();
     }
     
@@ -402,11 +323,9 @@ public class Base {
     }
     
     public void addAula(String nom, int capacitat, TipusAula tipusAula) {
-        //int id = idAula++;
         Aula aula = new Aula(idAula++, nom, capacitat, tipusAula);
         aules.add(aula);
         saveState();
-        
     }
     
     public void editAula(String nom, int capacitat, TipusAula tipusAula, int id) {
@@ -479,13 +398,6 @@ public class Base {
     public int getIndexOfGrau(Grau grau) {
         return graus.indexOf(grau);
     }
-  
-    
-    /** Retorna cert si existeix l'objecte TipusHoresPractica al vector tipusHoresPractiques. **/
-    /*public boolean hasTipusHoresPractica(TipusHoresPractica tipus) {
-        return tipusHoresPractiques.contains(tipus);
-    }*/
-    
     
     /** Actualitza la llista de dates "diesDocencia" amb les dades del fitxer "selectedDates.ser". */
     public void loadDiesDocencia() {
@@ -523,7 +435,6 @@ public class Base {
         List<Date> dies = new ArrayList<Date>();
         Iterator<Date> it = diesDocencia.listIterator();
         while (it.hasNext()) {
-            //System.out.println(iterator.next());
             Date d = it.next();
             temp.setTime(d);
             int weekOfYear = temp.get(Calendar.WEEK_OF_YEAR);
@@ -549,8 +460,7 @@ public class Base {
                 System.out.println(Integer.toString(i).concat(" = ").concat(Integer.toString((Integer)setmanaOrdreQ2.get(i))));
             }
         }
-        //Collections.copy(dies, diesDocencia);
-        
+
         return dies;
     }
     
@@ -613,10 +523,8 @@ public class Base {
 
         Iterator<Date> it = dies.listIterator();
         while (it.hasNext()) {
-            //System.out.println(iterator.next());
             Date d = it.next();
             dia.setTime(d);
-            //if ((mod = ModsCalendari.getModOrdre(dia)) != -1)
             if (Regles.APLICAR_MODS_CALENDARI.get()) {
                 ordre = ((mod = ModsCalendari.getModOrdre(dia)) != -1) ? mod : getSetmanaOrdre(d, quadri);
                 diaDeLaSetmana = ((mod = ModsCalendari.getModDia(dia)) != -1) ? mod : dia.get(Calendar.DAY_OF_WEEK);
@@ -629,98 +537,8 @@ public class Base {
             
         }
         disponibilitatsHoraries.add(disponibilitat);
-        //int horesDesquadrades = 0;
-        //try {
-            
-            //addAssignatura(new Grau("Informatica", "01"), "FISI", 205555, new TipusMateria(1, "ABC"),
-            //        25, 2, 20, 40, new TipusHoresPractica(5, "Laboratori Informàtica"), 1);
-            /*//PROP
-            horesDesquadrades = disponibilitat.addReserva(30, "340380#0#0");    //TEORIA CONJUNTA
-            System.out.println("RESERVA 30h [340380#0#0]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(30, "340380#5#1");    //LAB GRUP 1
-            System.out.println("RESERVA 30h [340380#5#1]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(30, "340380#5#2");    //LAB GRUP 2
-            System.out.println("RESERVA 30h [340380#5#2]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            //XACO
-            horesDesquadrades = disponibilitat.addReserva(42, "340356#0#0");    //TEORIA CONJUNTA
-            System.out.println("RESERVA 42h [340356#0#0]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(18, "340356#5#1");    //LAB GRUP 1
-            System.out.println("RESERVA 18h [340356#5#1]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(18, "340356#5#2");    //LAB GRUP 2
-            System.out.println("RESERVA 18h [340356#5#2]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(18, "340356#5#3");    //LAB GRUP 3
-            System.out.println("RESERVA 18h [340356#5#3]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            //CLON DE XACO
-            horesDesquadrades = disponibilitat.addReserva(42, "370251#0#0");    //TEORIA CONJUNTA
-            System.out.println("RESERVA 42h [370251#0#0]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(18, "370251#5#1");    //LAB GRUP 1
-            System.out.println("RESERVA 18h [370251#5#1]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(18, "370251#5#2");    //LAB GRUP 2
-            System.out.println("RESERVA 18h [370251#5#2]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            //CLON DE PROP 1
-            horesDesquadrades = disponibilitat.addReserva(30, "390123#0#0");    //TEORIA CONJUNTA
-            System.out.println("RESERVA 30h [390123#0#0]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(30, "390123#5#1");    //LAB GRUP 1
-            System.out.println("RESERVA 30h [390123#5#1]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            Regles.DEBUG2_ENABLED.set(true);
-            horesDesquadrades = disponibilitat.addReserva(30, "390123#5#2");    //LAB GRUP 2
-            System.out.println("RESERVA 30h [390123#5#2]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            Regles.DEBUG2_ENABLED.set(false);
-            //CLON DE PROP 2
-            horesDesquadrades = disponibilitat.addReserva(30, "300000#0#0");    //TEORIA CONJUNTA
-            System.out.println("RESERVA 30h [300000#0#0]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(30, "300000#5#1");    //LAB GRUP 1
-            System.out.println("RESERVA 30h [300000#5#1]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            horesDesquadrades = disponibilitat.addReserva(30, "300000#5#2");    //LAB GRUP 2
-            System.out.println("RESERVA 30h [300000#5#2]: ".concat(String.valueOf(horesDesquadrades)));
-            disponibilitat.imprimeixPonderacio();
-            
-            
-
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        * */
         
         progres = 0;
-        /*WaitDialog dialog = new WaitDialog(new javax.swing.JFrame(), true);
-        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-        });
-        SwingWorker worker = new SwingWorker() {
-
-            @Override
-            protected Object doInBackground() throws Exception {
-                register();
-                return 0;
-            }
-
-            @Override
-            protected void done() {
-                dialog.dispose();
-            }
-        };
-        worker.execute();
-        dialog.setVisible(true);^*/
-        //SwingUtilities.invokeAndWait(null);
-
-        
-        
     }
     
     public Vector<DisponibilitatHoraria> getDisponibilitatsHoraries() {
@@ -735,7 +553,6 @@ public class Base {
     
     public void saveState() {
         FileOutputStream fout;
-        //FileOutputStream fout2;
         ObjectOutputStream oos;
         try {
             fout = new FileOutputStream("graus.ser");
@@ -750,13 +567,9 @@ public class Base {
             fout = new FileOutputStream("tipusMateries.ser");
             oos = new ObjectOutputStream(fout);
             oos.writeObject(tipusMateries);
-            /*fout = new FileOutputStream("tipusHoresPractiques.ser");
-            oos = new ObjectOutputStream(fout);
-            oos.writeObject(tipusHoresPractiques);*/
             fout = new FileOutputStream("assignatures.ser");
             oos = new ObjectOutputStream(fout);
             oos.writeObject(assignatures);
-
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SelectorDiesDocencia.class.getName()).log(Level.SEVERE, null, ex);
@@ -774,7 +587,6 @@ public class Base {
             (new File("tipusAules.ser")).delete();
             (new File("aules.ser")).delete();
             (new File("tipusMateries.ser")).delete();
-            //(new File("tipusHoresPractiques.ser")).delete();
             (new File("assignatures.ser")).delete();
             //copiem el contingut del directori de dades a carregar
             try {
@@ -811,11 +623,6 @@ public class Base {
                 ois = new ObjectInputStream(fin);
                 tipusMateries = (Vector<TipusMateria>) ois.readObject();
             }
-            /*if (new File("tipusHoresPractiques.ser").exists()) {
-                fin = new FileInputStream("tipusHoresPractiques.ser");
-                ois = new ObjectInputStream(fin);
-                tipusHoresPractiques = (Vector<TipusHoresPractica>) ois.readObject();
-            }*/
             if (new File("assignatures.ser").exists()) {
                 fin = new FileInputStream("assignatures.ser");
                 ois = new ObjectInputStream(fin);
@@ -882,12 +689,6 @@ public class Base {
             return -1;
         }
     }
-    
-    /*public static class Regles {
-        public static boolean solaparHoresPractica = true;
-        public static String solaparHoresPracticaMissatge = "Solapar les hores de pràctica d'assignatures i grups diferents.";
-        
-    }*/
     
     public enum Regles {
         SOLAPAR_HORES_PRACTICA (1, "<html>Solapar les hores de pràctica d'assignatures i grups diferents.</html>"),

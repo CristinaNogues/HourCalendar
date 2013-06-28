@@ -1,7 +1,6 @@
 package hourcalendar;
 
 import hourcalendar.Base.Regles;
-import hourcalendar.Base;
 import hourcalendar.DisponibilitatHoraria.Reserva;
 import java.util.Vector;
 
@@ -12,7 +11,6 @@ import java.util.Vector;
  *  una d'aquestes hores.
  */
 public class HoresRepresentables {
-    //public Vector<Reserva> reserves;
     private Vector<ClasseAgrupada> classesAgrupades; //Al finalitzar la combinació d'hores aquest vector estarà buit
     private Vector< Vector<ClasseAgrupada> > hores;
     
@@ -195,7 +193,6 @@ public class HoresRepresentables {
                     else if (disposicio == 14) s = s.concat("s21, ").concat("s12, ").concat("s22");
                     else {
                         s = ":FAIL!!!!!!!!!!!!!!!!!";
-                        //System.out.println("\t\t\t\t\tDISPOSICIO FAIL AT ".concat(String.valueOf(disposicio)));
                     }
                 }
             }

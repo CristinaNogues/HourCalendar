@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import java.util.ArrayList;
@@ -9,12 +5,6 @@ import java.util.List;
 import java.util.Vector;
 import hourcalendar.Base;
 
-
-
-/**
- *
- * @author admin
- */
 public class DisponibilitatHoraria implements Cloneable {
     private Vector<DiaDeLaSetmana> disponibilitat;
 
@@ -59,13 +49,11 @@ public class DisponibilitatHoraria implements Cloneable {
     @Override
     protected Object clone() throws CloneNotSupportedException {
         DisponibilitatHoraria clon = (DisponibilitatHoraria) super.clone();
-        //clon.disponibilitat = (Vector<DiaDeLaSetmana>) disponibilitat.clone();
-        //clon.disponibilitat.clear();
         clon.disponibilitat = new Vector<DiaDeLaSetmana>();
         for (int i = 0; i <= 6; ++i)
             clon.disponibilitat.add((DiaDeLaSetmana) disponibilitat.get(i).clone());
         
-        return clon;    //super.clone();
+        return clon;
     }
 
     public void addDia(int diaDeLaSetmana, int ordre) {
@@ -77,7 +65,6 @@ public class DisponibilitatHoraria implements Cloneable {
         boolean assignarHoresRestants = Base.Regles.ASSIGNAR_HORES_RESTANTS.get();
         
         int millorPonderacio = -20480;
-        //int diaAmbMillorPonderacio = 0;
         int horesMillorPonderacio = 0;
         
         
@@ -108,10 +95,8 @@ public class DisponibilitatHoraria implements Cloneable {
                     Base.dbg2("\t".concat("TRUE!").concat(": [").concat(String.valueOf(ponderacio)).concat(" - ").concat(String.valueOf(horesActual)).concat("] ").concat(String.valueOf(ponderacio - horesActual)).concat(String.valueOf(millorPonderacio)));
                     millorPonderacio = ponderacio - (50*((!assignarHoresRestants) ? horesActual : horesActual * (-1)));
 
-                    //diaAmbMillorPonderacio = i;
                     horesMillorPonderacio = horesActual;
                     //CLON millorDisponibilitat!
-                    //millorDisponibilitat = (Vector<DiaDeLaSetmana>) disponibilitatHorariaActual.disponibilitat.clone();
                     millorDisponibilitat = new Vector<DiaDeLaSetmana>();
                     for (int u = 0; u <= 6; ++u)
                         millorDisponibilitat.add((DiaDeLaSetmana) disponibilitatHorariaActual.disponibilitat.get(u).clone());
@@ -180,27 +165,22 @@ public class DisponibilitatHoraria implements Cloneable {
                 }
             }
             if (!ocupatPerSetmanaX) {
-                //if (!assignarHoresRestants) {
-                    int millorOrdre = -1;
-                    int ponderacioMillorOrdre = 2500;
-                    for (int e = 0; e < 4; ++e) {
-                        int ponderacioActual = avaluaOcupacioOrdreUnic(i, e, hores);
-                        int horesOrdreActual = hores - disponibilitat.get(i).getDies(e) * 2;
-                        if (ponderacioMillorOrdre > ponderacioActual) {
-                            if (!assignarHoresRestants && !(horesOrdreActual >= 0)) continue;
-                            ponderacioMillorOrdre = ponderacioActual;
-                            millorOrdre = e;
-                        }
+                int millorOrdre = -1;
+                int ponderacioMillorOrdre = 2500;
+                for (int e = 0; e < 4; ++e) {
+                    int ponderacioActual = avaluaOcupacioOrdreUnic(i, e, hores);
+                    int horesOrdreActual = hores - disponibilitat.get(i).getDies(e) * 2;
+                    if (ponderacioMillorOrdre > ponderacioActual) {
+                        if (!assignarHoresRestants && !(horesOrdreActual >= 0)) continue;
+                        ponderacioMillorOrdre = ponderacioActual;
+                        millorOrdre = e;
                     }
-                    //Finalment, ocupem l'ordre escollit
-                    if (millorOrdre != -1) {
-                        hores -= disponibilitat.get(i).getDies(millorOrdre) * 2;
-                        disponibilitat.get(i).addReserva(millorOrdre, codi);
-                    }
-                /*} else {
-                    //No podem sobrepassar les hores de les assignatures, avaluem de forma diferent
-                    int horesOrdreActual = hores - disponibilitat.get(dia).getDies(ordre) * 2;
-                }*/
+                }
+                //Finalment, ocupem l'ordre escollit
+                if (millorOrdre != -1) {
+                    hores -= disponibilitat.get(i).getDies(millorOrdre) * 2;
+                    disponibilitat.get(i).addReserva(millorOrdre, codi);
+                }
             }
         }
         return hores;
@@ -290,7 +270,7 @@ public class DisponibilitatHoraria implements Cloneable {
             for (int i = 0; i <= 3; ++i)
                 clon.ocupacio.add((Vector<String>) ocupacio.get(i).clone());
 
-            return clon;    //super.clone();
+            return clon;
         }
         
         public Vector< Vector<String> > getOcupacio() {
@@ -322,7 +302,6 @@ public class DisponibilitatHoraria implements Cloneable {
                         duplicitatExacte.add(reserves.get(i));
                     } else {
                         ++numClassesDuplicadesExactes;
-                        //System.out.println("\t\tDuplicades exactes!!");
                     }
                 }
                 
@@ -355,20 +334,7 @@ public class DisponibilitatHoraria implements Cloneable {
             result.append(" :s12, ");
             result.append(getDies(3));
             result.append(" :s22]");
-            /*int numClassesOcupades = 0;
-            for (int ordre = 0; ordre <= 3; ++ordre) {
-                Vector<String> reserves = ocupacio.get(ordre);
-                if (reserves.size() > numClassesOcupades)
-                    numClassesOcupades = reserves.size();
-                
-                for (int i = 0; i < reserves.size(); ++i) {
-                    //int codi = Reserva.getCodi(reserves.get(i));
-                    result.append("\t".concat(reserves.get(i)).concat(" S").concat(String.valueOf(ordre)));
-                    result.append( newLine );
-                }
-                
-            }*/
-
+            
             return result.toString();
         }
         
@@ -389,32 +355,12 @@ public class DisponibilitatHoraria implements Cloneable {
                     numClassesOcupades = reserves.size();
                 
                 for (int i = 0; i < reserves.size(); ++i) {
-                    //int codi = Reserva.getCodi(reserves.get(i));
                     result.append("\t".concat(reserves.get(i)).concat(" S").concat(String.valueOf(ordre)));
                     result.append( newLine );
                 }
                 
             }
-            /*
-            result.append(numero.get(0));
-            result.append( " : " );
-            result.append(ocupacio.get(0).size());
-            result.append( ", " );
-
-            result.append(numero.get(1));
-            result.append( " : " );
-            result.append(ocupacio.get(1).size());
-            result.append( ", " );
-
-            result.append(numero.get(2));
-            result.append( " : " );
-            result.append(ocupacio.get(2).size());
-            result.append( ", " );
-
-            result.append(numero.get(3));
-            result.append( " : " );
-            result.append(ocupacio.get(3).size());
-            */
+            
             result.append("}");
 
             return result.toString();
@@ -437,7 +383,6 @@ public class DisponibilitatHoraria implements Cloneable {
 
         /** Augmenta l'ocupació d'aquest dia. **/
         public void addReserva(int ordre, String codi) {
-            //ocupacio.set(ordre, ocupacio.get(ordre) + 1);
             ocupacio.get(ordre).add(codi);
         }
 
@@ -472,14 +417,11 @@ public class DisponibilitatHoraria implements Cloneable {
             String[] parts = codiCompacte.split("#");
             this.codi = Integer.parseInt(parts[0]);
             this.tipusAula = Integer.parseInt(parts[1]);
-            //System.out.println("WAKAKA".concat(digitsGrup[3]));
             this.grup = Integer.parseInt(parts[2]);
-            //set groupAsText
             Assignatura assignatura = HourCalendar.getBase().getAssignatura(this.codi);
             this.grupAsText = assignatura.getGrau().getInicials().concat(String.valueOf(assignatura.getQuadrimestre()));
             this.grupAsText = this.grupAsText.concat(String.valueOf((int) 5 + ((int) this.grup / 5)));
             if (this.grup != 0) this.grupAsText = this.grupAsText.concat(digitsGrup[this.grup % 4]);    //concat("1").concat(String.valueOf(this.grup));
-            //set nom
             this.nom = assignatura.getSigles();  //getNom();
         }
 

@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import hourcalendar.HoresRepresentables.ClasseAgrupada;
 import java.util.Vector;
 
-/**
- *
- * @author admin
- */
 public class OcupacioAules {
     private Vector<Dia> dies;   //els dies de la setmana
     
@@ -28,7 +20,6 @@ public class OcupacioAules {
         Base base = HourCalendar.getBase();
         Dia dia = dies.get(_dia);
         boolean disponible = false;
-        //int numAulesDisponiblesPrimerOrdre = dia.horesClasse.get(classe.ordres.get(0)).get(hora).getNumAules(base.getTipusAula(classe.tipusAula));
         Vector<Aula> aulesDisponiblesPrimerOrdre = dia.horesClasse.get(classe.ordres.get(0)).get(hora).getAulesDisponibles(base.getTipusAula(classe.tipusAula));
         int numAulesDisponiblesPrimerOrdre = aulesDisponiblesPrimerOrdre.size();
         int indexAula = 0;

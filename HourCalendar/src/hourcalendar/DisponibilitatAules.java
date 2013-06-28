@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import java.util.Vector;
 
-/**
- *
- * @author admin
- */
 public class DisponibilitatAules {
     private Vector<Integer> numero;  //Nº d'aules de cada tipus, ex: numero[2] == 8 representa que hi ha 8 aules amb index 2 del vector tipusAula de base. (p.e.: 8 aules d'informàtica)
     private Vector<Aula> aules;
@@ -102,25 +94,4 @@ public class DisponibilitatAules {
             }
         }
     }
-    
-    /** [DEPRECATED] Assigna una de les aules disponibles del tipus especificat i en retorna l'aula escollida.
-     *  Si no es troba cap aula disponible d'aquest tipus retorna null.
-     *
-    public Aula assigna(TipusAula tipusAula) {
-        Base base = HourCalendar.getBase();
-        int idTipusAula = tipusAula.getID();
-        int indexTipusAula = base.getIndexOfTipusAula(tipusAula);
-        for (int i = 0; i < aules.size(); ++i) {
-            Aula aula = aules.get(i);
-            if (aula.idTipusAula == idTipusAula) {
-                //decrementem el número d'aules disponibles d'aquest tipus d'aula
-                numero.set(indexTipusAula, numero.get(indexTipusAula) - 1);
-                FALTA OCUPAR AULA
-                //retornem l'aula escollida
-                return aula;
-            }
-        }
-        return null;
-    }*/
-    
-}
+ }

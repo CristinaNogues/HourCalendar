@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
-/**
- *
- * @author admin
- */
 public class test extends javax.swing.JFrame {
 
     /**

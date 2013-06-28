@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import hourcalendar.Base.Regles;
@@ -12,17 +8,12 @@ import java.util.logging.Logger;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
-/**
- *
- * @author admin
- */
 public class Generador extends SwingWorker<String, Object> {
     private DisponibilitatHoraria disponibilitat;
     private Vector<Assignatura> assignatures;
     private Vector<Item> items;
     private DisponibilitatHoraria millorDisponibilitat;
     public boolean finalitzat;
-    //private JProgressBar progress;
     
     public Generador() {
         finalitzat = false;
@@ -54,8 +45,6 @@ public class Generador extends SwingWorker<String, Object> {
         Base base = HourCalendar.getBase();
         for (int iteracio = 0; iteracio < iteracions; ++iteracio) {
             base.progres++;
-            //this.progress.setValue((iteracio / iteracions) * 100);
-            //this.progress.update(this.progress.getGraphics());
             DisponibilitatHoraria disponibilitatHorariaActual;
             int horesActual = 0;
             int horesQuadrades = 0;
@@ -95,7 +84,6 @@ public class Generador extends SwingWorker<String, Object> {
 
                     }
                 }
-                //disponibilitatHorariaActual.imprimeixPonderacio();
                 disponibilitatHorariaActual = null;
                 base.dbgAUX("\thoresActual = ".concat(String.valueOf(horesActual)));
                 base.dbgAUX("\thoresQuadrades = ".concat(String.valueOf(horesQuadrades)));
@@ -113,19 +101,8 @@ public class Generador extends SwingWorker<String, Object> {
         return millorDisponibilitat;
     }
 
-    /*@Override
-    protected void doInBackground() throws Exception {
-        //throw new UnsupportedOperationException("Not supported yet.");
-        inicia();
-    }*/
-    
-    /*public void setProgressBar(JProgressBar progress) {
-        this.progress = progress;
-    }*/
-
     @Override
     protected String doInBackground() throws Exception {
-        //throw new UnsupportedOperationException("Not supported yet.");
         inicia();
         return "";
     }

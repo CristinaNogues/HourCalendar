@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hourcalendar;
 
 import hourcalendar.Base.Regles;
@@ -12,10 +8,6 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author admin
- */
 public class FormulariOpcions extends javax.swing.JFrame {
     static javax.swing.JFrame frameCalendari;
     private boolean inicialitzat = false;

@@ -27,7 +27,7 @@ public class OcupacioAules {
     public Aula assigna(int _dia, int hora, ClasseAgrupada classe) {
         Base base = HourCalendar.getBase();
         Dia dia = dies.get(_dia);
-        boolean disponible = true;
+        boolean disponible = false;
         //int numAulesDisponiblesPrimerOrdre = dia.horesClasse.get(classe.ordres.get(0)).get(hora).getNumAules(base.getTipusAula(classe.tipusAula));
         Vector<Aula> aulesDisponiblesPrimerOrdre = dia.horesClasse.get(classe.ordres.get(0)).get(hora).getAulesDisponibles(base.getTipusAula(classe.tipusAula));
         int numAulesDisponiblesPrimerOrdre = aulesDisponiblesPrimerOrdre.size();

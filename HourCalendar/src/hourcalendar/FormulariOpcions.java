@@ -34,6 +34,8 @@ public class FormulariOpcions extends javax.swing.JFrame {
         textConvocatoria.setText(String.valueOf(Regles.CONVOCATORIA.getMissatge()));
         modsCalendari.setText(Regles.APLICAR_MODS_CALENDARI.getMissatge());
         modsCalendari.setSelected(Regles.APLICAR_MODS_CALENDARI.get());
+        threads.setText(Regles.THREADS_EN_PARALEL.getMissatge());
+        threads.setSelected(Regles.THREADS_EN_PARALEL.get());
         
         updateDisponibilitatHoraria();
         inicialitzat = true;
@@ -69,6 +71,7 @@ public class FormulariOpcions extends javax.swing.JFrame {
         DisponibilitatsHoraries = new javax.swing.JEditorPane();
         BotoModificarCalendari = new javax.swing.JButton();
         modsCalendari = new javax.swing.JCheckBox();
+        threads = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Opcions");
@@ -190,21 +193,27 @@ public class FormulariOpcions extends javax.swing.JFrame {
             }
         });
 
+        threads.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        threads.setText("threads");
+        threads.setPreferredSize(new java.awt.Dimension(69, 39));
+        threads.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        threads.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(BotoModificarCalendari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotoCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BotoGenerar))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(convocatoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(quadrimestre, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -212,14 +221,15 @@ public class FormulariOpcions extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textQuadrimestre, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                             .addComponent(textConvocatoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(assignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(solapar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(assignar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(solapar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(iteracions)
                         .addGap(10, 10, 10)
                         .addComponent(textIteracions, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))
-                    .addComponent(modsCalendari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                    .addComponent(prioritzar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(modsCalendari, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                    .addComponent(prioritzar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(threads, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -246,13 +256,15 @@ public class FormulariOpcions extends javax.swing.JFrame {
                     .addComponent(iteracions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textIteracions, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(threads, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotoGenerar)
                     .addComponent(BotoCancelar)
                     .addComponent(BotoModificarCalendari))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -271,14 +283,15 @@ public class FormulariOpcions extends javax.swing.JFrame {
         Regles.QUADRIMESTRE.set(quadrimestre.getSelectedIndex() + 1);
         Regles.CONVOCATORIA.set(convocatoria.getSelectedIndex() + 1);
         Regles.APLICAR_MODS_CALENDARI.set(modsCalendari.isSelected());
+        Regles.THREADS_EN_PARALEL.set(threads.isSelected());
         
         //Mostrem el control de progrés
-        Base base = HourCalendar.getBase();
+        //Base base = HourCalendar.getBase();
         MainFrame mainFrame = HourCalendar.getMainFrame();
         mainFrame.controlProgres.setVisible(true);
-        System.out.println("START UPDATE");
+        //System.out.println("START UPDATE");
         //base.updateDisponibilitatHoraria(2, 2013);
-        System.out.println("END UPDATE");
+        //System.out.println("END UPDATE");
         mainFrame.controlProgres.startControl();
         
         //ocultem el formulari d'opcions
@@ -356,5 +369,6 @@ public class FormulariOpcions extends javax.swing.JFrame {
     private javax.swing.JLabel textConvocatoria;
     private javax.swing.JLabel textIteracions;
     private javax.swing.JLabel textQuadrimestre;
+    private javax.swing.JCheckBox threads;
     // End of variables declaration//GEN-END:variables
 }

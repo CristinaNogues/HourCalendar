@@ -52,97 +52,12 @@ public class Base {
         tipusMateries = new Vector<TipusMateria>();
         tipusAules = new Vector<TipusAula>();
         aules = new Vector<Aula>();
-        
+
         String directori = "";
         if (conjuntDeDades != 0) {
-            directori = (conjuntDeDades == 1) ? "dades".concat(File.pathSeparator).concat("default").concat(File.pathSeparator) : "dades".concat(File.pathSeparator).concat("empty").concat(File.pathSeparator);
+            directori = (conjuntDeDades == 1) ? "dades".concat(File.separator).concat("default").concat(File.separator) : "dades".concat(File.separator).concat("empty").concat(File.separator);
         }
         loadState(directori);
-    }
-    
-    public void tempReloadAules() {
-        Aula aula;
-        aula = new Aula(0, "AA201", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(1, "AA202", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(2, "AA203", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(3, "AA204", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(4, "AA205", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(5, "AA206", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(6, "AA208", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(7, "AI101", 25, getTipusAula(2));
-        aules.add(aula);
-        aula = new Aula(8, "AI109", 25, getTipusAula(2));
-        aules.add(aula);
-        aula = new Aula(9, "AI111", 25, getTipusAula(2));
-        aules.add(aula);
-        aula = new Aula(10, "AI112", 25, getTipusAula(2));
-        aules.add(aula);
-        aula = new Aula(11, "AI115", 25, getTipusAula(2));
-        aules.add(aula);
-        aula = new Aula(12, "AI117", 25, getTipusAula(2));
-        aules.add(aula);
-        aula = new Aula(13, "AL001", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(14, "AL002", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(15, "AL007", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(16, "AL010", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(17, "AL012", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(18, "AL013", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(19, "AL014", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(20, "AL019", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(21, "AL102", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(22, "AL103", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(23, "AL104", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(24, "AL106", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(25, "AL107", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(26, "AL114", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(27, "AL116", 25, getTipusAula(1));
-        aules.add(aula);
-        aula = new Aula(28, "BA001", 100, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(29, "BA002", 100, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(30, "BA004", 100, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(31, "BA006", 100, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(32, "BA008", 100, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(33, "BA102", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(34, "BA103", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(35, "BA107", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(36, "BA108", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(37, "BA109", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(38, "BA110", 60, getTipusAula(0));
-        aules.add(aula);
-        aula = new Aula(39, "BA111", 60, getTipusAula(0));
-        aules.add(aula);
-        saveState();
     }
     
     public int getNumAssignatures() {
@@ -698,10 +613,11 @@ public class Base {
         QUADRIMESTRE (1, "<html>Quadrimestre per al que generar els horaris.</html>"),
         CONVOCATORIA (1, "<html>Any de convocatòria.</html>"),
         APLICAR_MODS_CALENDARI (1, "<html>Utilitzar modificacions del calendari. Exemple: Dilluns 14 de gener passa a ser dijous.</html>"),
+        THREADS_EN_PARALEL (1, "<html>Utilitzar multithreading durant el procés. Utilitzant N threads en paral·lel, on N és el número de cores del processador.</html>"),
         //REGLES INTERNES (NO MODIFICABLES A TRAVÉS DEL FORMULARI D'OPCIONS
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
-        DEBUG_AUX_ENABLED (1, "Mostrar informació per consola d'operacions auxiliars (DEBUG AUX MODE)."),
+        DEBUG_AUX_ENABLED (0, "Mostrar informació per consola d'operacions auxiliars (DEBUG AUX MODE)."),
         DEBUG_UI_ENABLED (0, "Mostrar informació per consola d'operacions gràfiques que es van realitzant (DEBUG UI MODE)."),
         UTILITZA_ANTIC_ALGORISME (0, "Utilitzar l'antic algorisme per a generar els horaris. No soporta solapament d'hores de pràctica.");
 

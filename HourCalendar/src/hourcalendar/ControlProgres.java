@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,6 +109,7 @@ public class ControlProgres extends javax.swing.JFrame {
         //reiniciem els noms dels horaris a imprimir i el color de fons
         base.nomDisponibilitatsHoraries = new Vector<String>();
         base.colorDisponibilitatsHoraries = new Vector<Color>();
+        long inici_ms = new Date().getTime();
         //Generem els horaris per a tots els graus i cursos
         for (int grau = 0; grau < numGraus; ++grau) {
             base.dbg("\tGRAU LOOKUP: ".concat(base.getGrauAt(grau).getNom()));
@@ -151,6 +153,7 @@ public class ControlProgres extends javax.swing.JFrame {
                 }   //bucle curs
             }   //bucle grau
         }
+        System.out.println("Temps de processament (milisegons): ".concat(String.valueOf((new Date().getTime()) - inici_ms)));
         //Imprimim els horaris generats a la finestra principal
         actualitzaTaulerHoraris();
     }

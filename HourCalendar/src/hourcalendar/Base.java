@@ -371,9 +371,9 @@ public class Base {
         if (quadri == 1) Collections.sort(setmanaOrdreQ1);
         if (quadri == 2) {
             Collections.sort(setmanaOrdreQ2);
-            for (int i = 0; i < setmanaOrdreQ2.size(); ++i) {
+            /*for (int i = 0; i < setmanaOrdreQ2.size(); ++i) {
                 System.out.println(Integer.toString(i).concat(" = ").concat(Integer.toString((Integer)setmanaOrdreQ2.get(i))));
-            }
+            }*/
         }
 
         return dies;
@@ -609,11 +609,11 @@ public class Base {
         SOLAPAR_HORES_PRACTICA (1, "<html>Solapar les hores de pràctica d'assignatures i grups diferents.</html>"),
         ASSIGNAR_HORES_RESTANTS (0, "<html>Sobrepassar les hores assignades a les assignatures si no <br>existeix combinació possible que les quadri al calendari.</html>"),
         PRIORITZAR_QUADRAR_HORES (1, "<html>Donar prioritat a quadrar les hores de les assignatures enlloc <br>d'obtenir un calendari més ben repartit.</html>"),
-        ITERACIONS_GENERADOR (20, "<html>Número d'iteracions que realitza el generador d'horaris per a trobar la millor combinació. Per fer proves, amb 20 n'hi ha prou, però per generar l'horari definitiu recomanem utilitzar un valor superior a 200.000, depenent de la potència de l'ordinador, s'hi pot estar dies. La raó d'aquest valor està explicada a la informació del projecte.</html>"),
+        ITERACIONS_GENERADOR (50, "<html>Número d'iteracions que realitza el generador d'horaris per a trobar la millor combinació. Per fer proves, amb 20 n'hi ha prou, però per generar l'horari definitiu recomanem utilitzar un valor superior a 200.000, depenent de la potència de l'ordinador, s'hi pot estar dies. La raó d'aquest valor està explicada a la informació del projecte.</html>"),
         QUADRIMESTRE (1, "<html>Quadrimestre per al que generar els horaris.</html>"),
         CONVOCATORIA (1, "<html>Any de convocatòria.</html>"),
         APLICAR_MODS_CALENDARI (1, "<html>Utilitzar modificacions del calendari. Exemple: Dilluns 14 de gener passa a ser dijous.</html>"),
-        THREADS_EN_PARALEL (1, "<html>Utilitzar multithreading durant el procés. Utilitzant N threads en paral·lel, on N és el número de cores del processador. Amb poques iteracions és pitjor.</html>"),
+        THREADS_EN_PARALEL (0, "<html>Utilitzar multithreading durant el procés. Utilitzant N threads en paral·lel, on N és el número de cores del processador. Amb poques iteracions és pitjor.</html>"),
         //REGLES INTERNES (NO MODIFICABLES A TRAVÉS DEL FORMULARI D'OPCIONS
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),

@@ -14,12 +14,15 @@ import javax.swing.table.TableCellRenderer;
 
 public class PanellHorari extends javax.swing.JPanel {
     private DisponibilitatHoraria disponibilitat;
-    private boolean esUpdate = false;
+    private Vector<String> nomsClasses;
+    private boolean esUpdate;
     int maxHoresOcupades;
     /**
      * Creates new form PanellHorari
      */
     public PanellHorari(DisponibilitatHoraria _disponibilitat) {
+        nomsClasses = new Vector<String>();
+        esUpdate = false;
         initComponents();
         disponibilitat = _disponibilitat;
         maxHoresOcupades = -1;
@@ -91,7 +94,7 @@ public class PanellHorari extends javax.swing.JPanel {
             FiltreGrup7.setVisible(false);
             FiltreGrup8.setVisible(false);
         }
-        
+        int contador = 0;
         
         Vector<DisponibilitatHoraria.DiaDeLaSetmana> dies = disponibilitat.getDisponibilitat();
         Vector<ClasseAgrupada> classes = new Vector<ClasseAgrupada>();
@@ -109,9 +112,15 @@ public class PanellHorari extends javax.swing.JPanel {
                 String text = "";
                 for (int index = classes.size(); --index >= 0;) {
                     boolean saltar = false;
+                    /*if (!this.esUpdate) {
+                        disponibilitat.getDisponibilitat().get(idDia).getHoresRepresentables().get(hora).get(index).aula = HourCalendar.getBase().ocupacioAules.assigna(idDia, hora, disponibilitat.getDisponibilitat().get(idDia).getHoresRepresentables().get(hora).get(index));
+                    }
+                    ClasseAgrupada classe = disponibilitat.getDisponibilitat().get(idDia).getHoresRepresentables().get(hora).get(index);//classes.get(index);
+                    */
                     ClasseAgrupada classe = classes.get(index);
                     if (!this.esUpdate) {
                         //Si es la primera vegada que representem aquesta classe, li assignem una aula
+                        //System.out.println("Assigna aula");
                         classe.aula = HourCalendar.getBase().ocupacioAules.assigna(idDia, hora, classe);
                         if (classe.grup != 0) {
                             //Inicialitzem valors dels checkbox de filtres per a grups de pràctiques
@@ -185,8 +194,16 @@ public class PanellHorari extends javax.swing.JPanel {
                             
                         }
                     }
-                    if (!saltar) text = text.concat(classe.toString()).concat(newLine);
+                    if (!esUpdate) {
+                        text = text.concat(classe.toString()).concat(newLine);
+                        nomsClasses.add(text);
+                    }
+                    if (!saltar) {
+                        text = nomsClasses.get(contador);
+                    }
+                    ++contador;
                 }
+                
                 Base.dbgUI("Hora = ".concat(String.valueOf(hora).concat(", idDia = ").concat(String.valueOf(idDia))));
                 TaulaHorari.getModel().setValueAt(text, hora, idDia - 1);
                 if (!esUpdate && maxHoresOcupades < hora && horesRepresentables.size() > 0) maxHoresOcupades = hora;
@@ -208,6 +225,7 @@ public class PanellHorari extends javax.swing.JPanel {
                                                    //               98 = 96 row height + 2x1 vora (border)
             this.setMinimumSize(new Dimension(600, 75 + 24 + 12 + 12 + (97 * (maxHoresOcupades + 1))));//84 + 32 - 3 +(98 * (maxHoresOcupades + 1))));
         }
+        this.esUpdate = true;
         revalidate();
         repaint();
     }

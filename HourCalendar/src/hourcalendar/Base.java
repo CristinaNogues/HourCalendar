@@ -613,7 +613,7 @@ public class Base {
         QUADRIMESTRE (1, "<html>Quadrimestre per al que generar els horaris.</html>"),
         CONVOCATORIA (1, "<html>Any de convocatòria.</html>"),
         APLICAR_MODS_CALENDARI (1, "<html>Utilitzar modificacions del calendari. Exemple: Dilluns 14 de gener passa a ser dijous.</html>"),
-        THREADS_EN_PARALEL (1, "<html>Utilitzar multithreading durant el procés. Utilitzant N threads en paral·lel, on N és el número de cores del processador.</html>"),
+        THREADS_EN_PARALEL (1, "<html>Utilitzar multithreading durant el procés. Utilitzant N threads en paral·lel, on N és el número de cores del processador. Amb poques iteracions és pitjor.</html>"),
         //REGLES INTERNES (NO MODIFICABLES A TRAVÉS DEL FORMULARI D'OPCIONS
         DEBUG_ENABLED (0, "Mostrar informació per consola de les operacions que es van realitzant (DEBUG MODE)."),
         DEBUG2_ENABLED (0, "Mostrar informació per consola d'altres operacions que es van realitzant (DEBUG2 MODE)."),
